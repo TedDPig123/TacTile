@@ -20,18 +20,18 @@
 - The idea to save the work as a different file type compared to just saving it as a PNG was brought up (very smart) 
 - The basis is if we have a custom file type, we can have it be a raw text file and easily perform encryption/decription on it to get all the information back. Information that includes health bars, xp, all that stuff I assume)
 - Geri updated the features.md to have the following features: 
-- "customizable battle grid and tiles" 
-- "dynamic character positioning and stats"
-- "image import"
-- "drawing"
-- "customizable dice roller"
-- "data tracking/save"  
+  - "customizable battle grid and tiles" 
+  - "dynamic character positioning and stats"
+  - "image import"
+  - "drawing"
+  - "customizable dice roller"
+  - "data tracking/save"  
 - "If we're going to keep track of character stats, we need characters" - Geri
 - The team is thinking about having all character stats be merged within the character token, but carry them as seperate features
 - Instead of doing specific terrain, new terrain (button) type in yourself what it does (tiles that are red do this, tiles that are blue do this) 
 - The user will also have the freedom to place it anywhere among the map, at it allows more diversity and freedom
 - Token: The definition of the token just an object that has a name attached to it. This could refer to character tokens, a tree token, etc. The real issue will be noting which tokens are and aren't interactible with
 - Also tokens will be placed a layer above the tile (aka the terrain/main layer) and will be big enough to cover a square/a grid space
-- 
+
 # Notes to self:
 - Ask team if I can record their conversation next time (?). Mostly to have as back up in case I forget to write something down 
