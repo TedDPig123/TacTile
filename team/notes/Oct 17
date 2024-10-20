@@ -1,1 +1,81 @@
+Notes from First meeting
 
+10/17/2024
+from 1:05 pm to 2:06 pm 
+
+dnd campaign website 
+
+(everyone moreso fell in line to agree with idea, since it seems pretty simple in concept) 
+
+other alternative was to have a website that makes a character map, but perhaps this idea might be scrapped since not a lot of people within the group have much knowledge on DND lore/background of the table top game 
+
+personal thought: since we have a large group, perhaps we can merge the two ideas together if there's not enough work to go around?))
+
+take an image and place it on the website (to represent the terrain) pixel art for it? 
+terrain 
+enemies 
+objects (walls, buildings), 
+
+perhaps free to take art (default assets) 
+
+give the user the option to change the picture of their character (can be imported) 
+
+<<we were just setting up the stuff>>
+
+<<everyone then proceeded to choose their roles>> 
+
+
+
+place and move characters on the map (battle map) 
+
+tiles will be customizable
+
+
+we are now choosing the roles for each member (i still do not know their names) 
+
+first gotta get it to work first 
+
+full stack - 
+
+front end - Casey, 
+
+back end - 
+
+
+back end is just creating the foundation with it (
+
+we are now reading the instructions (aka people are looking at the example docs for reference) 
+
+instead of assigning roles such as front end, back end, etc, we are now looking at the roles section and determining what we can do 
+
+we are now assigning official roles to each person (we are still on this) 
+
+for the battle grid, you can choose the sides (how many rows how many columns), you can also import images/customizable tile 
+
+being able to select a different type of tile you want to put down 
+
+save the file as a custom file type (instead of png) 
+
+a custom file type to get everything back in (set it up as a raw text file and we can set it up with an encoder/decoder) 
+
+gerli just updated the features.md file to have the following features, "customizable battle grid and tiles" 
+"dynamic character positioning and stats"
+"image import"
+"drawing"
+"customizable dice roller"
+"data tracking/save"  
+
+"if we're going to keep track of character stats, we need characters" - geri
+we are thinking of having all those character stats merged within characters (as a feature)
+subfeatures will be created (to have more stuff to do) 
+make the user do everything 
+instead of doing specific terrain, new terrain (button) type in yourself what it does (tiles that are red do this, tiles that are blue do this) 
+this allows more diversity and freedom for the users 
+token? uses the same thing as a character (a tree token (a tree image), to decorate (decorations are going to be using tokens (similar to character tokens. might be interactable?)) 
+tokens are a layer above the tile 
+would each tile represent a grid? 
+a token is as big as a grid space (to make sure it isn't over complicated) (aka the token would be three spaces long instead of just taking one space to block the user from advancing) 
+definition: a piece that you can move around, and has information stored within it (there are subclasses for characters, items, etc) 
+just a name/description 
+hp 
+team is disbanding at 2:06 pm 
