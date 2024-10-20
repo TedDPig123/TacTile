@@ -27,18 +27,11 @@
 - "customizable dice roller"
 - "data tracking/save"  
 - "If we're going to keep track of character stats, we need characters" - Geri
-we are thinking of having all those character stats merged within characters (as a feature)
-subfeatures will be created (to have more stuff to do) 
-make the user do everything 
-instead of doing specific terrain, new terrain (button) type in yourself what it does (tiles that are red do this, tiles that are blue do this) 
-this allows more diversity and freedom for the users 
-token? uses the same thing as a character (a tree token (a tree image), to decorate (decorations are going to be using tokens (similar to character tokens. might be interactable?)) 
-tokens are a layer above the tile 
-would each tile represent a grid? 
-a token is as big as a grid space (to make sure it isn't over complicated) (aka the token would be three spaces long instead of just taking one space to block the user from advancing) 
-definition: a piece that you can move around, and has information stored within it (there are subclasses for characters, items, etc) 
-just a name/description 
-hp 
-
+- The team is thinking about having all character stats be merged within the character token, but carry them as seperate features
+- Instead of doing specific terrain, new terrain (button) type in yourself what it does (tiles that are red do this, tiles that are blue do this) 
+- The user will also have the freedom to place it anywhere among the map, at it allows more diversity and freedom
+- Token: The definition of the token just an object that has a name attached to it. This could refer to character tokens, a tree token, etc. The real issue will be noting which tokens are and aren't interactible with
+- Also tokens will be placed a layer above the tile (aka the terrain/main layer) and will be big enough to cover a square/a grid space
+- 
 # Notes to self:
 - Ask team if I can record their conversation next time (?). Mostly to have as back up in case I forget to write something down 
