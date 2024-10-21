@@ -8,9 +8,9 @@
 ### October 20, 2024
 - **Task**: Created UI Diagrams
 - **Details**: Used Adobe Illustrator to mockup diagrams, and uploaded them to repo in an `images` folder to be used in `ui-diagrams.md`
-- **Link to Commit**: [Commit on team/m2](https://github.com/TedDPig123/326_Project/commit/530c1790eee522dea182a02b3ccf448a8c09f785#diff-2020833d30e08e21c6767519756d9e7b760316d1e5d5302587f8ec6b01e9b2c2)
+- **Link to Commit**: [Commit on team/m2](https://github.com/TedDPig123/326_Project/commit/a5c5108ba280efaf577a02ff086c5798c240b470)
 
 ### October 21, 2024
 - **Task**: Finished draft of `ui-diagrams.md` file.
 - **Details**: Added all image desciprions for the UI diagrams I had completed.
-- **Link to Commit**: [Commit on ui-diagrams.md](https://github.com/TedDPig123/326_Project/pull/7/commits/c1747a40f468c56dd8d8026d46d12cbd54f6c431)
+- **Link to Commit**: [Commit on ui-diagrams.md](https://github.com/TedDPig123/326_Project/commit/80ed83c1be4c947561dbedec9b769903c8363dac)
