@@ -8,4 +8,4 @@
 ### October 18, 2024
 - **Task**: Drafted the first version of the `users.md` file.
 - **Details**: Completed all sections of the file based on team discussion.
-- **Link to Commit**: 
+- **Link to Commit**: [Commit on users.md](https://github.com/TedDPig123/326_Project/pull/7/commits/c1747a40f468c56dd8d8026d46d12cbd54f6c431)
