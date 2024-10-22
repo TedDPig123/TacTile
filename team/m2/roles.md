@@ -42,3 +42,10 @@
   1. [Commit 1](https://github.com/TedDPig123/326_Project/commit/8d78fc05d92e989f4dc27beb8d202fb24d8f7d64): Created `team/notes` folder to store notes taken (so everyone else can see them)
   2. [Commit 2](https://github.com/TedDPig123/326_Project/commit/35febe54f8fd72ee437a673ee82ee51936aa9020): Revised/completed note from october 17th meeting
   3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/032521dcabb59cf04322c4314cbd73e699b01eca): Started the pseudo code for the features to be implemented 
+
+## Gerindra Adi - Submission&Time Tracker
+- **Role**: Manages the final submission and timeline for team activity. Gerindra keeps track of deadline and ensure that we submit our project on time.
+- **Top 3 Commits**: 
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/1/commits/2bd4f17e135500f6dc5404b62cc331b4465f5ee3): Created GitHub repository, added all members as collaborators, populated the repo with the m2 directory and created all files inside it
+  2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/1/commits/de7db008faa0d157b32a50989b4a1990607db6db): created and wrote the first draft for the features.md file
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/20/commits/abb9007fffbd4b7560828d0bd420aaafab7dba8c): updated and wrote the final version for the features.md file
