@@ -11,3 +11,8 @@
 - **Task**: Created the `notes` folder.
 - **Details**: Added a place where we can store the notes for easier access among team members (instead of just keeping them to myself) 
 - **Link to Commit**: [Commit on notes](https://github.com/TedDPig123/326_Project/commit/35febe54f8fd72ee437a673ee82ee51936aa9020)
+
+### October 21, 2024
+- **Task**: Created the `pseudo code` file.
+- **Details**: Went into the `features.md` file and began to write pseudo code (specifically for the dice rolling mechanic
+- **Link to Commit**: [Commit on Oct 17.md](https://github.com/TedDPig123/326_Project/commit/032521dcabb59cf04322c4314cbd73e699b01eca)
