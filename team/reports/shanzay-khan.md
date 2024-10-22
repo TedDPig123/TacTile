@@ -18,4 +18,4 @@
 ### October 21, 2024
 - **Task**: Finalized all files tasked to me, finished up requirements for this milestone, ensured everyone else did too
 - **Details**: Finalized own role and writeup, finished up reports, ensured there are three commits connected to me and linked properly. Also fixed issues in this report. Looked over everyone else's work, ensured everyone had submissions. 
-- **Link to Commit**: [e]()
+- **Link to Commit**: [e](https://github.com/TedDPig123/326_Project/pull/15)
