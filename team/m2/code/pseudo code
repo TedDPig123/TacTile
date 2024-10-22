@@ -1,0 +1,12 @@
+DEFINE function rollDie(MINIMUM, MAXIMUM, TURNS)
+    RETURN RANDOM_NUMBER_BETWEEN(MINIMUM AND MAXIMUM)
+
+REPEAT until the number of TURNS is reached 
+    PRINT "Press enter to roll the die."
+    GET user_input
+
+    die_result = rollDie()
+    PRINT "You rolled: " + die_result
+    
+PRINT "Dice Roll Ended."
+END RollDie
