@@ -28,3 +28,10 @@
   2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/5#pullrequestreview-2380055979): Made changes to the 'data.md' file to make sure that all the data types were accurate and any redudancy was removed.
   3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/3#pullrequestreview-2380054183): Conducted a final quality check after all documents were merged into the main branch, to ensure that nothing was missed out and milestone requriements were met.
 
+
+## Casey Hammill - Design Coordinator
+**Role**: Oversees organization of ideas, and drafting solutions to problems. Makes sure all team members are working towards the same vision, and that vision is consistent and effective.
+- **Top 3 Commits**:
+  1.  [Commit 1]() Designed UI diagrams by hand to show and check designs with teammates
+  2.  [Commit 2](https://github.com/TedDPig123/326_Project/commit/a5c5108ba280efaf577a02ff086c5798c240b470) Created and uploaded completed UI diagrams, to give team a visual on all that was needed
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/80ed83c1be4c947561dbedec9b769903c8363dac) Added descriptions to all diagrams in `ui-diagrams.md`
