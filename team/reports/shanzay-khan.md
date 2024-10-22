@@ -12,10 +12,5 @@
 
 ### October 21, 2024
 - **Task**: Altered issues in files brought up by Rudy as well as resolved conflicts with merging
-- **Details**: Finalized problem.md to be ready for final review, resolved merge conflicts in roles.md with my role and others, continued work on personal report. 
-- **Link to Commit**: [Finalized Commit 1](https://github.com/TedDPig123/326_Project/pull/9/commits/025766f32b411639ad11ca608233165a4dde9c71)
-
-### October 21, 2024
-- **Task**: Finalized all files tasked to me, finished up requirements for this milestone, ensured everyone else did too
-- **Details**: Finalized own role and writeup, finished up reports, ensured there are three commits connected to me and linked properly. Also fixed issues in this report. Looked over everyone else's work, ensured everyone had submissions. 
-- **Link to Commit**: [Finalized roles+report](https://github.com/TedDPig123/326_Project/commit/5cd23b9da0f7223695640eeef7f46c8b713c50dd)
+- **Details**: Finalized problem.md to be ready for final review, resolved merge conflicts in roles.md with my role and others, finalized report and roles. Ensured all other project members did their part. 
+- **Link to Commit**: [Finalized Commit 1](https://github.com/TedDPig123/326_Project/pull/9/files)
