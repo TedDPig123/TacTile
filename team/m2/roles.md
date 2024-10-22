@@ -36,7 +36,7 @@
   2.  [Commit 2](https://github.com/TedDPig123/326_Project/commit/a5c5108ba280efaf577a02ff086c5798c240b470) Created and uploaded completed UI diagrams, to give team a visual on all that was needed
   3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/80ed83c1be4c947561dbedec9b769903c8363dac) Added descriptions to all diagrams in `ui-diagrams.md`
 
-# Alina Almonte - Note taker
+## Alina Almonte - Note taker
 - **Role**: Take notes during all team meetings that we organize, in case we'd like to ever look back on whatever ideas were given at the time and expand them in the future
 - **Top 3 Commits**:
   1. [Commit 1](https://github.com/TedDPig123/326_Project/commit/8d78fc05d92e989f4dc27beb8d202fb24d8f7d64): Created `team/notes` folder to store notes taken (so everyone else can see them)
