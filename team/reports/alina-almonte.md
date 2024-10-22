@@ -8,6 +8,6 @@
 - **Task**: Created the `Oct 17.md` file.
 - **Details**: Revised the notes taken from october 17th by restructuring it and adding more details to where there wasn't any before. Changed the ideas into bullet points and expanded on those that weren't well documented in the first version of the notes.
 - **Link to Commit**: [Commit on users.md](https://github.com/TedDPig123/326_Project/pull/7/commits/c1747a40f468c56dd8d8026d46d12cbd54f6c431)
-- - **Task**: Created the `notes` folder.
+- **Task**: Created the `notes` folder.
 - **Details**: Added a place where we can store the notes for easier access among team members (instead of just keeping them to myself) 
 - **Link to Commit**: [Commit on users.md](https://github.com/TedDPig123/326_Project/pull/7/commits/c1747a40f468c56dd8d8026d46d12cbd54f6c431)
