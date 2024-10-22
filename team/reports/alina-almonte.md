@@ -1,6 +1,10 @@
-# Alina Almonte - Note taker
-- **Role**: Take notes during all team meetings that we organize, in case we'd like to ever look back on whatever ideas were given at the time and expand them in the future
-- **Top 3 Commits**:
-  1. [Commit 1](https://github.com/repo/commit1): Created `team/notes` folder to store notes taken (so everyone else can see them)
-  2. [Commit 2](https://github.com/repo/commit2): Revised/completed note from october 17th meeting
-  3. [Commit 3](https://github.com/repo/commit3): 
+## Contribution Log for Alina Almonte
+
+### October 17, 2024
+- **Task**: Note taker
+- **Details**: Took notes for our first discussion on what our project should be as well as a basic guideline as to what we need to accomplish
+- 
+### October 20, 2024
+- **Task**: Created the `Oct 17.md` file.
+- **Details**: Revised the notes taken from october 17th by restructuring it and adding more details to where there wasn't any before. Changed the ideas into bullet points and expanded on those that weren't well documented in the first version of the notes.
+- **Link to Commit**: [Commit on users.md](https://github.com/TedDPig123/326_Project/pull/7/commits/c1747a40f468c56dd8d8026d46d12cbd54f6c431)
