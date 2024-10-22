@@ -1,5 +1,10 @@
 ## Contribution Log for Emily
 
+### October 17, 2024
+- **Task**: help setup Repo, creation of emily-shaw.md Contribution Log.
+- **Details**: participated in group meeting and helped setup the repo.
+- **Link to Commit**:https://github.com/TedDPig123/326_Project/commit/9744c7e6a852b0555964b95783fc8496e5bf9cd3
+
 ### October 18, 2024
 - **Task**: create first draft for data.md
 - **Details**: created and wrote the first draft for the data.md file
