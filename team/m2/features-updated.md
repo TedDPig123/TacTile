@@ -67,7 +67,7 @@ The web application will provide the users with an option to use virtual dice. T
   - We run the random num gen for each dice and add up the final number
 
 ## User Interface
-Alina Actual UI LARGE **(Feature size: Large, Assigned to: Alina)**
+Actual UI LARGE **(Feature size: Large, Assigned to: Alina)**
 - Big feature
 - Make the grid and all the overlay where the tool are, and when you click on it it brings you to the individual box
 - Every button can be made into a small feature for whoever is working on that feature to add 
