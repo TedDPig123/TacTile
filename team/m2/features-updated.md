@@ -77,8 +77,8 @@ Actual UI LARGE **(Feature size: Large, Assigned to: Alina)**
   - Add token button **(Feature size: Small, Assigned to: Alina)**
   - Roll dice button **(Feature size: Small, Assigned to: Alina)**
 - Zoom In/Out and Drag to View **(Feature size: Large, Assigned to: Rudy)**
-While keeping the size of the menu static, the user should be able to zoom in and out of the battle grid using toggle-able +- buttons
-the user can drag the screen to show which part of the battle map they want to view
+  - While keeping the size of the menu static, the user should be able to zoom in and out of the battle grid using toggle-able +- buttons
+  - The user can drag the screen to show which part of the battle map they want to view
 
 
 ## Data Tracking/Saving
