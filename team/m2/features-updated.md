@@ -71,11 +71,11 @@ Actual UI LARGE **(Feature size: Large, Assigned to: Alina)**
 - Big feature
 - Make the grid and all the overlay where the tool are, and when you click on it it brings you to the individual box
 - Every button can be made into a small feature for whoever is working on that feature to add 
-  - Edit grid button: Alina **(Feature size: Small, Assigned to: Alina)**
-  - Add terrain button: Alina **(Feature size: Small, Assigned to: Alina)**
-  - Draw button: Alina **(Feature size: Small, Assigned to: Alina)**
-  - Add token button: Alina **(Feature size: Small, Assigned to: Alina)**
-  - Roll dice button: Alina **(Feature size: Small, Assigned to: Alina)**
+  - Edit grid button **(Feature size: Small, Assigned to: Alina)**
+  - Add terrain button **(Feature size: Small, Assigned to: Alina)**
+  - Draw button **(Feature size: Small, Assigned to: Alina)**
+  - Add token button **(Feature size: Small, Assigned to: Alina)**
+  - Roll dice button **(Feature size: Small, Assigned to: Alina)**
 - Zoom In/Out and Drag to View **(Feature size: Large, Assigned to: Rudy)**
 While keeping the size of the menu static, the user should be able to zoom in and out of the battle grid using toggle-able +- buttons
 the user can drag the screen to show which part of the battle map they want to view
