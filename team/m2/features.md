@@ -22,4 +22,4 @@ The web application will provide the users with an option to use virtual dice. T
 
 ## Data Tracking/Saving
 
-This web application will save user data in local storage, so that information like the grid layout, tokens, characters, stats, token/character positions, dice settings, imported images, and drawings are all saved so that when the user leaves the web application and returns to it on their browser, all of this information will be restored. However, the user will have the option to completely wipe this data to start over from a clean slate.
+This web application will save user data in local storage, so that information like the grid layout, tokens, characters, stats, token/character positions, dice settings, imported images, and drawings are all saved so that when the user leaves the web application and returns to it on their browser, all of this information will be restored. However, the user will have the option to completely wipe this data to start over from a clean slate. This is important as there is a lot of data players need to keep track of between campaign sessions.
