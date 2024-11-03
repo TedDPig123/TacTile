@@ -11,26 +11,28 @@ body {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 1; 
+  /* this is layering. Layering is noting which elements stay on top of one another. z-index only works on positioned elements. */
+  background-color: rgba(0, 0, 0, 0.75);
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.75);
   overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
+  transition: 0.75s;
+  padding-top: 5%;
 }
 
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  overflow-x: hidden;
+  font-size: 45px;
+  color: white;
   display: block;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: red;
 }
 
 .sidenav .closebtn {
@@ -38,10 +40,14 @@ body {
   top: 0;
   bottom: 0;
   right: 0;
-  left: 30%;
-  right: 50px;
-  font-size: 36px;
+  left: 0;
+  font-size: 0px;
   margin-left: 50px;
+  z-index: -1; 
+  background-color: red;
+  /* this is to help visualize the area that's 
+  being affected by the closing thing*/ 
+  
 }
 
 @media screen and (max-height: 450px) {
@@ -54,15 +60,17 @@ body {
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">EDIT GRID</a>
-  <a href="#">ADD TOKEN</a>
-  <a href="#">ADD TERRAIN</a>
+  <a href="#">GRID</a>
+  <a href="#">TOKEN</a>
+  <a href="#">TERRAIN</a>
   <a href="#">DRAW</a>
-  <a href="#">DRAW</a>
+  <a href="#">DICE</a>
   
+   
 
 
-ROLL DICE
+
+
 </div>
 
 <h2>Animated Sidenav Example</h2>
