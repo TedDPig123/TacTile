@@ -6,7 +6,7 @@
     <title>Tile Type Dummy View</title>
 </head>
 <body>
-    <label for="tiles">Choose a car:</label>
+    <label for="tiles">Choose a tile:</label>
     <select name="tiles" id="tiles">
         <option value="grass">grass</option>
         <option value="stone">stone</option>
@@ -14,8 +14,10 @@
         <option value="audi">a</option>
 
         <!-- what should the default terrains be? -->
-
-
     </select>
+    <input type="file" id="upload" accept="image/*" />
+    <canvas id="canvas"></canvas>
+
+    <script src="tileType.js"></script>
 </body>
 </html>
