@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .sidebar {
+    width: 30%;
+    padding: 20px;
+  }
+  
+  .main-content {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  #battle-grid {
+    display: grid;
+    gap: 1px;
+    margin-top: 20px;
+    justify-content: center;
+    /* Controls the size of the grid itself being displayed */
+    width: 90%; 
+    height: 90%;
+  }
+  
+  .grid-tile {
+    width: 100%; /* Make each tile take the full width of its grid cell */
+    height: 100%; /* Make each tile take the full height of its grid cell */
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  /* temporary colors and options for the types on the grid
+  Geri, look over this and change to what you need to do with objects. */
+  .grid-tile.grass {
+    background-color: green;
+  }
+  
+  .grid-tile.stone {
+    background-color: gray;
+  }
+  
+  .grid-tile.castle {
+    background-color: brown;
+  }
