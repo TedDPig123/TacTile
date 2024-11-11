@@ -41,15 +41,18 @@ document.getElementById('upload').addEventListener('change', function (event) {
     }
 });
 
-function toggleTileMenu(){
+function showTileMenu(){
     console.log("toggle works!")
     const tileMenu = document.querySelector('.tile-menu');
     const currentDisplay = tileMenu.currentStyle ? tileMenu.currentStyle["display"] : window.getComputedStyle ? window.getComputedStyle(tileMenu, null).getPropertyValue("display") : null;
     console.log(currentDisplay);
-    if(currentDisplay === 'flex'){
-        tileMenu.style.display = 'none';
-    }
-    if(currentDisplay === 'none'){
-        tileMenu.style.display = 'flex';
-    }
+    tileMenu.style.display = 'flex';
+}
+
+function hideTileMenu(){
+    console.log("toggle works!")
+    const tileMenu = document.querySelector('.tile-menu');
+    const currentDisplay = tileMenu.currentStyle ? tileMenu.currentStyle["display"] : window.getComputedStyle ? window.getComputedStyle(tileMenu, null).getPropertyValue("display") : null;
+    console.log(currentDisplay);
+    tileMenu.style.display = 'none';
 }
