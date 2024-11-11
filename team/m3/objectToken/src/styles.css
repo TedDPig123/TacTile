@@ -39,6 +39,9 @@
   background: darkcyan;
   color: darkcyan;
   position: relative;
+  border-color: wheat;
+  border-radius: 4px;
+  padding: 3px 3px 3px 3px;
 }
 
 .ObjectForm{
@@ -74,7 +77,7 @@
   visibility: hidden;
   position: absolute;
   padding: 5px;
-  background-color: rgb(31, 30, 30);
+  background-color: rgb(25, 25, 99);
   width: 250px;
   height: 150px;
   color: white;
@@ -84,6 +87,7 @@
   border-radius: 6px;
   top: 110%;
   left: 50%;
+  z-index: 4;
 }
 
 .tooltip:hover .tooltiptext {
