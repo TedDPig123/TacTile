@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
     <title>Tile Type Dummy View</title>
 </head>
 <body>
+    <button id="new-tile-button" onclick="toggleTileMenu()">Add New Tile</button>
+    <nav>
+        <ul class="tile-menu">
+            <li class="tile-option"><a href="#">Choose From Existing Tiles</a></li>
+            <li class="tile-option"><a href="#">Edit Existing Tiles</a></i>
+            <li class="tile-option"><a href="#">Create New Custom Tile</a></i>
+        </ul>
+    </nav>
+    
     <label for="tiles">Choose a tile:</label>
     <select name="tiles" id="tiles">
         <option value="grass">grass</option>
         <option value="stone">stone</option>
         <option value="lava">lava</option>
         <option value="audi">a</option>
-
-        <!-- what should the default terrains be? -->
     </select>
     <input type="file" id="upload" accept="image/*" />
     <canvas id="canvas"></canvas>
