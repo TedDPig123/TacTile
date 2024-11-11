@@ -1,4 +1,4 @@
-export class mapTile{
+class mapTile{
     constructor(){
         this.tileColor = color(255,255,255); //white will be default
         this.tileText = "Enter all relevant stats and information here."
