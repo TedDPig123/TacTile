@@ -13,7 +13,7 @@
         <div class="dropdown-content">
           <a href="#" onclick="showExisting()">CHOOSE EXISTING TILE</a>
           <a href="#" onclick="showCustom()">CREATE NEW CUSTOM TILE</a>
-          <a href="#">EDIT EXISTING TILE</a>
+          <a href="#" onclick="showEdit()">EDIT EXISTING TILE</a>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
         </div>
         <div class="existing-1 container-2">
             <div class="tile-dropdown">
-                <button class="tile-dropbtn">CHOOSE TILE</button>
+                <button class="tile-dropbtn" id="displayed-tile">CHOOSE TILE</button>
                 <div class="tile-dropdown-content">
                   <a href="#">GRASS</a>
                   <a href="#">STONE</a>
@@ -77,6 +77,44 @@
                     <div id="add-tile-2">ADD NEW TILE</div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- EDIT EXISTING TILE -->
+    <div class="edit">
+        <div class="custom-1 container-1">
+            <span style="font-size: 30px;">EDIT EXISTING TILE</span>
+            <svg id="edit-cross-svg" onclick="hideEdit()" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </div>
+        <div class="custom-1 container-2">
+            <div class="tile-dropdown">
+                <button class="tile-dropbtn" id="edit-displayed-tile">CHOOSE TILE</button>
+                <div class="edit-tile-dropdown-content">
+                  <a href="#">GRASS</a>
+                  <a href="#">STONE</a>
+                  <a href="#">WATER</a>
+                </div>
+            </div>
+        </div>
+        <div class="custom-1 container-3">
+            <label for="details">DETAILS</label>
+            <textarea class="text-input" id="edit-details"></textarea>
+        </div>
+        <div class="custom-1 container-4">
+            <div>TILE PREVIEW</div>
+            <div id="edit-visual-container">
+                <canvas id="edit-tile-preview" width="200" height="200"></canvas>
+                <div id="edit-visual-picker">
+                    <label for="color-picker">COLOR (#XXXXXX)</label>
+                    <input class="text-input" id="edit-tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
+                    <div>UPLOAD IMAGE</div>
+                    <input type="file" id="edit-img-upload" accept="image/*" />
+                </div>
+            </div>
+        </div>
+        <div class="edit-delete">
+            <div id="edit-tile">EDIT TILE</div>
+            <div id="delete-tile">DELETE TILE</div>
         </div>
     </div>
 

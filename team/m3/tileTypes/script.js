@@ -37,6 +37,22 @@ function hideExisting(){
     greyOverlay.style.display = 'none';
 }
 
+function showEdit(){
+    console.log("toggle works!")
+    const tileMenu = document.querySelector('.edit');
+    const greyOverlay = document.getElementById('screen-overlay');
+    greyOverlay.style.display = 'flex';
+    tileMenu.style.display = 'flex';
+}
+
+function hideEdit(){
+    console.log("toggle works!")
+    const tileMenu = document.querySelector('.edit');
+    const greyOverlay = document.getElementById('screen-overlay');
+    tileMenu.style.display = 'none';
+    greyOverlay.style.display = 'none';
+}
+
 function changeTilePreviewColor(){
     const tilePreviewBox = document.getElementById("tile-preview");
     const colorVal = document.getElementById("tile-color").value;
@@ -62,31 +78,6 @@ function hexToRgba(hex) {
 
     return `rgba(${r}, ${g}, ${b})`;
 }
-
-// document.getElementById('img-upload').addEventListener('change', function (event) {
-//     const file = event.target.files[0];
-//     const canvas = document.getElementById('tile-preview');
-//     const ctx = canvas.getContext('2d');
-    
-//     if (file) {
-//         console.log('success');
-//         const img = new Image();
-//         img.onload = function () {
-//             const newWidth = 200;
-//             const newHeight = 200;
-            
-//             canvas.width = newWidth;
-//             canvas.height = newHeight;
-//             ctx.clearRect(0, 0, canvas.width, canvas.height);
-//             ctx.drawImage(img, 0, 0, newWidth, newHeight);
-
-//             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-//             ctx.putImageData(imageData, 0, 0);
-//         };
-//         img.src = URL.createObjectURL(file);
-//     }
-// });
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const upload = document.getElementById('img-upload');
@@ -118,4 +109,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 });
 
-
+window.addEventListener("DOMContentLoaded", (event) => {
+    const dropDown = document.querySelector(".tile-dropdown-content");
+    if (dropDown) {
+        dropDown.addEventListener("click", function(event) {
+            if (event.target.tagName === "A") {
+                document.getElementById("displayed-tile").textContent = event.target.textContent;
+            }
+        });
+    }
+});

@@ -1,1 +1,5 @@
-import { DatabaseConnection } from "./DatabaseConnection.js";
+import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
+
+export class tileData{
+
+}
