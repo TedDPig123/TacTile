@@ -3,31 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css" />
-    <title>Tile Type Dummy View</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <title>TileTester</title>
 </head>
 <body>
-    <button id="new-tile-button" onclick="showTileMenu()">Add New Tile</button>
-    <nav>
-        <ul class="tile-menu">
-            <li><a onclick="hideTileMenu()" href="#">Cancel</a></li>
-            <li class="tile-option"><a href="#">Choose From Existing Tiles</a></li>
-            <li class="tile-option"><a href="#">Edit Existing Tiles</a></i>
-            <li class="tile-option"><a href="#">Create New Custom Tile</a></i>
-        </ul>
-    </nav>
-    
-    <label for="tiles">Choose a tile:</label>
-    <select name="tiles" id="tiles">
-        <option value="grass">grass</option>
-        <option value="stone">stone</option>
-        <option value="lava">lava</option>
-        <option value="audi">a</option>
-    </select>
-    <input type="file" id="upload" accept="image/*" />
-    <canvas id="canvas"></canvas>
-    <input type="button" value="Custom Tile">
+    <div class="dropdown">
+        <button class="dropbtn">CREATE NEW TILE</button>
+        <div class="dropdown-content">
+          <a href="#" onclick="showExisting()">CHOOSE EXISTING TILE</a>
+          <a href="#" onclick="showCustom()">CREATE NEW CUSTOM TILE</a>
+          <a href="#">EDIT EXISTING TILE</a>
+        </div>
+    </div>
 
-    <script src="tileType.js"></script>
+    <!-- CREATE CUSTOM TILE -->
+    <div class="custom">
+        <div class="custom-1 container-1">
+            <span style="font-size: 30px;">CREATE NEW CUSTOM TILE</span>
+            <svg id="cross-svg" onclick="hideCustom()" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </div>
+        <div class="custom-1 container-2">
+            <label for="tile-name">TYPE</label>
+            <input class="text-input" id="tile-name" type="text">
+        </div>
+        <div class="custom-1 container-3">
+            <label for="details">DETAILS</label>
+            <textarea class="text-input" id="details"></textarea>
+        </div>
+        <div class="custom-1 container-4">
+            <div>TILE PREVIEW</div>
+            <div id="visual-container">
+                <canvas id="tile-preview" width="200" height="200"></canvas>
+                <div id="visual-picker">
+                    <label for="color-picker">COLOR (#XXXXXX)</label>
+                    <input oninput="changeTilePreviewColor()" class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
+                    <div>UPLOAD IMAGE</div>
+                    <input type="file" id="img-upload" accept="image/*" />
+                </div>
+            </div>
+        </div>
+        <div id="add-tile-1">ADD NEW TILE</div>
+    </div>
+
+
+    <!-- CREATE FROM EXISTING TILE -->
+    <div class="existing">
+        <div class="existing-1 container-1">
+            <span style="font-size: 30px;">CHOOSE EXISTING TILE</span>
+            <svg id="cross-svg-2" onclick="hideExisting()" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </div>
+        <div class="existing-1 container-2">
+            <div class="tile-dropdown">
+                <button class="tile-dropbtn">CHOOSE TILE</button>
+                <div class="tile-dropdown-content">
+                  <a href="#">GRASS</a>
+                  <a href="#">STONE</a>
+                  <a href="#">WATER</a>
+                </div>
+            </div>
+        </div>
+        <div class="existing-1 container-3">
+            <div id="details-1">DETAILS</div>
+            <textarea class="text-input" id="details-2"></textarea>
+        </div>
+        <div class="existing-1 container-4">
+            <div>TILE PREVIEW</div>
+            <div id="visual-container-2">
+                <canvas id="tile-preview-2" width="200" height="200"></canvas>
+                <div id="visual-picker-2">
+                    <label for="color-picker">COLOR (#XXXXXX)</label>
+                    <input class="text-input" id="tile-name" type="text" style="margin-bottom:15px" readonly>
+                    <div id="add-tile-2">ADD NEW TILE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-overlay"></div>
 </body>
 </html>

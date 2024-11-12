@@ -1,0 +1,26 @@
+<div class="existing">
+        <div class="existing-1 container-1">
+            <span style="font-size: 30px;">CREATE NEW existing TILE</span>
+            <svg id="cross-svg" onclick="hideexisting()" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </div>
+        <div class="existing-1 container-2">
+            <label for="tile-name">TYPE</label>
+            <input class="text-input" id="tile-name" type="text">
+        </div>
+        <div class="existing-1 container-3">
+            <label for="details">DETAILS</label>
+            <textarea class="text-input" id="details"></textarea>
+        </div>
+        <div class="existing-1 container-4">
+            <div>TILE PREVIEW</div>
+            <div id="visual-container">
+                <canvas id="tilePreview" width="200" height="200"></canvas>
+                <div id="visual-picker">
+                    <label for="color-picker">COLOR (#XXXXXX)</label>
+                    <input class="text-input" id="tile-name" type="text" style="margin-bottom:15px">
+                    <div>UPLOAD IMAGE</div>
+                    <div id="upload-image">CHOOSE IMAGE</div>
+                </div>
+            </div>
+        </div>
+    </div>
