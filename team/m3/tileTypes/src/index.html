@@ -7,10 +7,10 @@
     <title>Tile Type Dummy View</title>
 </head>
 <body>
-    <button id="new-tile-button" onclick="toggleTileMenu()">Add New Tile</button>
+    <button id="new-tile-button" onclick="showTileMenu()">Add New Tile</button>
     <nav>
         <ul class="tile-menu">
-            <li><a id="cancel-menu" href="#">Cancel</a></li>
+            <li><a onclick="hideTileMenu()" href="#">Cancel</a></li>
             <li class="tile-option"><a href="#">Choose From Existing Tiles</a></li>
             <li class="tile-option"><a href="#">Edit Existing Tiles</a></i>
             <li class="tile-option"><a href="#">Create New Custom Tile</a></i>
