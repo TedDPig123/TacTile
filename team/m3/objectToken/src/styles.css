@@ -1,0 +1,95 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 700px;
+  height: 700px;
+  grid-gap: 1px;
+  position: absolute;
+  z-index: 1;
+}
+
+.whiteG{
+  background-color: white;
+  color: white;
+}
+
+.blackG{
+  background-color: rgb(226, 164, 226);
+  color: black;
+}
+
+.grid-container > div {
+  color: white;
+}
+
+/*Object interface css */
+.object-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 700px;
+  height: 700px;
+  grid-gap: 1px;  
+  position: absolute;
+  z-index: 2;
+}
+
+.object {
+  background: darkcyan;
+  color: darkcyan;
+  position: relative;
+  border-color: wheat;
+  border-radius: 4px;
+  padding: 3px 3px 3px 3px;
+}
+
+.ObjectForm{
+  position: absolute;
+  width: 300px;
+  height: 350px;
+  padding: 5px;
+  background-color: rgb(31, 30, 30);
+  left: 100px;
+  top: 40px;
+  border-radius: 3px;
+  z-index: 3;
+}
+
+.ObjectForm #description{
+  border-radius: 3px;
+}
+
+.ObjectForm label{
+  color:rgb(121, 224, 224);
+  font-size: 20px;
+}
+
+#delete{
+  display: none;
+}
+
+#update{
+  display: none;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  padding: 5px;
+  background-color: rgb(25, 25, 99);
+  width: 250px;
+  height: 150px;
+  color: white;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-radius: 6px;
+  top: 110%;
+  left: 50%;
+  z-index: 4;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
