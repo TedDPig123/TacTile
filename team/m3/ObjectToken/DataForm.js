@@ -2,7 +2,7 @@ import { DatabaseConnection } from "./DatabaseConnection.js";
 
 export class DataForm{
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
-    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC;
+    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC;#width
 
     constructor(objectDB){
         this.objectDB = objectDB;
@@ -17,7 +17,7 @@ export class DataForm{
         this.#numCopy = document.getElementById("copy");
         this.#c = document.getElementById("c");
         this.#r = document.getElementById("r");
-        this.#ObjGrid = document.getElementById("objGrid");
+        this.#ObjGrid = document.getElementById("object-grid");
         this.#initC = 1;
         this.#initR = 1;
         this.#idObj = document.createElement('idObj');
@@ -33,6 +33,12 @@ export class DataForm{
         this.#createObject();
         this.#deleteObject();
         this.#updateObject()
+    }
+
+    addWH(width, height){
+        this.#c.max = width;
+        this.#r.max = height;
+        this.#width = width;
     }
 
     #renderWhenLoad(){
@@ -54,7 +60,12 @@ export class DataForm{
             const rowE = Number(objData.r);
             const colE = Number(objData.c);
             objectDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
-            objectDiv.addEventListener("click", this.#reopenForm.bind(this))
+            this.#addTagtoTile(objectDiv.style.gridArea);
+            objectDiv.addEventListener("click", (event) => {
+                if(event.target.classList.contains('object')){
+                    this.#reopenForm(event);
+                }
+            })
             this.#initR = objData.initR+1;
             this.#ObjGrid.appendChild(objectDiv);
             this.#clearForm();
@@ -114,6 +125,28 @@ export class DataForm{
         this.#addObj.addEventListener("click",clickFormInit.bind(this));
     }
 
+    #addTagtoTile(gridA){
+        const gridArea = gridA;
+        console.log(gridArea);
+        const num = gridArea.split("/")
+        const tile = document.getElementsByClassName("grid-tile");
+        console.log((num[0]-1)*(this.#width), (num[0]-1)*(this.#width)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1]))
+        for(let i = (num[0]-1)*(this.#width); i<(num[0]-1)*(this.#width)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1]); i++){
+            tile[i].classList.add('object-tile');
+        }
+    }
+
+    #deleteTagtoTile(gridA){
+        const gridArea = gridA;
+        console.log(gridArea);
+        const num = gridArea.split("/")
+        const tile = document.getElementsByClassName("grid-tile");
+        console.log((num[0]-1)*(this.#width), (num[0]-1)*(this.#width-1)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1]))
+        for(let i = (num[0]-1)*(this.#width); i<(num[0]-1)*(this.#width-1)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1])+1; i++){
+            tile[i].classList.remove('object-tile');
+        }
+    }
+
     #createObject(){
         function createObjectToken(objData){
             if(this.#nameObj.value===""){
@@ -138,6 +171,7 @@ export class DataForm{
                   initC:this.#initC
                 }
                 objectDiv.style.gridArea = `${this.#initR}/${this.#initC}/${rowE+this.#initR}/${colE+this.#initC}`;
+                this.#addTagtoTile(objectDiv.style.gridArea);
                 this.#initR+=1;
                 let addEvent = this.objectDB.addObject(objectStore);
                 addEvent
@@ -164,6 +198,7 @@ export class DataForm{
             const result = this.#idObj.id.substring(0, startIndex);
             this.objectDB.deleteObject(Number(result));
             let objD = document.getElementById(result);
+            this.#deleteTagtoTile(objD.style.gridArea);
             objD.remove();
             this.#clearForm();
             this.#ObjForm.style.display= "none";
@@ -180,6 +215,7 @@ export class DataForm{
             const getEvent = this.objectDB.getObject(Number(result)); 
             getEvent
             .then(objData => {
+                this.#deleteTagtoTile(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
                 objData.name = this.#nameObj.value;
                 objData.description = this.#descripObj.value;
                 objData.c = this.#c.value;
@@ -189,6 +225,7 @@ export class DataForm{
                 this.#numCopy.value = 1; 
                 this.objectDB.updateObject(objData);
                 objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
+                this.#addTagtoTile(objDiv.style.gridArea);
                 spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
                 this.#clearForm();
                 this.#ObjForm.style.display= "none";

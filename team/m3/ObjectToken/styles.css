@@ -1,47 +1,90 @@
-.grid-container {
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  width: 30%;
+  padding: 20px;
+  pointer-events: auto
+}
+
+.main-content {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+#grid-container {
+  position: relative; 
+  width: 90%;
+  height: 90%;
+  justify-content: center;
+}
+
+#battle-grid, #object-grid  {
+  top: 0;
+  left: 0;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  width: 700px;
-  height: 700px;
-  grid-gap: 1px;
+  gap: 1px;
+  margin-top: 20px;
+  justify-content: center;
+  /* Controls the size of the grid itself being displayed */
+  width: 100%; 
+  height: 100%;
   position: absolute;
+}
+
+#object-grid {
   z-index: 1;
 }
 
-.whiteG{
-  background-color: white;
-  color: white;
+.grid-tile {
+  width: 100%; /* Make each tile take the full width of its grid cell */
+  height: 100%; /* Make each tile take the full height of its grid cell */
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.blackG{
-  background-color: rgb(226, 164, 226);
-  color: black;
+/* temporary colors and options for the types on the grid
+Geri, look over this and change to what you need to do with objects. */
+.grid-tile.grass {
+  background-color: green;
 }
 
-.grid-container > div {
-  color: white;
+.grid-tile.stone {
+  background-color: gray;
 }
 
-/*Object interface css */
-.object-container {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  width: 700px;
-  height: 700px;
-  grid-gap: 1px;  
-  position: absolute;
-  z-index: 2;
+.grid-tile.castle {
+  background-color: brown;
 }
 
 .object {
-  background: darkcyan;
-  color: darkcyan;
-  position: relative;
-  border-color: wheat;
-  border-radius: 4px;
-  padding: 3px 3px 3px 3px;
+  background-color: aqua;
+  width: 100%; /* Make each tile take the full width of its grid cell */
+  height: 100%; /* Make each tile take the full height of its grid cell */
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .ObjectForm{
@@ -50,8 +93,8 @@
   height: 350px;
   padding: 5px;
   background-color: rgb(31, 30, 30);
-  left: 100px;
-  top: 40px;
+  left: 50px;
+  top: 300px;
   border-radius: 3px;
   z-index: 3;
 }
@@ -73,6 +116,12 @@
   display: none;
 }
 
+.tooltip {
+  position: relative; 
+  display: inline-block; 
+  cursor: pointer; 
+}
+
 .tooltip .tooltiptext {
   visibility: hidden;
   position: absolute;
@@ -88,6 +137,7 @@
   top: 110%;
   left: 50%;
   z-index: 4;
+  transform: translateX(-50%);
 }
 
 .tooltip:hover .tooltiptext {
