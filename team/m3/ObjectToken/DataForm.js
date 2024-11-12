@@ -2,7 +2,7 @@ import { DatabaseConnection } from "./DatabaseConnection.js";
 
 export class DataForm{
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
-    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC;#width
+    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC;
 
     constructor(objectDB){
         this.objectDB = objectDB;
@@ -27,52 +27,55 @@ export class DataForm{
         this.objectDB.openDatabase();
         this.#ObjForm.appendChild(this.#idObj);
         this.#ObjForm.style.display= "none";
-        this.#renderWhenLoad();
         this.#cancelForm();
-        this.#clickForm()
-        this.#createObject();
-        this.#deleteObject();
-        this.#updateObject()
     }
 
     addWH(width, height){
         this.#c.max = width;
         this.#r.max = height;
-        this.#width = width;
     }
 
-    #renderWhenLoad(){
-        const allEvent = this.objectDB.getAllObject();
-        allEvent
-        .then(objArr => {
-          this.#initR = 1;
-          this.#initC = 1;
-          objArr.forEach(objData => {
-            const objectDiv = document.createElement("div");
-            objectDiv.classList.add("object");
-            objectDiv.classList.add("tooltip");
-            const spanElement = document.createElement("span");
-            spanElement.classList.add("tooltiptext");
-            spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
-            objectDiv.setAttribute("id", objData.id); 
-            spanElement.setAttribute("id", String(objData.id)+"s"); 
-            objectDiv.appendChild(spanElement);
-            const rowE = Number(objData.r);
-            const colE = Number(objData.c);
-            objectDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
-            this.#addTagtoTile(objectDiv.style.gridArea);
-            objectDiv.addEventListener("click", (event) => {
-                if(event.target.classList.contains('object')){
-                    this.#reopenForm(event);
-                }
-            })
-            this.#initR = objData.initR+1;
-            this.#ObjGrid.appendChild(objectDiv);
-            this.#clearForm();
-            this.#ObjForm.style.display= "none";
-          })
+    renderWhenLoad(){
+        const idArr = [];
+        const areaArr = [];
+        let i = 0
+        return new Promise((resolve) => {
+            const allEvent = this.objectDB.getAllObject();
+            allEvent
+                .then(objArr => {
+                    this.#initR = 1;
+                    this.#initC = 1;
+                    objArr.forEach(objData => {
+                        i+=1;
+                        const objectDiv = document.createElement("div");
+                        objectDiv.classList.add("object");
+                        objectDiv.classList.add("tooltip");
+                        const spanElement = document.createElement("span");
+                        spanElement.classList.add("tooltiptext");
+                        spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
+                        objectDiv.setAttribute("id", objData.id); 
+                        idArr.push(objData.id);
+                        spanElement.setAttribute("id", String(objData.id)+"s"); 
+                        objectDiv.appendChild(spanElement);
+                        const rowE = Number(objData.r);
+                        const colE = Number(objData.c);
+                        objectDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
+                        areaArr.push(objectDiv.style.gridArea);
+                        objectDiv.addEventListener("click", (event) => {
+                            if(event.target.classList.contains('object')){
+                                this.#reopenForm(event);
+                            }
+                        })
+                        this.#initR = objData.initR+1;
+                        this.#ObjGrid.appendChild(objectDiv);
+                        this.#clearForm();
+                        this.#ObjForm.style.display= "none";
+                    });
+                    resolve({id:idArr, area:areaArr});
+                })
+                .catch(error => console.error('Error:', error)
+                );
         })
-        .catch(error => console.error('Error:', error));
     }
 
     #clearForm(){
@@ -106,7 +109,7 @@ export class DataForm{
         .catch(error => console.error('Error:', error))
     }
 
-    #clickForm(){
+    clickForm(){
         function clickFormInit(){
             if(this.#ObjForm.style.display==="none"){
                 this.#ObjForm.style.display= "block";
@@ -125,97 +128,84 @@ export class DataForm{
         this.#addObj.addEventListener("click",clickFormInit.bind(this));
     }
 
-    #addTagtoTile(gridA){
-        const gridArea = gridA;
-        console.log(gridArea);
-        const num = gridArea.split("/")
-        const tile = document.getElementsByClassName("grid-tile");
-        console.log((num[0]-1)*(this.#width), (num[0]-1)*(this.#width)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1]))
-        for(let i = (num[0]-1)*(this.#width); i<(num[0]-1)*(this.#width)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1]); i++){
-            tile[i].classList.add('object-tile');
-        }
-    }
-
-    #deleteTagtoTile(gridA){
-        const gridArea = gridA;
-        console.log(gridArea);
-        const num = gridArea.split("/")
-        const tile = document.getElementsByClassName("grid-tile");
-        console.log((num[0]-1)*(this.#width), (num[0]-1)*(this.#width-1)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1]))
-        for(let i = (num[0]-1)*(this.#width); i<(num[0]-1)*(this.#width-1)+(num[2]-num[0]-1)*(this.#width)+(num[3]-num[1])+1; i++){
-            tile[i].classList.remove('object-tile');
-        }
-    }
-
-    #createObject(){
-        function createObjectToken(objData){
+    createObject(objData){
+        const idArr = [];
+        const areaArr = [];
+        return new Promise((resolve) => {
             if(this.#nameObj.value===""){
-              console.log("need name");
+                console.log("need name");
             }
             else{
-              for(let i = 0; i<this.#numCopy.value;i++){
-                const objectDiv = document.createElement("div");
-                objectDiv.classList.add("object");
-                objectDiv.classList.add("tooltip");
-                const spanElement = document.createElement("span");
-                spanElement.classList.add("tooltiptext");
-                spanElement.textContent = "name: "+this.#nameObj.value+"\ndescription: "+ this.#descripObj.value;
-                const rowE = Number(this.#r.value);
-                const colE = Number(this.#c.value);
-                const objectStore = {
-                  name: this.#nameObj.value, 
-                  description: this.#descripObj.value,
-                  c:Number(this.#c.value),
-                  r:Number(this.#r.value),
-                  initR:this.#initR,
-                  initC:this.#initC
+                for(let i = 0; i<this.#numCopy.value;i++){
+                    const objectDiv = document.createElement("div");
+                    objectDiv.classList.add("object");
+                    objectDiv.classList.add("tooltip");
+                    const spanElement = document.createElement("span");
+                    spanElement.classList.add("tooltiptext");
+                    spanElement.textContent = "name: "+this.#nameObj.value+"\ndescription: "+ this.#descripObj.value;
+                    const rowE = Number(this.#r.value);
+                    const colE = Number(this.#c.value);
+                    const objectStore = {
+                        name: this.#nameObj.value, 
+                        description: this.#descripObj.value,
+                        c:Number(this.#c.value),
+                        r:Number(this.#r.value),
+                        initR:this.#initR,
+                        initC:this.#initC
+                    }
+                    objectDiv.style.gridArea = `${this.#initR}/${this.#initC}/${rowE+this.#initR}/${colE+this.#initC}`;
+                    areaArr.push(objectDiv.style.gridArea)
+                    this.#initR+=1;
+                    let addEvent = this.objectDB.addObject(objectStore);
+                    addEvent
+                    .then(resp => {
+                        objectDiv.setAttribute("id", resp); 
+                        idArr.push(resp)
+                        spanElement.setAttribute("id", String(resp)+"s"); 
+                        objectDiv.appendChild(spanElement);
+                        this.#ObjGrid.appendChild(objectDiv);
+                        objectDiv.addEventListener("click", this.#reopenForm.bind(this));
+                    }) 
+                    .catch(error => console.error('Error:', error));
                 }
-                objectDiv.style.gridArea = `${this.#initR}/${this.#initC}/${rowE+this.#initR}/${colE+this.#initC}`;
-                this.#addTagtoTile(objectDiv.style.gridArea);
-                this.#initR+=1;
-                let addEvent = this.objectDB.addObject(objectStore);
-                addEvent
-                .then(resp => {
-                  objectDiv.setAttribute("id", resp); 
-                  spanElement.setAttribute("id", String(resp)+"s"); 
-                  objectDiv.appendChild(spanElement);
-                  this.#ObjGrid.appendChild(objectDiv);
-                  objectDiv.addEventListener("click", this.#reopenForm.bind(this));
-                }) 
-                .catch(error => console.error('Error:', error));
-              }
+                this.#clearForm();
+                this.#ObjForm.style.display= "none";
+                resolve({id:idArr, area:areaArr});
             }
-            this.#clearForm();
-            this.#ObjForm.style.display= "none";
-          }
-          
-        this.#createButton.addEventListener("click", createObjectToken.bind(this));
+        })
     }
 
-    #deleteObject(){
-        function deleteObjectToken(){
+    deleteObject(){
+        const idArr = [];
+        const areaArr = [];
+        return new Promise((resolve) => {
             const startIndex = this.#idObj.id.indexOf("temp");
             const result = this.#idObj.id.substring(0, startIndex);
+            idArr.push(result)
             this.objectDB.deleteObject(Number(result));
             let objD = document.getElementById(result);
-            this.#deleteTagtoTile(objD.style.gridArea);
+            areaArr.push(objD.style.gridArea);
             objD.remove();
             this.#clearForm();
             this.#ObjForm.style.display= "none";
-        }
-        this.#deleteButton.addEventListener("click", deleteObjectToken.bind(this));
+            resolve({id:idArr, area:areaArr});
+        });
     }
 
-    #updateObject(){
-        function updateObjectToken(){
+    updateObject(){
+        const idArr = [];
+        const areaArrInit = [];
+        const areaArrAfter = [];
+        return new Promise((resolve)=> {
             const startIndex = this.#idObj.id.indexOf("temp");
             const result = this.#idObj.id.substring(0, startIndex);
             const objDiv = document.getElementById(result);
+            idArr.push(result)
             const spanElement = document.getElementById(result+"s");
             const getEvent = this.objectDB.getObject(Number(result)); 
             getEvent
             .then(objData => {
-                this.#deleteTagtoTile(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
+                areaArrInit.push(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
                 objData.name = this.#nameObj.value;
                 objData.description = this.#descripObj.value;
                 objData.c = this.#c.value;
@@ -225,13 +215,13 @@ export class DataForm{
                 this.#numCopy.value = 1; 
                 this.objectDB.updateObject(objData);
                 objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
-                this.#addTagtoTile(objDiv.style.gridArea);
+                areaArrAfter.push(objDiv.style.gridArea);
                 spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
                 this.#clearForm();
                 this.#ObjForm.style.display= "none";
+                resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
             })
             .catch(error => console.error('Error:', error));
-        }
-        this.#updateButton.addEventListener("click", updateObjectToken.bind(this));
+        })
     }
 }
