@@ -1,4 +1,5 @@
-import "./object.js";
+import {DataForm} from "./DataForm.js";
+import {DatabaseConnection } from "./DatabaseConnection.js";
 
 const build = () => {
   const numCols = 10,
@@ -16,3 +17,7 @@ const build = () => {
 
 build();
 
+const objectDB = new DatabaseConnection();
+objectDB.openDatabase();
+const dataObjForm = new DataForm(objectDB);
+dataObjForm.render();
