@@ -4,22 +4,13 @@ import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
 const dbTileObject = new DatabaseConnection();
 
 export class tileObject{
-    #type;
-    #details;
-    #imgData;
+    type;
+    details;
+    imgData;
     constructor(type, details, imgData){
-        this.#type = type;
-        this.#details = details;
-        this.#imgData = imgData;
-    }
-    getType(){
-        return this.#type;
-    }
-    getDetails(){
-        return this.#details;
-    }
-    getImageData(){
-        return this.#imgData;
+        this.type = type;
+        this.details = details;
+        this.imgData = imgData;
     }
 }
 
@@ -44,10 +35,17 @@ async function addNewCustomTile(){
 
     try {
         const tileID = await dbTileObject.addObject(tileObj);
+        console.log("Tile added with ID:", tileID);
         alert("tile added successfully");
+
+        const addedTile = await dbTileObject.getObject(tileID);
+        console.log("Tile just added:", addedTile);
+        console.log("image", tileImage);
+        console.log(" type", typeof(addedTile.imgData));
 
         const newTileOption = document.createElement("a");
         newTileOption.setAttribute("tile-id", tileID);
+        newTileOption.setAttribute("href", "#");
         newTileOption.textContent = type;
         
         const existingTileDropdown = document.querySelector('.tile-dropdown-content');
@@ -63,26 +61,32 @@ window.addEventListener("DOMContentLoaded", (event) => {
     if (dropDown) {
         dropDown.addEventListener("click", function(event) {
             if (event.target.tagName === "A") {
-                const targetID = event.target.getAttribute("tile-id");
-                const tileObj = getTileById(targetID);
-                displayTileDetailsForExisting(tileObj);
+                console.log(" thing done");
+                const targetID = parseInt(event.target.getAttribute("tile-id"));
+                displayTileDetailsForExisting(targetID);
             }
         });
     }
 });
 
-async function getTileById(tileID) {
-    try {
-        const tileObject = await dbTileObject.getObject(tileID);
-        return tileObject;
-    } catch (error) {
-        console.error("Error", error);
-    }
-}
-
-function displayTileDetailsForExisting(tileObject) {
+async function displayTileDetailsForExisting(tileID) {
+    const tileObject = await dbTileObject.getObject(tileID);
     document.getElementById("details-2").textContent = tileObject.details;
-    document.getElementById("tile-preview-2").getContext("2d").drawImage(tileObject.image, 0, 0);
+    console.log("imgData is", tileObject.imgData);
+    const newImage = new Image();
+    const canvas = document.getElementById("tile-preview-2");
+    const ctx = document.getElementById("tile-preview-2").getContext("2d");
+
+    newImage.onload = function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(newImage, 0, 0);
+    }
+
+    newImage.onerror = function() {
+        console.error("Failed to load image:", newImage.src);
+    }
+
+    newImage.src = tileObject.imgData;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
