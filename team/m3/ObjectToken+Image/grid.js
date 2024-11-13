@@ -5,25 +5,25 @@ import { Image } from "./image.js";
 const battleGrid = document.getElementById('battle-grid');
 
 //start of emily's edit
-//initializing indexdb for object, initializing the object token and image
+//initializing indexdb for object and image, initializing the object token and image import class
 const objectDB = new DatabaseConnection("ObjectStore");
 objectDB.openDatabase();
-const dataObjForm = new DataForm(objectDB);
 const imageDB = new DatabaseConnection("ImageStore");
 
 const ObjForm = document.getElementById("object_form");
 ObjForm.style.display= "none";
-dataObjForm.clickForm()
 
-const objectGrid = document.getElementById('object-grid');
+const dataObjForm = new DataForm(objectDB);
+dataObjForm.clickForm()
 
 const img = new Image(document.getElementById("object_form"), imageDB)
 const imgInput = document.getElementById("imageInput");
 imgInput.addEventListener("change", (event) => img.PreviewImg(event))
-//end of emily's edit
 
+const objectGrid = document.getElementById('object-grid');
 objectGrid.style.zIndex="1"
-//needs double click to switch between grid
+
+//Switch between battle and object grid
 const switchButton = document.getElementById("switch_button");
 switchButton.addEventListener("click", function x(){
     if(objectGrid.style.zIndex==="1"){
@@ -37,6 +37,8 @@ switchButton.addEventListener("click", function x(){
         switchButton.value = "switch grid:Battle-Grid"
     }
 })
+//end of emily's edit
+
 
 document.getElementById('create-grid').addEventListener('click', function() {
     const width = parseInt(document.getElementById('grid-width').value);
@@ -120,8 +122,6 @@ function createGrid(width, height) {
             })
         } 
     });
-
-
 
     updateButton.addEventListener("click", (event) => {
         dataObjForm.updateObject()
