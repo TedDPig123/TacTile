@@ -7,11 +7,11 @@ export class DatabaseConnection{
     async openDatabase() {
         const dbStore = this.dbStore;
         return new Promise((resolve, reject) => {
-            if ("ObjectBase" === "") {
+            if (dbStore === "") {
                 reject("Database name cannot be empty.");
                 return;
             }
-            let request = indexedDB.open("ObjectBase", 1);
+            let request = indexedDB.open(dbStore, 1);
             request.onupgradeneeded = function (event) {
                 let db = event.target.result;
                 if (!db.objectStoreNames.contains(dbStore)) {

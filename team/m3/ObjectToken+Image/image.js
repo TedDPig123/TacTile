@@ -1,7 +1,7 @@
 export class Image{
     #inputElement
     #inputImg
-    constructor(divElement){
+    constructor(divElement, imageDB){
         this.#inputImg = document.createElement("img");
         this.#inputImg.id = "preview";
         this.#inputImg.alt = "Image Preview";
@@ -11,6 +11,24 @@ export class Image{
         this.#inputElement.accept = "image/*"
         divElement.appendChild(this.#inputElement);
         divElement.appendChild(this.#inputImg);
+        this.imageDB = imageDB;
+        this.imageDB.openDatabase();
+    }
+
+    render(){
+        this.imageDB.getAllObject()
+        .then(objArr => {
+            objArr.forEach(objData => {
+                const parentDiv = document.getElementById(objData.id.split("i")[0])
+                if(parentDiv){
+                    const imgElement = document.createElement("img");
+                    imgElement.classList.add("imageToken")
+                    imgElement.setAttribute("id", objData.id)
+                    imgElement.src = objData.src;
+                    parentDiv.appendChild(imgElement);
+                }
+            })
+        })
 
     }
 
@@ -35,23 +53,19 @@ export class Image{
     }
 
     createImageElement(parentDiv){
-        let image  = this.#inputImg;
-        console.log(parentDiv)
-        console.log(image.src)
+        let image = this.#inputImg;
         if(image.src){
             const imgElement = document.createElement("img");
             imgElement.classList.add("imageToken")
             imgElement.setAttribute("id", String(parentDiv.id)+"img")
             imgElement.src = image.src;
             parentDiv.appendChild(imgElement)
+            this.imageDB.addObject({id:String(parentDiv.id)+"img", src:imgElement.src})
         }
     }
 
     deleteImageElement(parentDiv){
-        if(parentDiv.querySelector('img')){
-            const imageToDel = document.getElementById(String(parentDiv)+"img")
-            parentDiv.removeChild(imageToDel);
-        }
+        this.imageDB.deleteObject(String(parentDiv)+"img");
     }
 
     updateImageElement(parentDiv){
@@ -60,25 +74,28 @@ export class Image{
         if(image.src){
             if(parentDiv.querySelector('img')){
                 const imageToUpdate = document.getElementById(String(parentDiv.id)+"img");
-                console.log(imageToUpdate)
-                imageToUpdate.src = image.src;
+                this.imageDB.getObject(String(parentDiv.id)+"img")
+                .then(imageDB => {
+                    imageToUpdate.src = image.src;
+                    imageDB.src = imageToUpdate.src;
+                    this.imageDB.updateObject({id:String(parentDiv.id)+"img", src:imageToUpdate.src})
+                })
             }
             else{
-                this.createImageElement(parentDiv)
+                const imgElement = document.createElement("img");
+                imgElement.classList.add("imageToken")
+                imgElement.setAttribute("id", String(parentDiv.id)+"img")
+                imgElement.src = image.src;
+                parentDiv.appendChild(imgElement)
+                this.imageDB.addObject({id:String(parentDiv.id)+"img", src:imgElement.src})
             }
         }
         else{
             if(parentDiv.querySelector('img')){
-                const imageToUpdate = document.getElementById(String(parentDiv.id)+"img");
-                parentDiv.removeChild(imageToUpdate);
+                const imageToDel = document.getElementById(String(parentDiv.id)+"img")
+                imageToDel.remove();  
+                this.deleteImageElement(String(parentDiv.id))          
             }
         }
     }
-
-
-
-//    createImage(){
-//     <input type="file" id="imageInput" accept="image/png, image/jpeg">
-
-//    } 
 }

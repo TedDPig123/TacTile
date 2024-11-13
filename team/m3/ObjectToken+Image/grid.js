@@ -9,13 +9,15 @@ const battleGrid = document.getElementById('battle-grid');
 const objectDB = new DatabaseConnection("ObjectStore");
 objectDB.openDatabase();
 const dataObjForm = new DataForm(objectDB);
+const imageDB = new DatabaseConnection("ImageStore");
+
 const ObjForm = document.getElementById("object_form");
 ObjForm.style.display= "none";
 dataObjForm.clickForm()
 
 const objectGrid = document.getElementById('object-grid');
 
-const img = new Image(document.getElementById("object_form"))
+const img = new Image(document.getElementById("object_form"), imageDB)
 const imgInput = document.getElementById("imageInput");
 imgInput.addEventListener("change", (event) => img.PreviewImg(event))
 //end of emily's edit
@@ -85,6 +87,7 @@ function createGrid(width, height) {
     //start of emily's edit
     //add the event listener for add/update object form, including delete, cancel, create and update
     dataObjForm.render();
+    img.render();
     dataObjForm.renderWhenLoad()
     .then(result => {
         result.area.forEach(a => 
@@ -138,7 +141,7 @@ function createGrid(width, height) {
                 deleteTagtoTile(a, width)
             )
             result.id.forEach(i => {
-                img.deleteImageElement(document.getElementById(String(i)))
+                img.deleteImageElement(i)
             })
         })    
     });
