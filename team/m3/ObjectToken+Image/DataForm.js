@@ -27,7 +27,6 @@ export class DataForm{
         this.objectDB.openDatabase();
         this.#ObjForm.appendChild(this.#idObj);
         this.#ObjForm.style.display= "none";
-        this.#cancelForm();
     }
 
     addWH(width, height){
@@ -68,7 +67,7 @@ export class DataForm{
                         })
                         this.#initR = objData.initR+1;
                         this.#ObjGrid.appendChild(objectDiv);
-                        this.#clearForm();
+                        this.clearForm();
                         this.#ObjForm.style.display= "none";
                     });
                     resolve({id:idArr, area:areaArr});
@@ -78,16 +77,12 @@ export class DataForm{
         })
     }
 
-    #clearForm(){
+    clearForm(){
         this.#nameObj.value = "";
         this.#descripObj.value = "";
         this.#numCopy.value = 1;
         this.#c.value = 1;
         this.#r.value = 1;
-    }
-
-    #cancelForm(){
-        this.#cancelButton.addEventListener("click", this.#clearForm.bind(this))
     }
 
     #reopenForm(event){
@@ -96,6 +91,7 @@ export class DataForm{
         this.#updateButton.style.display= "inline-block";
         this.#cancelButton.style.display= "none";
         this.#createButton.style.display= "none";
+        console.log(event.target.id);
         const getEvent = this.objectDB.getObject(Number(event.target.id)); 
         getEvent
         .then(objData => {
@@ -164,7 +160,7 @@ export class DataForm{
                     objectDiv.appendChild(spanElement);
                     this.#ObjGrid.appendChild(objectDiv);
                     objectDiv.addEventListener("click", this.#reopenForm.bind(this));
-                    this.#clearForm();
+                    this.clearForm();
                     this.#ObjForm.style.display= "none";
                     resolve({id:idArr, area:areaArr});
                 }) 
@@ -184,7 +180,7 @@ export class DataForm{
             let objD = document.getElementById(result);
             areaArr.push(objD.style.gridArea);
             objD.remove();
-            this.#clearForm();
+            this.clearForm();
             this.#ObjForm.style.display= "none";
             resolve({id:idArr, area:areaArr});
         });
@@ -215,7 +211,7 @@ export class DataForm{
                 objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
                 areaArrAfter.push(objDiv.style.gridArea);
                 spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
-                this.#clearForm();
+                this.clearForm();
                 this.#ObjForm.style.display= "none";
                 resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
             })

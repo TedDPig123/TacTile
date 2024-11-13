@@ -34,6 +34,19 @@ export class Image{
         this.#inputElement.value="";
     }
 
+    createImageElement(parentDiv){
+        let image  = this.#inputImg;
+        console.log(parentDiv)
+        console.log(image.src)
+        if(image.src){
+            const imgElement = document.createElement("img");
+            imgElement.classList.add("imageToken")
+            imgElement.setAttribute("id", String(parentDiv.id)+"img")
+            imgElement.src = image.src;
+            parentDiv.appendChild(imgElement)
+        }
+    }
+
 
 
 //    createImage(){

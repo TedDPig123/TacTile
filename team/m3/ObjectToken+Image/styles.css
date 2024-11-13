@@ -88,6 +88,7 @@ Geri, look over this and change to what you need to do with objects. */
   cursor: pointer;
 }
 
+
 .ObjectForm{
   position: absolute;
   width: 300px;
@@ -156,4 +157,13 @@ Geri, look over this and change to what you need to do with objects. */
 
 #imageInput{
   color: white;
+}
+
+.imageToken{
+  position: absolute;
+  overflow:hidden;
+  object-fit:fill; 
+  width: 100%;     
+  height: 100%; 
+  pointer-events: none;
 }
