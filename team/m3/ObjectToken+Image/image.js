@@ -29,7 +29,7 @@ export class Image{
     }
 
     clearImage(){
-        let image  = this.#inputImg;
+        let image = this.#inputImg;
         image.removeAttribute("src");
         this.#inputElement.value="";
     }
@@ -44,6 +44,34 @@ export class Image{
             imgElement.setAttribute("id", String(parentDiv.id)+"img")
             imgElement.src = image.src;
             parentDiv.appendChild(imgElement)
+        }
+    }
+
+    deleteImageElement(parentDiv){
+        if(parentDiv.querySelector('img')){
+            const imageToDel = document.getElementById(String(parentDiv)+"img")
+            parentDiv.removeChild(imageToDel);
+        }
+    }
+
+    updateImageElement(parentDiv){
+        console.log(parentDiv)
+        const image  = this.#inputImg;
+        if(image.src){
+            if(parentDiv.querySelector('img')){
+                const imageToUpdate = document.getElementById(String(parentDiv.id)+"img");
+                console.log(imageToUpdate)
+                imageToUpdate.src = image.src;
+            }
+            else{
+                this.createImageElement(parentDiv)
+            }
+        }
+        else{
+            if(parentDiv.querySelector('img')){
+                const imageToUpdate = document.getElementById(String(parentDiv.id)+"img");
+                parentDiv.removeChild(imageToUpdate);
+            }
         }
     }
 

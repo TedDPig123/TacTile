@@ -49,10 +49,6 @@ body {
   position: absolute;
 }
 
-#object-grid {
-  z-index: 1;
-}
-
 .grid-tile {
   width: 100%; /* Make each tile take the full width of its grid cell */
   height: 100%; /* Make each tile take the full height of its grid cell */
@@ -76,6 +72,10 @@ Geri, look over this and change to what you need to do with objects. */
   background-color: brown;
 }
 
+/* objectToken css */
+#object-grid {
+  z-index: 1;
+}
 
 .object {
   background-color: aqua;
@@ -98,7 +98,7 @@ Geri, look over this and change to what you need to do with objects. */
   left: 250px;
   border-radius: 3px;
   z-index: 3;
-  opacity: 90%;
+  opacity: 95%;
 }
 
 .ObjectForm #description{

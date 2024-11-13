@@ -2,6 +2,10 @@ import {DataForm} from "./DataForm.js";
 import {DatabaseConnection } from "./DatabaseConnection.js";
 import { Image } from "./image.js";
 
+const battleGrid = document.getElementById('battle-grid');
+
+//start of emily's edit
+//initializing indexdb for object, initializing the object token and image
 const objectDB = new DatabaseConnection("ObjectStore");
 objectDB.openDatabase();
 const dataObjForm = new DataForm(objectDB);
@@ -10,24 +14,25 @@ ObjForm.style.display= "none";
 dataObjForm.clickForm()
 
 const objectGrid = document.getElementById('object-grid');
-const battleGrid = document.getElementById('battle-grid');
 
 const img = new Image(document.getElementById("object_form"))
 const imgInput = document.getElementById("imageInput");
 imgInput.addEventListener("change", (event) => img.PreviewImg(event))
+//end of emily's edit
 
+objectGrid.style.zIndex="1"
 //needs double click to switch between grid
-objectGrid.addEventListener("click", (event) => {
-    if(!event.target.classList.contains("object")){
+const switchButton = document.getElementById("switch_button");
+switchButton.addEventListener("click", function x(){
+    if(objectGrid.style.zIndex==="1"){
         objectGrid.style.zIndex = "0";
         battleGrid.style.zIndex = "1";
+        switchButton.value = "switch grid:Object-Grid"
     }
-})
-
-battleGrid.addEventListener("click", (event) => {
-    if(event.target.classList.contains("object-tile")){
+    else{
         battleGrid.style.zIndex = "0";
         objectGrid.style.zIndex = "1";
+        switchButton.value = "switch grid:Battle-Grid"
     }
 })
 
@@ -120,7 +125,9 @@ function createGrid(width, height) {
         .then(result => {
             result.areaInit.forEach(a => deleteTagtoTile(a, width));
             result.areaAfter.forEach(a => addTagtoTile(a, width));
-            result.id.forEach(i => console.log(i))
+            result.id.forEach(i => {
+                img.updateImageElement(document.getElementById(String(i)))        
+            })
         })
     });
 
@@ -130,7 +137,9 @@ function createGrid(width, height) {
             result.area.forEach(a => 
                 deleteTagtoTile(a, width)
             )
-            result.id.forEach(i => console.log(i))
+            result.id.forEach(i => {
+                img.deleteImageElement(document.getElementById(String(i)))
+            })
         })    
     });
     //end of emily's edit
