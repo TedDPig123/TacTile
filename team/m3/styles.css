@@ -81,3 +81,9 @@ body {
   .grid-tile.castle {
     background-color: brown;
   }
+  /* ADDED THIS FOR DICE ROLLER */
+  #dice-result {
+    margin-top: 20px; /* Add some space between the grid and the dice result. Adjust as needed */
+    font-size: 1.2em; /* Make the dice result text larger. Adjust to liking. */
+    font-weight: bold; /* Make the dice result text bold */
+}

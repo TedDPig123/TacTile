@@ -22,6 +22,17 @@
             <div class="main-content">
                 <div id="battle-grid"></div>
             </div>
+            <!-- BELOW is added for the dice roller -->
+            <h2>Dice Roller</h2>
+            <div>
+                <label for="dice-count">Number of Dice:</label>
+                <input type="number" id="dice-count" name="dice-count" min="1" max="20">
+                <label for="dice-sides">Number of Sides for Dice:</label>
+                <input type="number" id="dice-sides" name="dice-sides" min="1" max="20">
+                <button id="roll-dice">Roll Dice</button>
+            </div>
+            <div id="dice-result"></div>
+            <!-- end of addition for dice roller in main div -->
         </div>
 
         <div id="paintLayer">
@@ -40,6 +51,10 @@
     </div>
     
     <script src="js/grid.js"></script>
+
+    <script src="js/dice.js"></script>   <!--added this for dice roller -->
+
     <script src="js/paint.js"></script>
+
 </body>
 </html>
