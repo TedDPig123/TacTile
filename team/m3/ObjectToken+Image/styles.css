@@ -49,10 +49,6 @@ body {
   position: absolute;
 }
 
-#object-grid {
-  z-index: 1;
-}
-
 .grid-tile {
   width: 100%; /* Make each tile take the full width of its grid cell */
   height: 100%; /* Make each tile take the full height of its grid cell */
@@ -76,6 +72,10 @@ Geri, look over this and change to what you need to do with objects. */
   background-color: brown;
 }
 
+/* objectToken css */
+#object-grid {
+  z-index: 1;
+}
 
 .object {
   background-color: aqua;
@@ -88,16 +88,17 @@ Geri, look over this and change to what you need to do with objects. */
   cursor: pointer;
 }
 
+
 .ObjectForm{
   position: absolute;
   width: 300px;
-  height: 350px;
+  height: 700px;
   padding: 5px;
   background-color: rgb(31, 30, 30);
-  left: 50px;
-  top: 300px;
+  left: 250px;
   border-radius: 3px;
   z-index: 3;
+  opacity: 95%;
 }
 
 .ObjectForm #description{
@@ -143,4 +144,26 @@ Geri, look over this and change to what you need to do with objects. */
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+#preview{
+  object-fit: fill;
+  position: relative;
+  top: 10px;
+  width: 300px;
+  height: 300px;
+  color: white;
+}
+
+#imageInput{
+  color: white;
+}
+
+.imageToken{
+  position: absolute;
+  overflow:hidden;
+  object-fit:fill; 
+  width: 100%;     
+  height: 100%; 
+  pointer-events: none;
 }

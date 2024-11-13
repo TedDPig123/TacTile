@@ -27,7 +27,6 @@ export class DataForm{
         this.objectDB.openDatabase();
         this.#ObjForm.appendChild(this.#idObj);
         this.#ObjForm.style.display= "none";
-        this.#cancelForm();
     }
 
     addWH(width, height){
@@ -68,7 +67,7 @@ export class DataForm{
                         })
                         this.#initR = objData.initR+1;
                         this.#ObjGrid.appendChild(objectDiv);
-                        this.#clearForm();
+                        this.clearForm();
                         this.#ObjForm.style.display= "none";
                     });
                     resolve({id:idArr, area:areaArr});
@@ -78,16 +77,12 @@ export class DataForm{
         })
     }
 
-    #clearForm(){
+    clearForm(){
         this.#nameObj.value = "";
         this.#descripObj.value = "";
         this.#numCopy.value = 1;
         this.#c.value = 1;
         this.#r.value = 1;
-    }
-
-    #cancelForm(){
-        this.#cancelButton.addEventListener("click", this.#clearForm.bind(this))
     }
 
     #reopenForm(event){
@@ -96,6 +91,7 @@ export class DataForm{
         this.#updateButton.style.display= "inline-block";
         this.#cancelButton.style.display= "none";
         this.#createButton.style.display= "none";
+        console.log(event.target.id);
         const getEvent = this.objectDB.getObject(Number(event.target.id)); 
         getEvent
         .then(objData => {
@@ -136,41 +132,39 @@ export class DataForm{
                 console.log("need name");
             }
             else{
-                for(let i = 0; i<this.#numCopy.value;i++){
-                    const objectDiv = document.createElement("div");
-                    objectDiv.classList.add("object");
-                    objectDiv.classList.add("tooltip");
-                    const spanElement = document.createElement("span");
-                    spanElement.classList.add("tooltiptext");
-                    spanElement.textContent = "name: "+this.#nameObj.value+"\ndescription: "+ this.#descripObj.value;
-                    const rowE = Number(this.#r.value);
-                    const colE = Number(this.#c.value);
-                    const objectStore = {
-                        name: this.#nameObj.value, 
-                        description: this.#descripObj.value,
-                        c:Number(this.#c.value),
-                        r:Number(this.#r.value),
-                        initR:this.#initR,
-                        initC:this.#initC
-                    }
-                    objectDiv.style.gridArea = `${this.#initR}/${this.#initC}/${rowE+this.#initR}/${colE+this.#initC}`;
-                    areaArr.push(objectDiv.style.gridArea)
-                    this.#initR+=1;
-                    let addEvent = this.objectDB.addObject(objectStore);
-                    addEvent
-                    .then(resp => {
-                        objectDiv.setAttribute("id", resp); 
-                        idArr.push(resp)
-                        spanElement.setAttribute("id", String(resp)+"s"); 
-                        objectDiv.appendChild(spanElement);
-                        this.#ObjGrid.appendChild(objectDiv);
-                        objectDiv.addEventListener("click", this.#reopenForm.bind(this));
-                    }) 
-                    .catch(error => console.error('Error:', error));
+                const objectDiv = document.createElement("div");
+                objectDiv.classList.add("object");
+                objectDiv.classList.add("tooltip");
+                const spanElement = document.createElement("span");
+                spanElement.classList.add("tooltiptext");
+                spanElement.textContent = "name: "+this.#nameObj.value+"\ndescription: "+ this.#descripObj.value;
+                const rowE = Number(this.#r.value);
+                const colE = Number(this.#c.value);
+                const objectStore = {
+                    name: this.#nameObj.value, 
+                    description: this.#descripObj.value,
+                    c:Number(this.#c.value),
+                    r:Number(this.#r.value),
+                    initR:this.#initR,
+                    initC:this.#initC
                 }
-                this.#clearForm();
-                this.#ObjForm.style.display= "none";
-                resolve({id:idArr, area:areaArr});
+                objectDiv.style.gridArea = `${this.#initR}/${this.#initC}/${rowE+this.#initR}/${colE+this.#initC}`;
+                areaArr.push(objectDiv.style.gridArea)
+                this.#initR+=1;
+                let addEvent = this.objectDB.addObject(objectStore);
+                addEvent
+                .then(resp => {
+                    objectDiv.setAttribute("id", resp); 
+                    idArr.push(resp)
+                    spanElement.setAttribute("id", String(resp)+"s"); 
+                    objectDiv.appendChild(spanElement);
+                    this.#ObjGrid.appendChild(objectDiv);
+                    objectDiv.addEventListener("click", this.#reopenForm.bind(this));
+                    this.clearForm();
+                    this.#ObjForm.style.display= "none";
+                    resolve({id:idArr, area:areaArr});
+                }) 
+                .catch(error => console.error('Error:', error));
             }
         })
     }
@@ -186,7 +180,7 @@ export class DataForm{
             let objD = document.getElementById(result);
             areaArr.push(objD.style.gridArea);
             objD.remove();
-            this.#clearForm();
+            this.clearForm();
             this.#ObjForm.style.display= "none";
             resolve({id:idArr, area:areaArr});
         });
@@ -217,7 +211,7 @@ export class DataForm{
                 objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
                 areaArrAfter.push(objDiv.style.gridArea);
                 spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
-                this.#clearForm();
+                this.clearForm();
                 this.#ObjForm.style.display= "none";
                 resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
             })
