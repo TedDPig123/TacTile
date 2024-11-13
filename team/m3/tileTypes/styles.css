@@ -222,11 +222,17 @@ svg {
 }
 
 #visual-picker-2{
-    padding-top:20px;
     display:flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
-    
+
+#add-tile-2{
+    padding:10px;
+    margin-right: 50px;
+}
+
 #cross-svg-2:hover{
     height:40px;
     width:40px;
