@@ -1,6 +1,8 @@
-import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
+// import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
 
-//initialize default tiles
+// //initialize default tiles
+// const dbTileObject = new DatabaseConnection();
+
 export class tileObject{
     #type;
     #details;
@@ -23,6 +25,8 @@ export class tileObject{
         return this.#imgData;
     }
 }
+
+
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const tilePreview = document.getElementById("tile-preview");
@@ -78,6 +82,18 @@ function hideEdit(){
     tileMenu.style.display = 'none';
     greyOverlay.style.display = 'none';
 }
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const existingOption = document.getElementById("existing-option");
+    const customOption = document.getElementById("custom-option");
+    const editOption = document.getElementById("existing-option");
+
+    if(existingOption){
+        existingOption.addEventListener("onclick", showExisting);
+        customOption.addEventListener("onclick", showCustom);
+        editOption.addEventListener("onclick", showEdit);
+    }
+});
 
 function changeTilePreviewColor(){
     const tilePreviewBox = document.getElementById("tile-preview");
@@ -164,34 +180,32 @@ function getCanvasImageFromCustom() {
 
 // ALL DATABASE STUFF!
 
-const dbTileObject = new DatabaseConnection();
+// async function addNewCustomTile(){
+//     const type = document.getElementById("tile-name").value;
+//     const details = document.getElementById("details").value;
+//     const tileImage = getCanvasImageFromCustom();
 
-async function addNewCustomTile(){
-    const type = document.getElementById("tile-name").value;
-    const details = document.getElementById("details").value;
-    const tileImage = getCanvasImageFromCustom();
+//     const tileObj = new tileObject(type, details, tileImage);
 
-    const tileObj = new tileObject(type, details, tileImage);
+//     try {
+//         const tileID = await dbTileObject.addObject(tileObj);
+//         alert("tile added successfully");
 
-    try {
-        const tileID = await dbTileObject.addObject(tileObj);
-        alert("tile added successfully");
-
-        const newTileOption = document.createElement("a");
-        newTileOption.setAttribute("tile-id", tileID);
-        newTileOption.textContent = type;
+//         const newTileOption = document.createElement("a");
+//         newTileOption.setAttribute("tile-id", tileID);
+//         newTileOption.textContent = type;
         
-        const existingTileDropdown = document.querySelector('.tile-dropdown-content');
-        existingTileDropdown.appendChild(newTileOption);
+//         const existingTileDropdown = document.querySelector('.tile-dropdown-content');
+//         existingTileDropdown.appendChild(newTileOption);
 
-    } catch (error) {
-        console.error("tile not added", error);
-    }
-}
+//     } catch (error) {
+//         console.error("tile not added", error);
+//     }
+// }
 
-window.addEventListener("DOMContentLoaded", (event) => {
-    const addTile = document.getElementById("add-tile-1");
-    if (addTile) {
-        addTile.addEventListener("click", addNewCustomTile);
-    }
-});
+// window.addEventListener("DOMContentLoaded", (event) => {
+//     const addTile = document.getElementById("add-tile-1");
+//     if (addTile) {
+//         addTile.addEventListener("click", addNewCustomTile);
+//     }
+// });

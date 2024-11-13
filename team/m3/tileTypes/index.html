@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script type="module" src="script.js" defer></script>
+
     <title>TileTester</title>
 </head>
 <body>
     <div class="dropdown">
         <button class="dropbtn">CREATE NEW TILE</button>
         <div class="dropdown-content">
-          <a href="#" onclick="showExisting()">CHOOSE EXISTING TILE</a>
-          <a href="#" onclick="showCustom()">CREATE NEW CUSTOM TILE</a>
-          <a href="#" onclick="showEdit()">EDIT EXISTING TILE</a>
+          <a href="#" id="existing-option">CHOOSE EXISTING TILE</a>
+          <a href="#" id="custom-option">CREATE NEW CUSTOM TILE</a>
+          <a href="#" id="edit-option">EDIT EXISTING TILE</a>
         </div>
     </div>
 
@@ -73,7 +74,7 @@
                 <canvas id="tile-preview-2" width="200" height="200"></canvas>
                 <div id="visual-picker-2">
                     <label for="color-picker">COLOR (#XXXXXX)</label>
-                    <input class="text-input" id="existin-tile-color" type="text" style="margin-bottom:15px" readonly>
+                    <input class="text-input" id="tile-name" type="text" style="margin-bottom:15px" readonly>
                     <div id="add-tile-2">ADD NEW TILE</div>
                 </div>
             </div>
