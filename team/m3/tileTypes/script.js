@@ -1,3 +1,29 @@
+import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
+
+//initialize default tiles
+export class tileObject{
+    #type;
+    #details;
+    #imgData;
+    constructor(type, details, imgData){
+        this.#type = type;
+        this.#details = details;
+        this.#imgData = imgData;
+    }
+
+    getType(){
+        return this.#type;
+    }
+
+    getDetails(){
+        return this.#details;
+    }
+
+    getImageData(){
+        return this.#imgData;
+    }
+}
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const tilePreview = document.getElementById("tile-preview");
     if (tilePreview) {
@@ -117,5 +143,55 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 document.getElementById("displayed-tile").textContent = event.target.textContent;
             }
         });
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const dropDown = document.querySelector(".edit-tile-dropdown-content");
+    if (dropDown) {
+        dropDown.addEventListener("click", function(event) {
+            if (event.target.tagName === "A") {
+                document.getElementById("edit-displayed-tile").textContent = event.target.textContent;
+            }
+        });
+    }
+});
+
+function getCanvasImageFromCustom() {
+    const canvas = document.getElementById("tile-preview");
+    return canvas.toDataURL("image/png");
+}
+
+// ALL DATABASE STUFF!
+
+const dbTileObject = new DatabaseConnection();
+
+async function addNewCustomTile(){
+    const type = document.getElementById("tile-name").value;
+    const details = document.getElementById("details").value;
+    const tileImage = getCanvasImageFromCustom();
+
+    const tileObj = new tileObject(type, details, tileImage);
+
+    try {
+        const tileID = await dbTileObject.addObject(tileObj);
+        alert("tile added successfully");
+
+        const newTileOption = document.createElement("a");
+        newTileOption.setAttribute("tile-id", tileID);
+        newTileOption.textContent = type;
+        
+        const existingTileDropdown = document.querySelector('.tile-dropdown-content');
+        existingTileDropdown.appendChild(newTileOption);
+
+    } catch (error) {
+        console.error("tile not added", error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const addTile = document.getElementById("add-tile-1");
+    if (addTile) {
+        addTile.addEventListener("click", addNewCustomTile);
     }
 });

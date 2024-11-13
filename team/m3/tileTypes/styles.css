@@ -419,5 +419,33 @@ svg {
 
 .edit-delete{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.edit-delete div{
+    width:auto; 
+    background-color: grey; 
+    padding:4px; 
+    border: 6px solid black; 
+    text-align:center;
+    transition: 0.3s;
+    cursor: default;
+    margin-top:15px;
+    flex: 1 1 0px;
+}
+
+#edit-tile:hover{
+    background-color: #2a6b2c;
+}
+
+#edit-tile{
+    margin-right:10px;
+}
+
+#delete-tile{
+    margin-left:10px;
+}
+
+#delete-tile:hover{
+    background-color: red;
 }
