@@ -1,7 +1,11 @@
 export class DatabaseConnection{
+    constructor(dbStore){
+        this.dbStore = dbStore;
+    }
 
     //open database
     async openDatabase() {
+        const dbStore = this.dbStore;
         return new Promise((resolve, reject) => {
             if ("ObjectBase" === "") {
                 reject("Database name cannot be empty.");
@@ -10,8 +14,8 @@ export class DatabaseConnection{
             let request = indexedDB.open("ObjectBase", 1);
             request.onupgradeneeded = function (event) {
                 let db = event.target.result;
-                if (!db.objectStoreNames.contains("ObjectStore")) {
-                db.createObjectStore("ObjectStore", { keyPath: "id", autoIncrement:true });
+                if (!db.objectStoreNames.contains(dbStore)) {
+                db.createObjectStore(dbStore, { keyPath: "id", autoIncrement:true });
                 }
             };
             request.onsuccess =  event => {
@@ -25,9 +29,11 @@ export class DatabaseConnection{
 
     //add a task to the database
     async addObject(object) {
+        const dbStore = this.dbStore;
+
         const db = await this.openDatabase();
-        const tx = db.transaction(['ObjectStore'], "readwrite");
-        const store = tx.objectStore("ObjectStore");
+        const tx = db.transaction([dbStore], "readwrite");
+        const store = tx.objectStore(dbStore);
         const x = store.add(object);
         return new Promise((resolve, reject) => {
             x.onsuccess = (event) => {
@@ -41,8 +47,10 @@ export class DatabaseConnection{
 
     //get a task from the database
     async getObject(id) {
+        const dbStore = this.dbStore;
+
         const db = await this.openDatabase();
-        const task = db.transaction(['ObjectStore'], "readwrite").objectStore("ObjectStore").get(id);
+        const task = db.transaction([dbStore], "readwrite").objectStore(dbStore).get(id);
         return new Promise((resolve, reject) => {
             task.onsuccess = () => {
                 resolve(task.result);
@@ -55,8 +63,10 @@ export class DatabaseConnection{
 
     //get all the task from the database
     async getAllObject() {
+        const dbStore = this.dbStore;
+
         const db = await this.openDatabase();
-        const alltask = db.transaction(['ObjectStore'], "readwrite").objectStore("ObjectStore").getAll();
+        const alltask = db.transaction([dbStore], "readwrite").objectStore(dbStore).getAll();
         return new Promise((resolve, reject) => {
             alltask.onsuccess = () => {
                 resolve(alltask.result);
@@ -69,8 +79,10 @@ export class DatabaseConnection{
 
     //delete a task from the database
     async deleteObject(objectID) {
+        const dbStore = this.dbStore;
+
         const db = await this.openDatabase();
-        const del = db.transaction(['ObjectStore'], "readwrite").objectStore("ObjectStore").delete(objectID);
+        const del = db.transaction([dbStore], "readwrite").objectStore(dbStore).delete(objectID);
         return new Promise((resolve, reject) => {
             del.onsuccess = () => {
                 resolve("Task deleted successfully!");
@@ -83,8 +95,10 @@ export class DatabaseConnection{
 
     //update a task from the database
     async updateObject(object){
+        const dbStore = this.dbStore;
+
         const db = await this.openDatabase();
-        const objStore = db.transaction(['ObjectStore'], "readwrite").objectStore("ObjectStore")
+        const objStore = db.transaction([dbStore], "readwrite").objectStore(dbStore)
         return new Promise((resolve, reject) => {
             const updateObj = objStore.put(object);
             updateObj.onsuccess = () => {

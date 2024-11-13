@@ -2,7 +2,7 @@ import {DataForm} from "./DataForm.js";
 import {DatabaseConnection } from "./DatabaseConnection.js";
 import { Image } from "./image.js";
 
-const objectDB = new DatabaseConnection();
+const objectDB = new DatabaseConnection("ObjectStore");
 objectDB.openDatabase();
 const dataObjForm = new DataForm(objectDB);
 const ObjForm = document.getElementById("object_form");
@@ -73,12 +73,18 @@ function createGrid(width, height) {
 
 //start of emily's edit
 //to make sure you can click on the tile and object
+    const img = new Image(document.getElementById("object_form"))
+    const imgInput = document.getElementById("imageInput");
+    imgInput.addEventListener("change", (event) => img.PreviewImg(event))
+
     dataObjForm.render();
     dataObjForm.renderWhenLoad()
     .then(result => {
         result.area.forEach(a => 
             addTagtoTile(a, width)
         )
+        result.id.forEach(i => console.log(i))
+
     })
 
     const createButton = document.getElementById("create");
@@ -86,19 +92,26 @@ function createGrid(width, height) {
     const deleteButton = document.getElementById("delete");
 
     createButton.addEventListener("click", (event) => {
-        dataObjForm.createObject(event)
-        .then(result => {
-            result.area.forEach(a => 
-                addTagtoTile(a, width)
-            )
-        })    
+        const numCopy = document.getElementById("copy").value;
+        console.log(numCopy)
+        for(let i = 0; i<numCopy; i++){
+            dataObjForm.createObject(event)
+            .then(result => {
+                result.area.forEach(a => 
+                    addTagtoTile(a, width)            
+                )
+                result.id.forEach(i => console.log(i))
+            })
+            img.clearImage();
+        }  
     });
 
     updateButton.addEventListener("click", (event) => {
         dataObjForm.updateObject()
         .then(result => {
-            result.areaInit.forEach(a => deleteTagtoTile(a, width))
-            result.areaAfter.forEach(a => addTagtoTile(a, width))
+            result.areaInit.forEach(a => deleteTagtoTile(a, width));
+            result.areaAfter.forEach(a => addTagtoTile(a, width));
+            result.id.forEach(i => console.log(i))
         })
     });
 
@@ -108,6 +121,7 @@ function createGrid(width, height) {
             result.area.forEach(a => 
                 deleteTagtoTile(a, width)
             )
+            result.id.forEach(i => console.log(i))
         })    
     });
 
