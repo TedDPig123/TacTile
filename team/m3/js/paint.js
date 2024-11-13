@@ -65,10 +65,26 @@ function draw(event){
         ctx.stroke(); 
     } if (tools[1] == true) {
         //eraser here
+        ctx.strokeStyle = "#f0f0f0"; 
+        ctx.moveTo(coord.x, coord.y); 
+        getPosition(event); 
+        ctx.lineTo(coord.x , coord.y); 
+        ctx.stroke();
     } if (tools[2] == true) {
         //rectangle here
     } if (tools[3] == true) {
         //circle here
+        //change for tip to be bigger i think
+        ctx.lineWidth = document.getElementById("lineWeight").value + 20;
+        ctx.strokeStyle = document.getElementById("colorPicker").value; 
+        ctx.moveTo(coord.x, coord.y); 
+        getPosition(event); 
+        ctx.lineTo(coord.x , coord.y); 
+        ctx.stroke(); 
     }
   }
+
+  function clear_canvas(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 }
