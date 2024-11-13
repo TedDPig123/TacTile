@@ -84,14 +84,44 @@ function hideEdit(){
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    const existingOption = document.getElementById("existing-option");
-    const customOption = document.getElementById("custom-option");
-    const editOption = document.getElementById("existing-option");
+    const editOption = document.getElementById("edit-option");
+    if(editOption){
+        editOption.addEventListener("click", showEdit);
+    }
+});
 
+window.addEventListener("DOMContentLoaded", (event) => {
+    const customOption = document.getElementById("custom-option");
+    if(customOption){
+        customOption.addEventListener("click", showCustom);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const existingOption = document.getElementById("existing-option");
     if(existingOption){
-        existingOption.addEventListener("onclick", showExisting);
-        customOption.addEventListener("onclick", showCustom);
-        editOption.addEventListener("onclick", showEdit);
+        existingOption.addEventListener("click", showExisting);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const x1 = document.getElementById("cross-svg");
+    if(x1){
+        x1.addEventListener("click", hideCustom);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const x2 = document.getElementById("cross-svg-2");
+    if(x2){
+        x2.addEventListener("click", hideExisting);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const x3 = document.getElementById("edit-cross-svg");
+    if(x3){
+        x3.addEventListener("click", hideEdit);
     }
 });
 
