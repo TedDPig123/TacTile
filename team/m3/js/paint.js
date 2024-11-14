@@ -50,6 +50,16 @@ function penDown(event){
 function penUp(){ 
   drawing = false; 
 } 
+
+let startX = 0, startY = 0; // Initial rectangle start coordinates
+function penDown(event) { 
+    drawing = true; 
+    getPosition(event); // Tracks cursor position when you start drawing
+    if (tools[2] == true) { // Rectangle tool is active
+        startX = coord.x;
+        startY = coord.y;
+    }
+} 
     
 function draw(event){ 
   if (drawing == true) {
@@ -67,6 +77,12 @@ function draw(event){
         //eraser here
     } if (tools[2] == true) {
         //rectangle here
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous rectangle
+        ctx.strokeStyle = document.getElementById("colorPicker").value;
+        getPosition(event);
+        let width = coord.x - startX;
+        let height = coord.y - startY;
+        ctx.strokeRect(startX, startY, width, height);
     } if (tools[3] == true) {
         //circle here
     }
