@@ -1,4 +1,4 @@
-import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
+import { DatabaseConnection } from "/team/m3/js/DatabaseConnection.js";
 
 //initialize default tiles
 const dbTileObject = new DatabaseConnection();
