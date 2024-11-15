@@ -40,13 +40,24 @@ switchButton.addEventListener("click", ()=>{
 document.getElementById('create-grid').addEventListener('click', ()=> {
     const width = parseInt(document.getElementById('grid-width').value);
     const height = parseInt(document.getElementById('grid-height').value);
-    const c = dataObjForm.addWH(width, height);
+    dataObjForm.addWH(width, height);
     dataObjForm.render();
     img.render();
     dataObjForm.renderWhenLoad()
     .then(result => {
-        result.id.forEach(i => console.log(i))
+        result.id.forEach(i => {
+            const moveItem = new MoveItem(objectDB,document.getElementById(String(i)));
+            moveItem.mouseDown();
+            moveItem.mouseMove();
+            moveItem.mouseUP();
+            objectDB.getObject(i)
+            .then(obj => {
+                document.getElementById(String(obj.id)).style.top = obj.top;
+                document.getElementById(String(obj.id)).style.left = obj.left
+            })
+        })
     })
+
 
     const createButton = document.getElementById("create");
     const updateButton = document.getElementById("update");

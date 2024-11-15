@@ -38,13 +38,11 @@ export class DataForm{
     renderWhenLoad(){
         const idArr = [];
         const areaArr = [];
-        let i = 0
         return new Promise((resolve) => {
             const allEvent = this.objectDB.getAllObject();
             allEvent
                 .then(objArr => {
                     objArr.forEach(objData => {
-                        i+=1;
                         const objectDiv = document.createElement("div");
                         objectDiv.classList.add("object");
                         objectDiv.classList.add("hoverBox");

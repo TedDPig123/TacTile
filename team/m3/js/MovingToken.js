@@ -12,6 +12,7 @@ export class MoveItem{
         this.element.addEventListener("mousedown", (event) => {
             setTimeout(()=> {
                 this.element.classList.add("dragging")
+                this.element.style.zIndex = "10"; 
             }, 200)            
             this.#initX = event.clientX-this.element.offsetLeft;
             this.#initY = event.clientY-this.element.offsetTop;
@@ -42,8 +43,9 @@ export class MoveItem{
             })
             .catch(error => console.error('Error:', error));
             setTimeout(()=> {
+                this.element.style.zIndex = "auto"; 
                 this.element.classList.remove("dragging");
-            }, 200);
+            }, 150);
         });
     }
 }
