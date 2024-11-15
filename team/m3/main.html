@@ -17,10 +17,19 @@
                     <label for="grid-height">Grid Height:</label>
                     <input type="number" id="grid-height" name="grid-height" min="1" max="100">
                     <button id="create-grid">Create Grid</button>
+                    <br>
+                    <br>
+                    <input type="button", value="add/update object", id="object_button">
+                    <br>
+                    <br>
+                    <input type="button", value="switch grid:Battle-Grid", id="switch_button">
                 </div>
             </div>
             <div class="main-content">
-                <div id="battle-grid"></div>
+                <div id="grid-container">
+                    <div id="battle-grid"></div>
+                    <div id="object-grid"></div>
+                </div>
             </div>
             <!-- BELOW is added for the dice roller -->
             <h2>Dice Roller</h2>
@@ -33,6 +42,29 @@
             </div>
             <div id="dice-result"></div>
             <!-- end of addition for dice roller in main div -->
+        </div>
+
+        <div class="ObjectForm", id="object_form">
+            <label for="name">Name: </label>
+            <input type="text" id="name" maxlength="20">
+            <br /><br />
+            <label for="description">Description: </label>
+            <br /><br />
+            <textarea id="description" rows="6" cols="33" style="resize: none;" maxlength="100"></textarea>      
+            <br /><br />
+            <label for="copy">Number of Copy: </label>
+            <input type="number" min="1" max="10" id="copy" value="1">
+            <br /><br />
+            <label for="c"> Area: C: </label>
+            <input type="number" min="1" max="8" id="c" value="1">
+            <label for="r">R: </label>
+            <input type="number" min="1" max="8" id="r" value="1">
+            <br /><br />
+            <input type="button" value="create" id="create"/>
+            <input type="button" value="cancel" id="cancel"/>
+            <input type="button" value="update" id="update"/>
+            <input type="button" value="delete" id="delete"/>
+            <idObj></idObj>
         </div>
 
         <div id="paintLayer">
@@ -50,7 +82,7 @@
         
     </div>
     
-    <script src="js/grid.js"></script>
+    <script type="module" src="js/grid.js"></script>
 
     <script src="js/dice.js"></script>   <!--added this for dice roller -->
 

@@ -42,8 +42,6 @@ export class DataForm{
             const allEvent = this.objectDB.getAllObject();
             allEvent
                 .then(objArr => {
-                    this.#initR = 1;
-                    this.#initC = 1;
                     objArr.forEach(objData => {
                         i+=1;
                         const objectDiv = document.createElement("div");
@@ -65,7 +63,6 @@ export class DataForm{
                                 this.#reopenForm(event);
                             }
                         })
-                        this.#initR = objData.initR+1;
                         this.#ObjGrid.appendChild(objectDiv);
                         this.clearForm();
                         this.#ObjForm.style.display= "none";
@@ -145,12 +142,11 @@ export class DataForm{
                     description: this.#descripObj.value,
                     c:Number(this.#c.value),
                     r:Number(this.#r.value),
-                    initR:this.#initR,
-                    initC:this.#initC
+                    initC:this.#initC,
+                    initR:this.#initR
                 }
                 objectDiv.style.gridArea = `${this.#initR}/${this.#initC}/${rowE+this.#initR}/${colE+this.#initC}`;
                 areaArr.push(objectDiv.style.gridArea)
-                this.#initR+=1;
                 let addEvent = this.objectDB.addObject(objectStore);
                 addEvent
                 .then(resp => {
@@ -202,10 +198,11 @@ export class DataForm{
                 areaArrInit.push(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
                 objData.name = this.#nameObj.value;
                 objData.description = this.#descripObj.value;
-                objData.c = this.#c.value;
-                objData.r = this.#r.value;
+                objData.c = Number(this.#c.value);
+                objData.r = Number(this.#r.value);
                 const rowE = Number(objData.r);
                 const colE = Number(objData.c);
+                console.log(rowE, colE)
                 this.#numCopy.value = 1; 
                 this.objectDB.updateObject(objData);
                 objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
