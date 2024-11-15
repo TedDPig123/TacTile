@@ -65,26 +65,23 @@ function draw(event){
         ctx.stroke(); 
     } if (tools[1] == true) {
         //eraser here
-        ctx.strokeStyle = "#f0f0f0"; 
-        ctx.moveTo(coord.x, coord.y); 
-        getPosition(event); 
-        ctx.lineTo(coord.x , coord.y); 
-        ctx.stroke();
+        ctx.clearRect(event.offsetX, event.offsetY, ctx.lineWidth,ctx.lineWidth);
     } if (tools[2] == true) {
         //rectangle here
     } if (tools[3] == true) {
         //circle here
-        //change for tip to be bigger i think
-        ctx.lineWidth = document.getElementById("lineWeight").value + 20;
-        ctx.strokeStyle = document.getElementById("colorPicker").value; 
-        ctx.moveTo(coord.x, coord.y); 
-        getPosition(event); 
-        ctx.lineTo(coord.x , coord.y); 
-        ctx.stroke(); 
+        //make circles when mousedown
+        ctx.arc(coord.x, coord.y, ctx.lineWidth, 0, 2 * Math.PI);
+        ctx.fillStyle = document.getElementById("colorPicker").value;;
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = document.getElementById("colorPicker").value;
+        ctx.stroke();
     }
   }
 
-  function clear_canvas(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+
+}
+function clear_canvas(){
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
