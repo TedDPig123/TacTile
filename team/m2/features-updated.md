@@ -1,4 +1,4 @@
-# Application Features - Updated: October 24th, 2024
+# Application Features - Updated: November 15th, 2024
 ---
 ## Customizable Battle Grid and Tiles
 
@@ -54,6 +54,8 @@ In order to facilitate the discussion of strategies amidst a campaign, users wil
   - Do pencil first
 - Circle **(Feature size: Medium, Assigned to: Beatrice)**
   - Do pencil first
+- Clear All**(Feature size: Small, Assigned to: Beatrice)**
+  - Clear entire canvas
 
 ## Customizable Dice Roller
 
