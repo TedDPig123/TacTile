@@ -93,7 +93,7 @@ const maxZoom = 2;
 const minZoom = 0.5;
 let isDragging = false;
 let startX, startY;
-const battleGrid = document.getElementById('battle-grid');
+//const battleGrid = document.getElementById('battle-grid');
 
 // Zoom In and Zoom Out Functions
 document.getElementById('zoom-in').addEventListener('click', () => {
