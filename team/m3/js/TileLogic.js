@@ -2,8 +2,6 @@ import { DatabaseConnection } from "/team/m3/js/DatabaseConnection.js";
 
 //initialize default tiles
 const dbTileObject = new DatabaseConnection();
-
-window.addEventListener("DOMContentLoaded", clearTileObjectDBOnLoad);
 export class tileObject{
     type;
     details;
@@ -44,13 +42,6 @@ async function addNewCustomTile(){
 
     try {
         const tileID = await dbTileObject.addObject(tileObj);
-        console.log("Tile added with ID:", tileID);
-        alert("tile added successfully");
-
-        const addedTile = await dbTileObject.getObject(tileID);
-        console.log("Tile just added:", addedTile);
-        console.log("image", tileImage);
-        console.log(" type", typeof(addedTile.imgData));
 
         const newTileOption = document.createElement("a");
         newTileOption.setAttribute("tile-id", tileID);
@@ -209,6 +200,16 @@ function hideCustom(){
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
     greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("tile-name");
+    tileOption.innerHTML = "";
+    tileOption.value = "";
+
+    const details = document.getElementById("details");
+    details.value = "";
+
+    const canvas = document.getElementById("tile-preview");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function showExisting(){
@@ -538,6 +539,7 @@ function onMouseMove(event) {
             square.setAttribute('data-tile-name', selectedTile.type);
             square.setAttribute('data-tile-details', selectedTile.details);
         }
+        square.addEventListener('mouseenter', showTileDetails);
     }
 }
 
@@ -577,10 +579,12 @@ export async function initializeBattleGrid(battleGrid) {
         square.addEventListener('mousedown', onMouseDown);
         square.addEventListener('mousemove', onMouseMove);
         square.addEventListener('mouseup', onMouseUp);
+        square.addEventListener('mouseenter', showTileDetails);
     });
 }
 
-async function clearTileObjectDBOnLoad() {
+//should make this an option
+async function clearTileObjectDB() {
     try {
         const message = await dbTileObject.clearDatabase();
         console.log(message);
@@ -588,6 +592,11 @@ async function clearTileObjectDBOnLoad() {
         console.error("Error clearing dbTileObject:", error);
     }
 }
+
+document.getElementById("delete-tile-types").addEventListener('click', (event) => {
+    clearTileObjectDB();
+    alert("deleted all tile types");
+});
 
 async function populateTileDropdown() {
     const tileSelector = document.getElementById("tile-selector");
@@ -614,3 +623,50 @@ document.getElementById("tile-selector").addEventListener('change', (event) => {
     console.log("Selected Tile ID:", selectedTileId);
 });
 
+async function populateTileDropdowns() {
+    try {
+        const tiles = await dbTileObject.getAllObject();
+
+        // Populate the CREATE NEW TILE dropdown
+        const existingTileDropdown = document.querySelector('.tile-dropdown-content');
+        const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');
+
+        // Clear existing options or else it will look uggooo
+        existingTileDropdown.innerHTML = '';
+        editTileDropdown.innerHTML = '';
+
+        // render the CREATE NEW TILE dropdown
+        tiles.forEach(tile => {
+            const option = document.createElement('a');
+            option.href = "#";
+            option.setAttribute("tile-id", tile.id);
+            option.textContent = tile.type;
+            option.addEventListener('click', () => {
+                // Handle creating a new tile
+                document.getElementById('tile-name').value = tile.type;
+                document.getElementById('details').value = tile.details;
+            });
+            existingTileDropdown.appendChild(option);
+        });
+
+        // render the EDIT EXISTING TILE dropdown
+        tiles.forEach(tile => {
+            const option = document.createElement('a');
+            option.href = "#";
+            option.setAttribute("tile-id", tile.id);
+            option.textContent = tile.type;
+            option.addEventListener('click', () => {
+                document.getElementById('edit-details').value = tile.details;
+                document.getElementById('edit-tile-color').value = tile.color || '#FF0000';
+                document.getElementById('edit-img-upload').value = '';
+            });
+            editTileDropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error populating tile dropdowns:", error);
+    }
+}
+
+window.addEventListener('load', () => {
+    populateTileDropdowns();
+});
