@@ -1,4 +1,4 @@
-import { DatabaseConnection } from "../ObjectToken/DatabaseConnection.js";
+import { DatabaseConnection } from "/team/m3/js/DatabaseConnection.js";
 
 //initialize default tiles
 const dbTileObject = new DatabaseConnection();
@@ -16,11 +16,19 @@ export class tileObject{
 
 // ALL DATABASE STUFF!
 
+//This gets the canvas image url from the tile-preview square
 function getCanvasImageFromCustom() {
     const canvas = document.getElementById("tile-preview");
     return canvas.toDataURL("image/png");
 }
 
+function getCanvasImageFromEdit() {
+    const canvas = document.getElementById("edit-tile-preview");
+    return canvas.toDataURL("image/png");
+}
+
+
+//This creates a new custom tile object
 async function addNewCustomTile(){
     const type = document.getElementById("tile-name").value;
     const details = document.getElementById("details").value;
@@ -51,11 +59,59 @@ async function addNewCustomTile(){
         const existingTileDropdown = document.querySelector('.tile-dropdown-content');
         existingTileDropdown.appendChild(newTileOption);
 
+        const clone = newTileOption.cloneNode(true);
+
+        const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');
+        editTileDropdown.appendChild(clone);
+
+        hideCustom();
+
     } catch (error) {
         console.error("tile not added", error);
     }
 }
 
+async function saveEditedTile(){
+    const type = document.getElementById("edit-displayed-tile").textContent;
+    const details = document.getElementById("edit-details").value;
+    const tileImage = getCanvasImageFromEdit();
+
+    let aTags = document.getElementsByTagName("a");
+    let searchText = type;
+    let found;
+
+    for (let i = 0; i < aTags.length; i++) {
+        if (aTags[i].textContent === searchText) {
+            found = aTags[i];
+            break;
+        }
+    }
+
+    try {
+        let tileID = found.getAttribute("tile-id");
+        console.log(tileID);
+        const tileObj = await dbTileObject.getObject(parseInt(tileID));
+        tileObj.details = details;
+        tileObj.imgData = tileImage;
+        console.log("tileID:", tileID, "tileObj:", tileObj);
+        await dbTileObject.updateObject(tileObj);
+        console.log("Fetched tile object:", tileObj);
+        alert("tile edited successfully");
+        hideEdit();
+
+    } catch (error) {
+        console.error("tile not edited", error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const editButton = document.getElementById("edit-tile");
+    if (editButton) {
+        editButton.addEventListener("click", saveEditedTile);
+    }
+});
+
+//
 window.addEventListener("DOMContentLoaded", (event) => {
     const dropDown = document.querySelector(".tile-dropdown-content");
     if (dropDown) {
@@ -69,13 +125,46 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 });
 
+window.addEventListener("DOMContentLoaded", (event) => {
+    const dropDown = document.querySelector(".edit-tile-dropdown-content");
+    if (dropDown) {
+        dropDown.addEventListener("click", function(event) {
+            if (event.target.tagName === "A") {
+                console.log(" thing done");
+                const targetID = parseInt(event.target.getAttribute("tile-id"));
+                displayTileDetailsForEditing(targetID);
+            }
+        });
+    }
+});
+
 async function displayTileDetailsForExisting(tileID) {
     const tileObject = await dbTileObject.getObject(tileID);
-    document.getElementById("details-2").textContent = tileObject.details;
+    document.getElementById("details-2").value = tileObject.details;
     console.log("imgData is", tileObject.imgData);
     const newImage = new Image();
     const canvas = document.getElementById("tile-preview-2");
     const ctx = document.getElementById("tile-preview-2").getContext("2d");
+
+    newImage.onload = function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(newImage, 0, 0);
+    }
+
+    newImage.onerror = function() {
+        console.error("Failed to load image:", newImage.src);
+    }
+
+    newImage.src = tileObject.imgData;
+}
+
+async function displayTileDetailsForEditing(tileID) {
+    const tileObject = await dbTileObject.getObject(tileID);
+    document.getElementById("edit-details").value = tileObject.details;
+    console.log("imgData is", tileObject.imgData);
+    const newImage = new Image();
+    const canvas = document.getElementById("edit-tile-preview");
+    const ctx = document.getElementById("edit-tile-preview").getContext("2d");
 
     newImage.onload = function(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -133,6 +222,15 @@ function hideExisting(){
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
     greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("displayed-tile");
+    tileOption.innerHTML = "CHOOSE TILE";
+
+    const editDetails = document.getElementById("details-2");
+    editDetails.value = "";
+
+    const canvas = document.getElementById("tile-preview-2");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function showEdit(){
@@ -149,6 +247,15 @@ function hideEdit(){
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
     greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("edit-displayed-tile");
+    tileOption.innerHTML = "CHOOSE TILE";
+
+    const editDetails = document.getElementById("edit-details");
+    editDetails.value = "";
+
+    const canvas = document.getElementById("edit-tile-preview");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -226,12 +333,65 @@ function changeTilePreviewColor(){
     }
 }
 
+function changeTilePreviewColorEdit(){
+    const tilePreviewBox = document.getElementById("edit-tile-preview");
+    const colorVal = document.getElementById("edit-tile-color").value;
+    let ctx = tilePreviewBox.getContext("2d");
+
+    if(colorVal.match(/#([0-9]|[A-F]|[a-f]){6}/)){
+        document.getElementById("edit-tile-color").style.backgroundColor = "white"; 
+        console.log('updated color')
+        ctx.clearRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+        ctx.fillStyle = hexToRgba(colorVal);
+        ctx.fillRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+    }else{
+        document.getElementById("edit-tile-color").style.backgroundColor = "red"; 
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const tilePreview = document.getElementById("edit-tile-color");
+    if(tilePreview){
+        tilePreview.addEventListener("keyup", changeTilePreviewColorEdit);
+    }
+});
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const upload = document.getElementById('img-upload');
     if (upload) {
         upload.addEventListener('change', function (event) {
             const file = event.target.files[0];
             const canvas = document.getElementById('tile-preview');
+            const ctx = canvas.getContext('2d');
+            
+            if (file) {
+                console.log('success');
+                const img = new Image();
+                img.onload = function () {
+                    const newWidth = 200;
+                    const newHeight = 200;
+                    
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+                    ctx.putImageData(imageData, 0, 0);
+                };
+                img.src = URL.createObjectURL(file);
+            }
+        });
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const upload = document.getElementById('edit-img-upload');
+    if (upload) {
+        upload.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const canvas = document.getElementById('edit-tile-preview');
             const ctx = canvas.getContext('2d');
             
             if (file) {
