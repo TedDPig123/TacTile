@@ -220,6 +220,15 @@ function hideExisting(){
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
     greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("displayed-tile");
+    tileOption.innerHTML = "CHOOSE TILE";
+
+    const editDetails = document.getElementById("details-2");
+    editDetails.value = "";
+
+    const canvas = document.getElementById("tile-preview-2");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function showEdit(){
@@ -236,6 +245,15 @@ function hideEdit(){
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
     greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("edit-displayed-tile");
+    tileOption.innerHTML = "CHOOSE TILE";
+
+    const editDetails = document.getElementById("edit-details");
+    editDetails.value = "";
+
+    const canvas = document.getElementById("edit-tile-preview");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
