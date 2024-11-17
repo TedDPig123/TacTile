@@ -47,9 +47,6 @@ async function addNewCustomTile(){
         newTileOption.setAttribute("tile-id", tileID);
         newTileOption.setAttribute("href", "#");
         newTileOption.textContent = type;
-        
-        const existingTileDropdown = document.querySelector('.tile-dropdown-content');
-        existingTileDropdown.appendChild(newTileOption);
 
         const clone = newTileOption.cloneNode(true);
 
@@ -97,6 +94,52 @@ async function saveEditedTile(){
         console.error("tile not edited", error);
     }
 }
+
+async function deleteEditedTile(){
+    const type = document.getElementById("edit-displayed-tile").textContent;
+    const details = document.getElementById("edit-details").value;
+    const tileImage = getCanvasImageFromEdit();
+
+    let aTags = document.getElementsByTagName("a");
+    let searchText = type;
+    let found;
+
+    for (let i = 0; i < aTags.length; i++) {
+        if (aTags[i].textContent === searchText) {
+            found = aTags[i];
+            break;
+        }
+    }
+
+    try {
+        let tileID = found.getAttribute("tile-id");
+        await dbTileObject.deleteObject(tileID);
+
+        const dropdown = document.querySelector('.edit-tile-dropdown-content');
+        const tileToRemove = dropdown.querySelector(`[tile-id='${tileID}']`);
+        if (tileToRemove) {
+            dropdown.removeChild(tileToRemove);
+        }
+
+        const tileSelector = document.getElementById('tile-selector');
+        const tileOptionToRemove = tileSelector.querySelector(`[value='${tileID}']`);
+        if (tileOptionToRemove) {
+            tileSelector.removeChild(tileOptionToRemove);
+        }
+        hideEdit();
+        alert("Tile deleted successfully");
+
+    } catch (error) {
+        console.error("tile not edited", error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const deleteTile = document.getElementById("delete-tile");
+    if (deleteTile) {
+        deleteTile.addEventListener("click", deleteEditedTile);
+    }
+});
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const editButton = document.getElementById("edit-tile");
@@ -212,31 +255,6 @@ function hideCustom(){
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function showExisting(){
-    console.log("toggle works!")
-    const tileMenu = document.querySelector('.existing');
-    const greyOverlay = document.getElementById('screen-overlay');
-    greyOverlay.style.display = 'flex';
-    tileMenu.style.display = 'flex';
-}
-
-function hideExisting(){
-    console.log("toggle works!")
-    const tileMenu = document.querySelector('.existing');
-    const greyOverlay = document.getElementById('screen-overlay');
-    tileMenu.style.display = 'none';
-    greyOverlay.style.display = 'none';
-
-    const tileOption = document.getElementById("displayed-tile");
-    tileOption.innerHTML = "CHOOSE TILE";
-
-    const editDetails = document.getElementById("details-2");
-    editDetails.value = "";
-
-    const canvas = document.getElementById("tile-preview-2");
-    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-}
-
 function showEdit(){
     console.log("toggle works!")
     const tileMenu = document.querySelector('.edit');
@@ -273,13 +291,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const customOption = document.getElementById("custom-option");
     if(customOption){
         customOption.addEventListener("click", showCustom);
-    }
-});
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    const existingOption = document.getElementById("existing-option");
-    if(existingOption){
-        existingOption.addEventListener("click", showExisting);
     }
 });
 
@@ -597,6 +608,8 @@ document.getElementById("delete-tile-types").addEventListener('click', (event) =
     clearTileObjectDB();
     populateTileDropdowns();
     populateTileDropdown1();
+    document.getElementById("tile-selector").innerHTML = '<option value="delete">Delete Tile</option>';
+
     alert("deleted all tile types");
 });
 
@@ -630,26 +643,10 @@ async function populateTileDropdowns() {
         const tiles = await dbTileObject.getAllObject();
 
         // Populate the CREATE NEW TILE dropdown
-        const existingTileDropdown = document.querySelector('.tile-dropdown-content');
         const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');
 
         // Clear existing options or else it will look uggooo
-        existingTileDropdown.innerHTML = '';
         editTileDropdown.innerHTML = '';
-
-        // render the CREATE NEW TILE dropdown
-        tiles.forEach(tile => {
-            const option = document.createElement('a');
-            option.href = "#";
-            option.setAttribute("tile-id", tile.id);
-            option.textContent = tile.type;
-            option.addEventListener('click', () => {
-                // Handle creating a new tile
-                document.getElementById('tile-name').value = tile.type;
-                document.getElementById('details').value = tile.details;
-            });
-            existingTileDropdown.appendChild(option);
-        });
 
         // render the EDIT EXISTING TILE dropdown
         tiles.forEach(tile => {
