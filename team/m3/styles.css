@@ -697,3 +697,53 @@ svg {
   pointer-events: none;
   z-index: 500;
 }
+
+/* The code below is for the menu UI */
+.sidenavUI {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.83);
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.8s;
+    padding-top: 5%;
+  }
+  
+  .sidenavUI a {
+    font-family: Georgia, serif;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    overflow-x: hidden;
+    font-size: 45px;
+    color: white;
+    display: block;
+    transition: 0.5s;
+  }
+  
+  .sidenavUI a:hover {
+    color: red;
+  }
+  
+  .sidenavUI .closebtnUI {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    font-size: 40px;
+    margin-left: 50px;
+    transition: 1s;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  
+  .menuOpen {
+     font-size: 70px;
+     border-style: solid black 5px;
+     cursor: help;
+  }
+
