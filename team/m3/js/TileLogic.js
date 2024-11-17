@@ -471,29 +471,42 @@ async function initializeAvailableTiles() {
 
 let isMouseDown = false; 
 let selectedTile = null; 
+let deleteMode = false;
 
 async function handleSquareClick(square) {
     const currID = document.getElementById("tile-selector").value;
+    
     if (!currID) {
         console.error("No tile selected in the tile selector.");
         return;
     }
 
     try {
-        const tile = await dbTileObject.getObject(parseInt(currID)); 
-        if (!tile) {
-            console.error("Tile not found for ID:", currID);
-            return;
+        deleteMode = currID === "delete";
+
+        if (deleteMode) {
+            square.style.backgroundImage = "";
+            square.style.backgroundSize = "";
+            square.style.backgroundPosition = "";
+            square.removeAttribute('data-tile-name');
+            square.removeAttribute('data-tile-details');
+        } else {
+            const tile = await dbTileObject.getObject(parseInt(currID)); 
+            if (!tile) {
+                console.error("Tile not found for ID:", currID);
+                return;
+            }
+
+            selectedTile = tile;
+
+            square.style.backgroundImage = `url(${tile.imgData})`;
+            square.style.backgroundSize = "cover";
+            square.style.backgroundPosition = "center";
+
+            square.setAttribute('data-tile-name', tile.type);
+            square.setAttribute('data-tile-details', tile.details);
         }
-        
-        selectedTile = tile;
 
-        square.style.backgroundImage = `url(${tile.imgData})`;
-        square.style.backgroundSize = "cover";
-        square.style.backgroundPosition = "center";
-
-        square.setAttribute('data-tile-name', tile.type);
-        square.setAttribute('data-tile-details', tile.details);
         square.addEventListener('mouseenter', showTileDetails);
     } catch (error) {
         console.error("Error loading tile:", error);
@@ -509,15 +522,22 @@ function onMouseDown(event) {
 }
 
 function onMouseMove(event) {
-    if (!isMouseDown || !selectedTile) return;
-
+    if (!isMouseDown || !selectedTile && !deleteMode) return;
     const square = event.target;
     if (square.classList.contains('grid-tile')) {
-        square.style.backgroundImage = `url(${selectedTile.imgData})`;
-        square.style.backgroundSize = "cover";
-        square.style.backgroundPosition = "center";
-        square.setAttribute('data-tile-name', selectedTile.type);
-        square.setAttribute('data-tile-details', selectedTile.details);
+        if (deleteMode) {
+            square.style.backgroundImage = "";
+            square.style.backgroundSize = "";
+            square.style.backgroundPosition = "";
+            square.removeAttribute('data-tile-name');
+            square.removeAttribute('data-tile-details');
+        } else {
+            square.style.backgroundImage = `url(${selectedTile.imgData})`;
+            square.style.backgroundSize = "cover";
+            square.style.backgroundPosition = "center";
+            square.setAttribute('data-tile-name', selectedTile.type);
+            square.setAttribute('data-tile-details', selectedTile.details);
+        }
     }
 }
 
