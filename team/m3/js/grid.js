@@ -42,7 +42,7 @@ function createGrid(width, height) {
             battleGrid.appendChild(tile);
         }
     }
-}
+
 
 //start of rudy edit
 // JavaScript for Zooming and Dragging the Grid
@@ -73,20 +73,23 @@ document.getElementById('zoom-out').addEventListener('click', () => {
 
 // Function to Update Grid Transform
 function updateGridTransform() {
-    activeGrid.style.transform = `scale(${scale})`;
+    battleGrid.style.transform = `scale(${scale})`;
+    objectGrid.style.transform = `scale(${scale})`;
 }
 
 // Dragging Functionality
 function enableDragging(grid) {
     grid.addEventListener('mousedown', (e) => {
+        if(!e.target.classList.contains("object")){
         isDragging = true;
         startX = e.clientX - grid.offsetLeft;
         startY = e.clientY - grid.offsetTop;
         grid.style.cursor = 'grabbing';
+        }
     });
 
     document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
+        if (isDragging && !e.target.classList.contains("object")) {
             const x = e.clientX - startX;
             const y = e.clientY - startY;
             grid.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
@@ -104,13 +107,4 @@ enableDragging(battleGrid);
 enableDragging(objectGrid);
 
 // Switch between grids
-switchButton.addEventListener('click', () => {
-    if (objectGrid.style.zIndex === "1") {
-        activeGrid = battleGrid;
-    } else {
-        activeGrid = objectGrid;
-    }
-    updateGridTransform();
-});
-
-//end of rudy edit
+}
