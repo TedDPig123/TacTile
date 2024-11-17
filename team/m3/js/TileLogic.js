@@ -437,3 +437,22 @@ window.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 });
+
+
+// This is for background image
+document.getElementById('background-image-upload').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // Set the background image using CSS
+            const gridContainer = document.getElementById('grid-container');
+            gridContainer.style.setProperty('--background-image', `url(${e.target.result})`);
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        alert("No file selected or invalid file.");
+    }
+});

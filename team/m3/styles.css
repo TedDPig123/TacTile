@@ -59,6 +59,22 @@ body {
     height: 90%;
     justify-content: center;
   }
+
+  #grid-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0; /* making pseudo layer */
+  }
+
+  #grid-container::before {
+    background-image: var(--background-image);
+  }
   
   #battle-grid, #object-grid  {
     top: 0;
@@ -612,7 +628,7 @@ svg {
   width:250px;
 }
 
-#edit-img-upload{
+#edit-img-upload, #background-image-upload{
   font-size: 11px;
   background-color: white;
   width:250px;
