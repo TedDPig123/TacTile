@@ -3,6 +3,7 @@ import { DatabaseConnection } from "/team/m3/js/DatabaseConnection.js";
 //initialize default tiles
 const dbTileObject = new DatabaseConnection();
 
+window.addEventListener("DOMContentLoaded", clearTileObjectDBOnLoad);
 export class tileObject{
     type;
     details;
@@ -66,6 +67,7 @@ async function addNewCustomTile(){
 
         hideCustom();
         initializeAvailableTiles();
+        populateTileDropdown();
 
     } catch (error) {
         console.error("tile not added", error);
@@ -459,7 +461,6 @@ document.getElementById('background-image-upload').addEventListener('change', fu
 });
 
 let availableTiles = [];
-let currentTileIndexes = new Map();
 
 async function initializeAvailableTiles() {
     availableTiles = await dbTileObject.getAllObject();
@@ -468,27 +469,60 @@ async function initializeAvailableTiles() {
     }
 }
 
-function handleSquareClick(square) {
-    let currentIndex = currentTileIndexes.get(square) || 0;
+let isMouseDown = false; 
+let selectedTile = null; 
 
-    if (availableTiles.length === 0) {
-        alert("No tiles available!! Please add some tiles first!!!");
+async function handleSquareClick(square) {
+    const currID = document.getElementById("tile-selector").value;
+    if (!currID) {
+        console.error("No tile selected in the tile selector.");
         return;
     }
 
-    const tile = availableTiles[currentIndex];
+    try {
+        const tile = await dbTileObject.getObject(parseInt(currID)); 
+        if (!tile) {
+            console.error("Tile not found for ID:", currID);
+            return;
+        }
+        
+        selectedTile = tile;
 
-    square.style.backgroundImage = `url(${tile.imgData})`;
-    square.style.backgroundSize = "cover";
-    square.style.backgroundPosition = "center";
+        square.style.backgroundImage = `url(${tile.imgData})`;
+        square.style.backgroundSize = "cover";
+        square.style.backgroundPosition = "center";
 
-    square.setAttribute('data-tile-name', tile.type);
-    square.setAttribute('data-tile-details', tile.details);
+        square.setAttribute('data-tile-name', tile.type);
+        square.setAttribute('data-tile-details', tile.details);
+        square.addEventListener('mouseenter', showTileDetails);
+    } catch (error) {
+        console.error("Error loading tile:", error);
+    }
+}
 
-    square.addEventListener('mouseenter', showTileDetails);
+function onMouseDown(event) {
+    const square = event.target;
+    if (square.classList.contains('grid-tile')) {
+        isMouseDown = true;
+        handleSquareClick(square);
+    }
+}
 
-    currentIndex = (currentIndex + 1) % availableTiles.length; //so we go back to the start
-    currentTileIndexes.set(square, currentIndex);
+function onMouseMove(event) {
+    if (!isMouseDown || !selectedTile) return;
+
+    const square = event.target;
+    if (square.classList.contains('grid-tile')) {
+        square.style.backgroundImage = `url(${selectedTile.imgData})`;
+        square.style.backgroundSize = "cover";
+        square.style.backgroundPosition = "center";
+        square.setAttribute('data-tile-name', selectedTile.type);
+        square.setAttribute('data-tile-details', selectedTile.details);
+    }
+}
+
+function onMouseUp() {
+    isMouseDown = false;
 }
 
 function showTileDetails(event) {
@@ -520,6 +554,43 @@ export async function initializeBattleGrid(battleGrid) {
 
     const squares = battleGrid.querySelectorAll('.grid-tile');
     squares.forEach(square => {
-        square.addEventListener('click', () => handleSquareClick(square));
+        square.addEventListener('mousedown', onMouseDown);
+        square.addEventListener('mousemove', onMouseMove);
+        square.addEventListener('mouseup', onMouseUp);
     });
 }
+
+async function clearTileObjectDBOnLoad() {
+    try {
+        const message = await dbTileObject.clearDatabase();
+        console.log(message);
+    } catch (error) {
+        console.error("Error clearing dbTileObject:", error);
+    }
+}
+
+async function populateTileDropdown() {
+    const tileSelector = document.getElementById("tile-selector");
+    try {
+        const tiles = await dbTileObject.getAllObject();
+        tiles.forEach(tile => {
+            const option = document.createElement('option');
+            option.value = tile.id; 
+            option.textContent = tile.type;
+            tileSelector.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error populating tile dropdown:", error);
+    }
+}
+
+// Call the populateTileDropdown function on page load
+window.addEventListener('load', () => {
+    populateTileDropdown();
+});
+
+document.getElementById("tile-selector").addEventListener('change', (event) => {
+    const selectedTileId = event.target.value;
+    console.log("Selected Tile ID:", selectedTileId);
+});
+
