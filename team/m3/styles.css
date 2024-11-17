@@ -116,6 +116,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: absolute;
   }
   
   
@@ -148,13 +149,15 @@ body {
     display: none;
   }
   
-  .tooltip {
+  .hoverBox {
     position: relative; 
     display: inline-block; 
     cursor: pointer; 
+    z-index: 4;
+
   }
   
-  .tooltip .tooltiptext {
+  .hoverBox .hovertext {
     visibility: hidden;
     position: absolute;
     padding: 5px;
@@ -172,9 +175,10 @@ body {
     transform: translateX(-50%);
   }
   
-  .tooltip:hover .tooltiptext {
+  .hoverBox:hover .hovertext {
     visibility: visible;
   }
+  
   
   #preview{
     object-fit: fill;

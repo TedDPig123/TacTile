@@ -2,7 +2,7 @@ import { DatabaseConnection } from "./DatabaseConnection.js";
 
 export class DataForm{
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
-    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC;
+    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC
 
     constructor(objectDB){
         this.objectDB = objectDB;
@@ -21,6 +21,7 @@ export class DataForm{
         this.#initC = 1;
         this.#initR = 1;
         this.#idObj = document.createElement('idObj');
+
     }
 
     render(){
@@ -37,18 +38,16 @@ export class DataForm{
     renderWhenLoad(){
         const idArr = [];
         const areaArr = [];
-        let i = 0
         return new Promise((resolve) => {
             const allEvent = this.objectDB.getAllObject();
             allEvent
                 .then(objArr => {
                     objArr.forEach(objData => {
-                        i+=1;
                         const objectDiv = document.createElement("div");
                         objectDiv.classList.add("object");
-                        objectDiv.classList.add("tooltip");
+                        objectDiv.classList.add("hoverBox");
                         const spanElement = document.createElement("span");
-                        spanElement.classList.add("tooltiptext");
+                        spanElement.classList.add("hovertext");
                         spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
                         objectDiv.setAttribute("id", objData.id); 
                         idArr.push(objData.id);
@@ -83,23 +82,25 @@ export class DataForm{
     }
 
     #reopenForm(event){
-        this.#ObjForm.style.display= "block";
-        this.#deleteButton.style.display= "inline-block";
-        this.#updateButton.style.display= "inline-block";
-        this.#cancelButton.style.display= "none";
-        this.#createButton.style.display= "none";
-        console.log(event.target.id);
-        const getEvent = this.objectDB.getObject(Number(event.target.id)); 
-        getEvent
-        .then(objData => {
-            this.#nameObj.value = objData.name;
-            this.#descripObj.value = objData.description;
-            this.#c.value = objData.c;
-            this.#r.value = objData.r;
-            this.#numCopy.value = 1;
-            this.#idObj.setAttribute("id", String(objData.id)+"temp"); 
-        }) 
-        .catch(error => console.error('Error:', error))
+        if(!event.target.classList.contains("dragging")){
+            this.#ObjForm.style.display= "block";
+            this.#deleteButton.style.display= "inline-block";
+            this.#updateButton.style.display= "inline-block";
+            this.#cancelButton.style.display= "none";
+            this.#createButton.style.display= "none";
+            console.log(event.target.id);
+            const getEvent = this.objectDB.getObject(Number(event.target.id)); 
+            getEvent
+            .then(objData => {
+                this.#nameObj.value = objData.name;
+                this.#descripObj.value = objData.description;
+                this.#c.value = objData.c;
+                this.#r.value = objData.r;
+                this.#numCopy.value = 1;
+                this.#idObj.setAttribute("id", String(objData.id)+"temp"); 
+            }) 
+            .catch(error => console.error('Error:', error))
+        }
     }
 
     clickForm(){
@@ -131,9 +132,9 @@ export class DataForm{
             else{
                 const objectDiv = document.createElement("div");
                 objectDiv.classList.add("object");
-                objectDiv.classList.add("tooltip");
+                objectDiv.classList.add("hoverBox");
                 const spanElement = document.createElement("span");
-                spanElement.classList.add("tooltiptext");
+                spanElement.classList.add("hovertext");
                 spanElement.textContent = "name: "+this.#nameObj.value+"\ndescription: "+ this.#descripObj.value;
                 const rowE = Number(this.#r.value);
                 const colE = Number(this.#c.value);
