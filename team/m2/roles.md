@@ -20,10 +20,14 @@
 ## Beatrice Calvelo - Communication Lead
 - **Role**: Facilitates communication within the team. Beatrice is responsible for ensuring that all members stay informed and engaged by communicating through the team’s WhatsApp group.
 - **Top 3 Commits**:
-  1. [Commit 1](https://github.com/repo/commit1): Helped coordinate logistics for first in-person meeting.
-  2. [Commit 2](https://github.com/repo/commit2): Coordinated communication between team members during the second milestone and relayed critical information about deadlines.
-  3. [Commit 3](https://github.com/repo/commit3): Sent reminders for upcoming tasks and meetings.
-
+- M2
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/blob/main/team/notes/Oct%2017.md): Helped coordinate logistics for first in-person meeting.
+  2. [Commit 2](https://github.com/TedDPig123/326_Project/blob/main/team/notes/Oct%2017.md): Coordinated communication between team members during the second milestone and relayed critical information about deadlines.
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/blob/main/team/notes/Oct%2017.md): Sent reminders for upcoming tasks and meetings.
+- M3
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/37/commits/95a0f63052aaad0903314e2185c34bd105b575b9): Drafted and finalized dice modifier feature.
+  2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/38/commits/e3c4cf40e6813ba960fa759e96c5a189db44192b): Drafted and completed the eraser and clear all functions.
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/38/commits/e3c4cf40e6813ba960fa759e96c5a189db44192b): Drafted and completed circle function.
 ## Rudy Ganesh - Quality Control 
 **Role**: Reviews the team submission to make sure they have met the required standard before deadline. Proofreads every file before the final submission. 
 - **Top 3 Commits**:
