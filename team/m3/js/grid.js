@@ -1,51 +1,4 @@
-import { DataForm } from "./ObjectForm.js";
-import { DatabaseConnection } from "../js/DatabaseConnection.js";
-import { ImageForToken } from "../js/ImageImport.js";
 import { initializeBattleGrid } from "../js/TileLogic.js"; //geri imported function here
-
-const battleGrid = document.getElementById('battle-grid');
-// start of emily's edit
-// initializing indexdb for object and image, initializing the object token and image import class
-const objectDB = new DatabaseConnection("ObjectStore");
-objectDB.openDatabase();
-const imageDB = new DatabaseConnection("ImageStore");
-
-const ObjForm = document.getElementById("object_form");
-ObjForm.style.display = "none";
-
-const dataObjForm = new DataForm(objectDB);
-dataObjForm.clickForm()
-
-const img = new ImageForToken(document.getElementById("object_form"), imageDB)
-const imgInput = document.getElementById("imageInput");
-imgInput.addEventListener("change", (event) => img.PreviewImg(event))
-
-const objectGrid = document.getElementById('object-grid');
-objectGrid.style.zIndex = "5"
-
-// Switch between battle and object grid
-//5 on top, 3 down
-const switchButton = document.getElementById("switch_button");
-let battleGridTop = false;
-
-document.addEventListener("DOMContentLoaded", () => {
-    switchButton.addEventListener("click", function() {
-        if (battleGridTop === false) {
-            objectGrid.style.zIndex = "3";
-            battleGrid.style.zIndex = "5";
-            switchButton.value = "Switch to Object Grid";
-            battleGridTop = true;
-        } else {
-            battleGrid.style.zIndex = "3";
-            objectGrid.style.zIndex = "5";
-            switchButton.value = "Switch to Battle Grid";
-            battleGridTop = false;
-        }
-    });
-});
-
-// end of emily's edit
-
 // Variables for zoom and drag
 let scale = 1;
 const zoomStep = 0.1;
@@ -53,6 +6,8 @@ const maxZoom = 2;
 const minZoom = 0.5;
 let isDragging = false;
 let startX, startY;
+const objectGrid = document.getElementById('object-grid');
+const battleGrid = document.getElementById('battle-grid');
 
 // Function to update grid transform (zoom)
 function updateGridTransform() {
@@ -173,15 +128,6 @@ function createGrid(width, height) {
     // adds event listener for all tiles on the battle grid
     initializeBattleGrid(battleGrid);
     // end of geri's edit
-
-    // start of emily's edit
-    // add the event listener for add/update object form, including delete, cancel, create and update
-    dataObjForm.render();
-    img.render();
-    dataObjForm.renderWhenLoad()
-        .then(result => {
-            result.id.forEach(i => console.log(i))
-        })
 }
 
 // Add zoom in/out event listeners
