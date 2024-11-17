@@ -42,9 +42,9 @@ function createGrid(width, height) {
             battleGrid.appendChild(tile);
         }
     }
+}
 
-
-        //start of rudy edit
+//start of rudy edit
 // JavaScript for Zooming and Dragging the Grid
 let scale = 1;
 const zoomStep = 0.1;

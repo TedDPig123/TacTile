@@ -1,6 +1,8 @@
-export class Image{
+export class ImageForToken{
     #inputElement
     #inputImg
+    
+    //creates the input element for choosing file and the element for the image preview
     constructor(divElement, imageDB){
         this.#inputImg = document.createElement("img");
         this.#inputImg.id = "preview";
@@ -15,6 +17,7 @@ export class Image{
         this.imageDB.openDatabase();
     }
 
+    //takes all image saved in indexDb and adds them to their corresponding token
     render(){
         this.imageDB.getAllObject()
         .then(objArr => {
@@ -32,6 +35,7 @@ export class Image{
         .catch(error => console.error('Error:', error))
     }
 
+    //shows what the image looks like when user choses the image file
     PreviewImg(event){
         let image  = this.#inputImg;
         if (event.target.files&&event.target.files[0]) {
@@ -46,12 +50,14 @@ export class Image{
         }
     }
 
+    //clear the image input and preview
     clearImage(){
         let image = this.#inputImg;
         image.removeAttribute("src");
         this.#inputElement.value="";
     }
 
+    //adds the image element to the parentDiv(token created)
     createImageElement(parentDiv){
         let image = this.#inputImg;
         if(image.src){
@@ -65,10 +71,12 @@ export class Image{
         this.#inputElement.value = ""
     }
 
+    //delete the img element for the specific token, takes in the div of the token
     deleteImageElement(parentDiv){
         this.imageDB.deleteObject(String(parentDiv)+"img");
     }
 
+    //show the image of the token when you click on it to update or delete, takes in the id of the token
     renderImage(id){
         if(document.getElementById(String(id)).querySelector('img')){
             let image  = this.#inputImg;
@@ -80,6 +88,7 @@ export class Image{
         }
     }
 
+    //updates the image of the token when you click the update button, takes in the div of the token
     updateImageElement(parentDiv){
         const image  = this.#inputImg;
         if(image.src){

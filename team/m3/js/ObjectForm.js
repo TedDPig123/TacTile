@@ -1,6 +1,7 @@
 import { DatabaseConnection } from "./DatabaseConnection.js";
 
 export class DataForm{
+    //adds all needed element from main.html as private attribute
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
     #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC
 
@@ -24,17 +25,20 @@ export class DataForm{
 
     }
 
+    //the is the method that sets up the base object form
     render(){
         this.objectDB.openDatabase();
         this.#ObjForm.appendChild(this.#idObj);
         this.#ObjForm.style.display= "none";
     }
 
+    //records the number of columns and rows you can add at most
     addWH(width, height){
         this.#c.max = width;
         this.#r.max = height;
     }
 
+    //this is called at the start right after create grid to load all object saved in indexdb onto the grid
     renderWhenLoad(){
         const idArr = [];
         const areaArr = [];
@@ -73,6 +77,7 @@ export class DataForm{
         })
     }
 
+    //this returns the object form back to its initial state with no input
     clearForm(){
         this.#nameObj.value = "";
         this.#descripObj.value = "";
@@ -81,6 +86,7 @@ export class DataForm{
         this.#r.value = 1;
     }
 
+    //this method is added to all object token so that whn you click on the object token it will open the object form with the corresponding information for update or delete.
     #reopenForm(event){
         if(!event.target.classList.contains("dragging")){
             this.#ObjForm.style.display= "block";
@@ -101,6 +107,7 @@ export class DataForm{
         }
     }
 
+    //this the to hide the update and delete button when you click to open the object form
     clickForm(){
         function clickFormInit(){
             if(this.#ObjForm.style.display==="none"){
@@ -120,7 +127,8 @@ export class DataForm{
         this.#addObj.addEventListener("click",clickFormInit.bind(this));
     }
 
-    createObject(objData){
+    //this will create the object toke and place it on the first row and column.
+    createObject(){
         const idArr = [];
         const areaArr = [];
         return new Promise((resolve) => {
@@ -164,6 +172,7 @@ export class DataForm{
         })
     }
 
+    //this will delete the object token from the map and indexdb
     deleteObject(){
         const idArr = [];
         const areaArr = [];
@@ -181,6 +190,7 @@ export class DataForm{
         });
     }
 
+    //this will update the object token from the map and indexdb
     updateObject(){
         const idArr = [];
         const areaArrInit = [];
@@ -219,3 +229,5 @@ export class DataForm{
         })   
     }
 }
+
+//all function that returns will return a promise with the id of div element that were created or called on the function and their grid area, this is for adding drag and drop and for combining with imageImport feature in ObjectTokenFinal.js 
