@@ -16,11 +16,19 @@ export class tileObject{
 
 // ALL DATABASE STUFF!
 
+//This gets the canvas image url from the tile-preview square
 function getCanvasImageFromCustom() {
     const canvas = document.getElementById("tile-preview");
     return canvas.toDataURL("image/png");
 }
 
+function getCanvasImageFromEdit() {
+    const canvas = document.getElementById("edit-tile-preview");
+    return canvas.toDataURL("image/png");
+}
+
+
+//This creates a new custom tile object
 async function addNewCustomTile(){
     const type = document.getElementById("tile-name").value;
     const details = document.getElementById("details").value;
@@ -51,11 +59,57 @@ async function addNewCustomTile(){
         const existingTileDropdown = document.querySelector('.tile-dropdown-content');
         existingTileDropdown.appendChild(newTileOption);
 
+        const clone = newTileOption.cloneNode(true);
+
+        const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');
+        editTileDropdown.appendChild(clone);
+
+        hideCustom();
+
     } catch (error) {
         console.error("tile not added", error);
     }
 }
 
+async function saveEditedTile(){
+    const type = document.getElementById("edit-displayed-tile").textContent;
+    const details = document.getElementById("edit-details").value;
+    const tileImage = getCanvasImageFromEdit();
+
+    let aTags = document.getElementsByTagName("a");
+    let searchText = type;
+    let found;
+
+    for (let i = 0; i < aTags.length; i++) {
+        if (aTags[i].textContent === searchText) {
+            found = aTags[i];
+            break;
+        }
+    }
+
+    try {
+        let tileID = found.getAttribute("tile-id");
+        console.log(tileID);
+        const tileObj = await dbTileObject.getObject(parseInt(tileID));
+        console.log("Fetched tile object:", tileObj);
+        tileObj.details = details;
+        tileObj.imgData = tileImage;
+        alert("tile edited successfully");
+        hideEdit();
+
+    } catch (error) {
+        console.error("tile not edited", error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const editButton = document.getElementById("edit-tile");
+    if (editButton) {
+        editButton.addEventListener("click", saveEditedTile);
+    }
+});
+
+//
 window.addEventListener("DOMContentLoaded", (event) => {
     const dropDown = document.querySelector(".tile-dropdown-content");
     if (dropDown) {
@@ -69,6 +123,19 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 });
 
+window.addEventListener("DOMContentLoaded", (event) => {
+    const dropDown = document.querySelector(".edit-tile-dropdown-content");
+    if (dropDown) {
+        dropDown.addEventListener("click", function(event) {
+            if (event.target.tagName === "A") {
+                console.log(" thing done");
+                const targetID = parseInt(event.target.getAttribute("tile-id"));
+                displayTileDetailsForEditing(targetID);
+            }
+        });
+    }
+});
+
 async function displayTileDetailsForExisting(tileID) {
     const tileObject = await dbTileObject.getObject(tileID);
     document.getElementById("details-2").textContent = tileObject.details;
@@ -76,6 +143,26 @@ async function displayTileDetailsForExisting(tileID) {
     const newImage = new Image();
     const canvas = document.getElementById("tile-preview-2");
     const ctx = document.getElementById("tile-preview-2").getContext("2d");
+
+    newImage.onload = function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(newImage, 0, 0);
+    }
+
+    newImage.onerror = function() {
+        console.error("Failed to load image:", newImage.src);
+    }
+
+    newImage.src = tileObject.imgData;
+}
+
+async function displayTileDetailsForEditing(tileID) {
+    const tileObject = await dbTileObject.getObject(tileID);
+    document.getElementById("edit-details").textContent = tileObject.details;
+    console.log("imgData is", tileObject.imgData);
+    const newImage = new Image();
+    const canvas = document.getElementById("edit-tile-preview");
+    const ctx = document.getElementById("edit-tile-preview").getContext("2d");
 
     newImage.onload = function(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
