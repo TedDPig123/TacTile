@@ -58,7 +58,7 @@ async function addNewCustomTile(){
 
         hideCustom();
         initializeAvailableTiles();
-        populateTileDropdown();
+        populateTileDropdown1();
 
     } catch (error) {
         console.error("tile not added", error);
@@ -595,10 +595,12 @@ async function clearTileObjectDB() {
 
 document.getElementById("delete-tile-types").addEventListener('click', (event) => {
     clearTileObjectDB();
+    populateTileDropdowns();
+    populateTileDropdown1();
     alert("deleted all tile types");
 });
 
-async function populateTileDropdown() {
+async function populateTileDropdown1() {
     const tileSelector = document.getElementById("tile-selector");
     try {
         const tiles = await dbTileObject.getAllObject();
@@ -615,7 +617,7 @@ async function populateTileDropdown() {
 
 // Call the populateTileDropdown function on page load
 window.addEventListener('load', () => {
-    populateTileDropdown();
+    populateTileDropdown1();
 });
 
 document.getElementById("tile-selector").addEventListener('change', (event) => {
