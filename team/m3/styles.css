@@ -67,6 +67,7 @@ body {
     gap: 1px;
     margin-top: 20px;
     justify-content: center;
+    z-index: 1;
     /* Controls the size of the grid itself being displayed */
     width: 100%; 
     height: 100%;
