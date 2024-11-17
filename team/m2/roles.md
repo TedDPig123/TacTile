@@ -13,6 +13,9 @@
    1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/4/commits/5d7a3030085a9f91b188604620fe1c4a6ce9168d): made the initial draft for data.md, outlined the data input and type.
    2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/10/commits/4856df89f742cdbe6f1453ef519ae9ffa1527966): made the final version of data.md. Added more input and reorganized it, also added data source and data relation.
    3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/12/commits/ab142c0fc9a6a2e9bf227d5c2d63c4c6dcc36264): Organized the project repository and made sure all required document are in the right folder, removed unnecessary files to ensure the repository looks clean.
+   4. [Commit 4](https://github.com/TedDPig123/326_Project/pull/27/commits/37ea653e4a865d1b0d3579395ee9a137b7f3e522): added all feature for Object Token(including update, delete, create and cancel) Also added indexDB.
+   5. [Commit 5](https://github.com/TedDPig123/326_Project/pull/35/commits/02fcf3185c94359864a9f9603f8fd413bb97045e): dded all feature for image(including update, delete, create and cancel) Also added indexDB for image.
+   6. [Commit 6](https://github.com/TedDPig123/326_Project/pull/43/commits/f14f514ac9e91b52c733c847b8a0a5de2632fcb5): added the Drag and Drop feature for moving tokens using mousedown, move and up
 
 ## Beatrice Calvelo - Communication Lead
 - **Role**: Facilitates communication within the team. Beatrice is responsible for ensuring that all members stay informed and engaged by communicating through the team’s WhatsApp group.
