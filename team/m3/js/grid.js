@@ -42,4 +42,75 @@ function createGrid(width, height) {
             battleGrid.appendChild(tile);
         }
     }
+
+
+        //start of rudy edit
+// JavaScript for Zooming and Dragging the Grid
+let scale = 1;
+const zoomStep = 0.1;
+const maxZoom = 2;
+const minZoom = 0.5;
+let isDragging = false;
+let startX, startY;
+
+// Current active grid (defaults to battleGrid)
+let activeGrid = battleGrid;
+
+// Zoom In and Zoom Out Functions
+document.getElementById('zoom-in').addEventListener('click', () => {
+    if (scale < maxZoom) {
+        scale += zoomStep;
+        updateGridTransform();
+    }
+});
+
+document.getElementById('zoom-out').addEventListener('click', () => {
+    if (scale > minZoom) {
+        scale -= zoomStep;
+        updateGridTransform();
+    }
+});
+
+// Function to Update Grid Transform
+function updateGridTransform() {
+    activeGrid.style.transform = `scale(${scale})`;
 }
+
+// Dragging Functionality
+function enableDragging(grid) {
+    grid.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX - grid.offsetLeft;
+        startY = e.clientY - grid.offsetTop;
+        grid.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            const x = e.clientX - startX;
+            const y = e.clientY - startY;
+            grid.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        grid.style.cursor = 'grab';
+    });
+}
+
+// Enable dragging for both grids
+enableDragging(battleGrid);
+enableDragging(objectGrid);
+
+// Switch between grids
+switchButton.addEventListener('click', () => {
+    if (objectGrid.style.zIndex === "1") {
+        activeGrid = battleGrid;
+    } else {
+        activeGrid = objectGrid;
+    }
+    updateGridTransform();
+});
+
+//end of rudy edit
