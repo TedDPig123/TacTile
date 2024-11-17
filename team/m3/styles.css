@@ -111,12 +111,6 @@ body {
 
   #object-grid {
     z-index: 1;
-    min-width: 800px;
-    min-height: 600px;
-    transform-origin: top left;
-    cursor: grab;
-    transition: transform 0.1s ease;
-    pointer-events: auto;
   }
   
   .object {
