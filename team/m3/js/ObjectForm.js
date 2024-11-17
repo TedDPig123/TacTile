@@ -87,7 +87,6 @@ export class DataForm{
             this.#deleteButton.style.display= "inline-block";
             this.#updateButton.style.display= "inline-block";
             this.#createButton.style.display= "none";
-            console.log(event.target.id);
             const getEvent = this.objectDB.getObject(Number(event.target.id)); 
             getEvent
             .then(objData => {
@@ -206,7 +205,6 @@ export class DataForm{
                     objData.r = Number(this.#r.value);
                     const rowE = Number(objData.r);
                     const colE = Number(objData.c);
-                    console.log(rowE, colE)
                     this.#numCopy.value = 1; 
                     this.objectDB.updateObject(objData);
                     objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
