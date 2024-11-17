@@ -91,9 +91,10 @@ async function saveEditedTile(){
         let tileID = found.getAttribute("tile-id");
         console.log(tileID);
         const tileObj = await dbTileObject.getObject(parseInt(tileID));
-        console.log("Fetched tile object:", tileObj);
         tileObj.details = details;
         tileObj.imgData = tileImage;
+        await dbTileObject.updateObject(tileID, tileObj);
+        console.log("Fetched tile object:", tileObj);
         alert("tile edited successfully");
         hideEdit();
 
@@ -138,7 +139,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 async function displayTileDetailsForExisting(tileID) {
     const tileObject = await dbTileObject.getObject(tileID);
-    document.getElementById("details-2").textContent = tileObject.details;
+    document.getElementById("details-2").value = tileObject.details;
     console.log("imgData is", tileObject.imgData);
     const newImage = new Image();
     const canvas = document.getElementById("tile-preview-2");
@@ -158,7 +159,7 @@ async function displayTileDetailsForExisting(tileID) {
 
 async function displayTileDetailsForEditing(tileID) {
     const tileObject = await dbTileObject.getObject(tileID);
-    document.getElementById("edit-details").textContent = tileObject.details;
+    document.getElementById("edit-details").value = tileObject.details;
     console.log("imgData is", tileObject.imgData);
     const newImage = new Image();
     const canvas = document.getElementById("edit-tile-preview");
@@ -330,6 +331,29 @@ function changeTilePreviewColor(){
         document.getElementById("tile-color").style.backgroundColor = "red"; 
     }
 }
+
+function changeTilePreviewColorEdit(){
+    const tilePreviewBox = document.getElementById("edit-tile-preview");
+    const colorVal = document.getElementById("edit-tile-color").value;
+    let ctx = tilePreviewBox.getContext("2d");
+
+    if(colorVal.match(/#([0-9]|[A-F]|[a-f]){6}/)){
+        document.getElementById("edit-tile-color").style.backgroundColor = "white"; 
+        console.log('updated color')
+        ctx.clearRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+        ctx.fillStyle = hexToRgba(colorVal);
+        ctx.fillRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+    }else{
+        document.getElementById("edit-tile-color").style.backgroundColor = "red"; 
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const tilePreview = document.getElementById("edit-tile-color");
+    if(tilePreview){
+        tilePreview.addEventListener("keyup", changeTilePreviewColorEdit);
+    }
+});
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const upload = document.getElementById('img-upload');
