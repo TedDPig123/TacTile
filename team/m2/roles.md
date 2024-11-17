@@ -50,7 +50,7 @@
   2. [Commit 2](https://github.com/TedDPig123/326_Project/commit/35febe54f8fd72ee437a673ee82ee51936aa9020): Revised/completed note from october 17th meeting
   3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/032521dcabb59cf04322c4314cbd73e699b01eca): Started the pseudo code for the features to be implemented 
 - **Top 3 Commits From M3**:
--   1. [Commit 1](https://github.com/TedDPig123/326_Project/commit/99b10426808f465122b76efe7c1a983fce2844a2): Created the javascript file for the main UI used for the project. This file is meant to control the side navigation bar on the website, allowing the user to determine what actions they want to take (either editing the grid, rolling dice, etc)
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/commit/99b10426808f465122b76efe7c1a983fce2844a2): Created the javascript file for the main UI used for the project. This file is meant to control the side navigation bar on the website, allowing the user to determine what actions they want to take (either editing the grid, rolling dice, etc)
   2. [Commit 2](https://github.com/TedDPig123/326_Project/commit/bd4c8a4b84d81e04d122bc2d67ae9525d1356316): Updated the styles.css to include the code that is responsible for the visual features of the side navigation bar (for the UI). 
   3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/34238ffc582e119b187f535f59bd23c6f7d74a5f): Updated the main.html webpage to contain information regarding the side navigation bar. 
 
