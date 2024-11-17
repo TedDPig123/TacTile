@@ -1,4 +1,4 @@
-import {DataForm} from "../js/DataForm.js";
+import {DataForm} from "./ObjectForm.js";
 import {DatabaseConnection } from "../js/DatabaseConnection.js";
 import {Image} from "../js/image.js";
 import {initializeBattleGrid} from "../js/TileLogic.js"; //geri imported function here

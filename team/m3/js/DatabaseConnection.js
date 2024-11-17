@@ -125,6 +125,8 @@ export class DatabaseConnection{
             clearRequest.onerror = () => {
                 reject("Failed to clear the database.");
             };
+        });
+    }
     //this delete the indexdb database, need to refresh to show
     async deleteDatabse(){
         const dbStore = this.dbStore;
