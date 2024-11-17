@@ -86,7 +86,6 @@ export class DataForm{
             this.#ObjForm.style.display= "block";
             this.#deleteButton.style.display= "inline-block";
             this.#updateButton.style.display= "inline-block";
-            this.#cancelButton.style.display= "none";
             this.#createButton.style.display= "none";
             console.log(event.target.id);
             const getEvent = this.objectDB.getObject(Number(event.target.id)); 
@@ -127,7 +126,7 @@ export class DataForm{
         const areaArr = [];
         return new Promise((resolve) => {
             if(this.#nameObj.value===""){
-                console.log("need name");
+                alert("need name");
             }
             else{
                 const objectDiv = document.createElement("div");
@@ -188,32 +187,37 @@ export class DataForm{
         const areaArrInit = [];
         const areaArrAfter = [];
         return new Promise((resolve)=> {
-            const startIndex = this.#idObj.id.indexOf("temp");
-            const result = this.#idObj.id.substring(0, startIndex);
-            const objDiv = document.getElementById(result);
-            idArr.push(result)
-            const spanElement = document.getElementById(result+"s");
-            const getEvent = this.objectDB.getObject(Number(result)); 
-            getEvent
-            .then(objData => {
-                areaArrInit.push(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
-                objData.name = this.#nameObj.value;
-                objData.description = this.#descripObj.value;
-                objData.c = Number(this.#c.value);
-                objData.r = Number(this.#r.value);
-                const rowE = Number(objData.r);
-                const colE = Number(objData.c);
-                console.log(rowE, colE)
-                this.#numCopy.value = 1; 
-                this.objectDB.updateObject(objData);
-                objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
-                areaArrAfter.push(objDiv.style.gridArea);
-                spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
-                this.clearForm();
-                this.#ObjForm.style.display= "none";
-                resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
-            })
-            .catch(error => console.error('Error:', error));
-        })
+            if(this.#nameObj.value===""){
+                alert("need name");
+            }
+            else{
+                const startIndex = this.#idObj.id.indexOf("temp");
+                const result = this.#idObj.id.substring(0, startIndex);
+                const objDiv = document.getElementById(result);
+                idArr.push(result)
+                const spanElement = document.getElementById(result+"s");
+                const getEvent = this.objectDB.getObject(Number(result)); 
+                getEvent
+                .then(objData => {
+                    areaArrInit.push(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
+                    objData.name = this.#nameObj.value;
+                    objData.description = this.#descripObj.value;
+                    objData.c = Number(this.#c.value);
+                    objData.r = Number(this.#r.value);
+                    const rowE = Number(objData.r);
+                    const colE = Number(objData.c);
+                    console.log(rowE, colE)
+                    this.#numCopy.value = 1; 
+                    this.objectDB.updateObject(objData);
+                    objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
+                    areaArrAfter.push(objDiv.style.gridArea);
+                    spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
+                    this.clearForm();
+                    this.#ObjForm.style.display= "none";
+                    resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        })   
     }
 }
