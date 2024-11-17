@@ -386,6 +386,36 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
+    const upload = document.getElementById('edit-img-upload');
+    if (upload) {
+        upload.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const canvas = document.getElementById('edit-tile-preview');
+            const ctx = canvas.getContext('2d');
+            
+            if (file) {
+                console.log('success');
+                const img = new Image();
+                img.onload = function () {
+                    const newWidth = 200;
+                    const newHeight = 200;
+                    
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+                    ctx.putImageData(imageData, 0, 0);
+                };
+                img.src = URL.createObjectURL(file);
+            }
+        });
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
     const dropDown = document.querySelector(".tile-dropdown-content");
     if (dropDown) {
         dropDown.addEventListener("click", function(event) {
