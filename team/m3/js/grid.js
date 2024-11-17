@@ -1,3 +1,44 @@
+import {DataForm} from "./ObjectForm.js";
+import {DatabaseConnection } from "../js/DatabaseConnection.js";
+import {ImageForToken} from "../js/ImageImport.js";
+import {initializeBattleGrid} from "../js/TileLogic.js"; //geri imported function here
+
+const battleGrid = document.getElementById('battle-grid');
+//start of emily's edit
+//initializing indexdb for object and image, initializing the object token and image import class
+const objectDB = new DatabaseConnection("ObjectStore");
+objectDB.openDatabase();
+const imageDB = new DatabaseConnection("ImageStore");
+
+const ObjForm = document.getElementById("object_form");
+ObjForm.style.display= "none";
+
+const dataObjForm = new DataForm(objectDB);
+dataObjForm.clickForm()
+
+const img = new ImageForToken(document.getElementById("object_form"), imageDB)
+const imgInput = document.getElementById("imageInput");
+imgInput.addEventListener("change", (event) => img.PreviewImg(event))
+
+const objectGrid = document.getElementById('object-grid');
+objectGrid.style.zIndex="1"
+
+//Switch between battle and object grid
+const switchButton = document.getElementById("switch_button");
+switchButton.addEventListener("click", function x(){
+    if(objectGrid.style.zIndex==="1"){
+        objectGrid.style.zIndex = "0";
+        battleGrid.style.zIndex = "1";
+        switchButton.value = "switch grid:Object-Grid"
+    }
+    else{
+        battleGrid.style.zIndex = "0";
+        objectGrid.style.zIndex = "1";
+        switchButton.value = "switch grid:Battle-Grid"
+    }
+})
+//end of emily's edit
+
 document.getElementById('create-grid').addEventListener('click', function() {
     const width = parseInt(document.getElementById('grid-width').value);
     const height = parseInt(document.getElementById('grid-height').value);
@@ -22,29 +63,42 @@ function createGrid(width, height) {
         for (let x = 0; x < width; x++) {
             const tile = document.createElement('div');
             tile.classList.add('grid-tile');
-            tile.addEventListener('click', (event) => {
-                // Toggle terrain type on click
-                //emily's edit: this if statement is so that you can't change tiles that are where the object occupy
-                if(!event.target.classList.contains("object-tile")){
-                    if (tile.classList.contains('grass')) {
-                        tile.classList.remove('grass');
-                        tile.classList.add('stone');
-                    } else if (tile.classList.contains('stone')) {
-                        tile.classList.remove('stone');
-                        tile.classList.add('castle');
-                    } else if (tile.classList.contains('castle')) {
-                        tile.classList.remove('castle');
-                    } else {
-                        tile.classList.add('grass');
-                    }
-                }
-            });
+            // tile.addEventListener('click', (event) => {
+            //     // Toggle terrain type on click
+            //     //emily's edit: this if statement is so that you can't change tiles that are where the object occupy
+            //     if(!event.target.classList.contains("object-tile")){
+            //         if (tile.classList.contains('grass')) {
+            //             tile.classList.remove('grass');
+            //             tile.classList.add('stone');
+            //         } else if (tile.classList.contains('stone')) {
+            //             tile.classList.remove('stone');
+            //             tile.classList.add('castle');
+            //         } else if (tile.classList.contains('castle')) {
+            //             tile.classList.remove('castle');
+            //         } else {
+            //             tile.classList.add('grass');
+            //         }
+            //     }
+            // });
             battleGrid.appendChild(tile);
         }
     }
 
+    //start of geri's edi
+    //adds event listener for all tiles on the battle grid
+    initializeBattleGrid(battleGrid);
+    //end of geri's edit
 
-        //start of rudy edit
+    //start of emily's edit
+    //add the event listener for add/update object form, including delete, cancel, create and update
+    dataObjForm.render();
+    img.render();
+    dataObjForm.renderWhenLoad()
+    .then(result => {
+        result.id.forEach(i => console.log(i))
+    })
+
+//start of rudy edit
 // JavaScript for Zooming and Dragging the Grid
 let scale = 1;
 const zoomStep = 0.1;
@@ -73,20 +127,23 @@ document.getElementById('zoom-out').addEventListener('click', () => {
 
 // Function to Update Grid Transform
 function updateGridTransform() {
-    activeGrid.style.transform = `scale(${scale})`;
+    battleGrid.style.transform = `scale(${scale})`;
+    objectGrid.style.transform = `scale(${scale})`;
 }
 
 // Dragging Functionality
 function enableDragging(grid) {
     grid.addEventListener('mousedown', (e) => {
+        if(!e.target.classList.contains("object")){
         isDragging = true;
         startX = e.clientX - grid.offsetLeft;
         startY = e.clientY - grid.offsetTop;
         grid.style.cursor = 'grabbing';
+        }
     });
 
     document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
+        if (isDragging && !e.target.classList.contains("object")) {
             const x = e.clientX - startX;
             const y = e.clientY - startY;
             grid.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
@@ -104,13 +161,4 @@ enableDragging(battleGrid);
 enableDragging(objectGrid);
 
 // Switch between grids
-switchButton.addEventListener('click', () => {
-    if (objectGrid.style.zIndex === "1") {
-        activeGrid = battleGrid;
-    } else {
-        activeGrid = objectGrid;
-    }
-    updateGridTransform();
-});
-
-//end of rudy edit
+}
