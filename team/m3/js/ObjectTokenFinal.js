@@ -1,10 +1,11 @@
 import {DataForm} from "./ObjectForm.js";
 import {DatabaseConnection } from "../js/DatabaseConnection.js";
-import {Image} from "./ImageImport.js";
+import {ImageForToken} from "./ImageImport.js";
 import { MoveItem } from "./MovingToken.js";
 
 const battleGrid = document.getElementById('battle-grid');
 
+//open the indexdb for map and object token
 const objectDB = new DatabaseConnection("ObjectStore");
 objectDB.openDatabase();
 const imageDB = new DatabaseConnection("ImageStore");
@@ -12,10 +13,11 @@ const imageDB = new DatabaseConnection("ImageStore");
 const ObjForm = document.getElementById("object_form");
 ObjForm.style.display= "none";
 
+//create new ImageForToken class and DataForm class 
 const dataObjForm = new DataForm(objectDB);
 dataObjForm.clickForm()
 
-const img = new Image(document.getElementById("object_form"), imageDB)
+const img = new ImageForToken(document.getElementById("object_form"), imageDB)
 const imgInput = document.getElementById("imageInput");
 imgInput.addEventListener("change", (event) => img.PreviewImg(event))
 
@@ -40,6 +42,8 @@ switchButton.addEventListener("click", ()=>{
 document.getElementById('create-grid').addEventListener('click', ()=> {
     const width = parseInt(document.getElementById('grid-width').value);
     const height = parseInt(document.getElementById('grid-height').value);
+
+    //happens at the very start after you click create grid, basic setup is done for ImageForToken for object form
     dataObjForm.addWH(width, height);
     dataObjForm.render();
     img.render();
@@ -55,6 +59,11 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
                 document.getElementById(String(obj.id)).style.top = obj.top;
                 document.getElementById(String(obj.id)).style.left = obj.left
             })
+            document.getElementById(String(i)).addEventListener("click", (event) => {
+                if(!event.target.classList.contains("dragging")){
+                    img.renderImage(i)
+                }
+            })
         })
     })
 
@@ -63,6 +72,10 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
     const updateButton = document.getElementById("update");
     const deleteButton = document.getElementById("delete");
     const cancelButton = document.getElementById("cancel");
+    const deleteAllButton = document.getElementById("deleteAll");
+
+
+    //below are event listener for all the object form button, they combine ImageForToken, DataForm and MoveItem to create the full object creating form
 
     cancelButton.addEventListener("click", () => {
         dataObjForm.clearForm();
@@ -80,6 +93,11 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
                     moveItem.mouseDown();
                     moveItem.mouseMove();
                     moveItem.mouseUP();
+                    document.getElementById(String(i)).addEventListener("click", (event) => {
+                        if(!event.target.classList.contains("dragging")){
+                            img.renderImage(i)
+                        }
+                    })
                 })
             })
         }
@@ -102,4 +120,10 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
             })
         })    
     });
+
+    deleteAllButton.addEventListener("click", () => {
+        objectDB.deleteDatabse();
+        imageDB.deleteDatabse();
+        alert("please refresh the page"); 
+    })
 })

@@ -8,6 +8,7 @@ export class MoveItem{
         this.indexDb = indexDb
     }
 
+    //adds class dragging after 200ml so it doesn't trigger the click eventlistener
     mouseDown(){
         this.element.addEventListener("mousedown", (event) => {
             setTimeout(()=> {
@@ -19,6 +20,7 @@ export class MoveItem{
         })
     }
 
+    //tracks the mouse movement and updates the object
     mouseMove(){
         this.element.addEventListener("mousemove", (event) => {
             if (this.element.classList.contains("dragging")) {
@@ -31,6 +33,7 @@ export class MoveItem{
         });
     }
 
+    //removes class dragging after 150ml so it doesn't trigger the click eventlistener, save the final coordinate in the corresponding div element
     mouseUP(){
         this.element.addEventListener("mouseup", () => {
             this.top = this.element.style.top;
