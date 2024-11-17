@@ -19,10 +19,23 @@
                     <button id="create-grid">Create Grid</button>
                     <br>
                     <br>
+                    <label for="background-image-upload">Insert Background Image</label>
+                    <input type="file" id="background-image-upload" accept="image/*">
+                    <br>
+                    <br>
                     <input type="button", value="add/update object", id="object_button">
                     <br>
                     <br>
                     <input type="button", value="switch grid:Battle-Grid", id="switch_button">
+                    <br>
+                    <br>
+                    <label for="tile-selector">Select a Tile:</label>
+                    <select id="tile-selector">
+                        <option value="delete">Delete Tile</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button id="delete-tile-types">Delete All Tile Types</button>
                 </div>
                 <div class="zoom-controls">
                     <button id="zoom-in">+</button>
@@ -95,7 +108,6 @@
         <div class="dropdown">
             <button class="dropbtn">CREATE NEW TILE</button>
             <div class="dropdown-content">
-              <a href="#" id="existing-option">CHOOSE EXISTING TILE</a>
               <a href="#" id="custom-option">CREATE NEW CUSTOM TILE</a>
               <a href="#" id="edit-option">EDIT EXISTING TILE</a>
             </div>
@@ -128,35 +140,6 @@
                 </div>
             </div>
             <div id="add-tile-1">ADD NEW TILE</div>
-        </div>
-    
-    
-        <!-- CREATE FROM EXISTING TILE -->
-        <div class="existing">
-            <div class="existing-1 container-1">
-                <span style="font-size: 30px;">CHOOSE EXISTING TILE</span>
-                <svg id="cross-svg-2" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-            </div>
-            <div class="existing-1 container-2">
-                <div class="tile-dropdown">
-                    <button class="tile-dropbtn" id="displayed-tile">CHOOSE TILE</button>
-                    <div class="tile-dropdown-content">
-                    </div>
-                </div>
-            </div>
-            <div class="existing-1 container-3">
-                <div id="details-1">DETAILS</div>
-                <textarea readonly class="text-input" id="details-2"></textarea>
-            </div>
-            <div class="existing-1 container-4">
-                <div>TILE PREVIEW</div>
-                <div id="visual-container-2">
-                    <canvas id="tile-preview-2" width="200" height="200"></canvas>
-                    <div id="visual-picker-2">
-                        <div id="add-tile-2">ADD NEW TILE</div>
-                    </div>
-                </div>
-            </div>
         </div>
     
         <!-- EDIT EXISTING TILE -->
