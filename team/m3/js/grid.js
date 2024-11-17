@@ -39,7 +39,6 @@ switchButton.addEventListener("click", function x(){
 })
 //end of emily's edit
 
-
 document.getElementById('create-grid').addEventListener('click', function() {
     const width = parseInt(document.getElementById('grid-width').value);
     const height = parseInt(document.getElementById('grid-height').value);
@@ -58,7 +57,6 @@ function createGrid(width, height) {
     objectGrid.innerHTML = ''; // Clear any existing grid
     objectGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
     objectGrid.style.gridTemplateRows = `repeat(${height}, 1fr)`;
-    const c = dataObjForm.addWH(width, height);
     //end of emily's edit
 
     for (let y = 0; y < height; y++) {
@@ -100,44 +98,67 @@ function createGrid(width, height) {
         result.id.forEach(i => console.log(i))
     })
 
-    const createButton = document.getElementById("create");
-    const updateButton = document.getElementById("update");
-    const deleteButton = document.getElementById("delete");
-    const cancelButton = document.getElementById("cancel");
+//start of rudy edit
+// JavaScript for Zooming and Dragging the Grid
+let scale = 1;
+const zoomStep = 0.1;
+const maxZoom = 2;
+const minZoom = 0.5;
+let isDragging = false;
+let startX, startY;
 
-    cancelButton.addEventListener("click", () => {
-        dataObjForm.clearForm();
-        img.clearImage();
-    })
+// Current active grid (defaults to battleGrid)
+let activeGrid = battleGrid;
 
-    createButton.addEventListener("click", (event) => {
-        const numCopy = document.getElementById("copy").value;
-        for(let i = 0; i<numCopy; i++){
-            dataObjForm.createObject(event)
-            .then(result => {
-                result.id.forEach(i => {
-                    img.createImageElement(document.getElementById(String(i)));
-                })
-            })
-        } 
+// Zoom In and Zoom Out Functions
+document.getElementById('zoom-in').addEventListener('click', () => {
+    if (scale < maxZoom) {
+        scale += zoomStep;
+        updateGridTransform();
+    }
+});
+
+document.getElementById('zoom-out').addEventListener('click', () => {
+    if (scale > minZoom) {
+        scale -= zoomStep;
+        updateGridTransform();
+    }
+});
+
+// Function to Update Grid Transform
+function updateGridTransform() {
+    battleGrid.style.transform = `scale(${scale})`;
+    objectGrid.style.transform = `scale(${scale})`;
+}
+
+// Dragging Functionality
+function enableDragging(grid) {
+    grid.addEventListener('mousedown', (e) => {
+        if(!e.target.classList.contains("object")){
+        isDragging = true;
+        startX = e.clientX - grid.offsetLeft;
+        startY = e.clientY - grid.offsetTop;
+        grid.style.cursor = 'grabbing';
+        }
     });
 
-    updateButton.addEventListener("click", (event) => {
-        dataObjForm.updateObject()
-        .then(result => {
-            result.id.forEach(i => {
-                img.updateImageElement(document.getElementById(String(i)))        
-            })
-        })
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging && !e.target.classList.contains("object")) {
+            const x = e.clientX - startX;
+            const y = e.clientY - startY;
+            grid.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        }
     });
 
-    deleteButton.addEventListener("click", (event) => {
-        dataObjForm.deleteObject()
-        .then(result => {
-            result.id.forEach(i => {
-                img.deleteImageElement(i)
-            })
-        })    
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        grid.style.cursor = 'grab';
     });
-    //end of emily's edit
+}
+
+// Enable dragging for both grids
+enableDragging(battleGrid);
+enableDragging(objectGrid);
+
+// Switch between grids
 }

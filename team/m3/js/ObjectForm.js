@@ -1,8 +1,8 @@
-import { DatabaseConnection } from "./DatabaseConnection.js";
 
 export class DataForm{
+    //adds all needed element from main.html as private attribute
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
-    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC;
+    #addObj;#nameObj;#descripObj;#numCopy;#c;#r;#ObjGrid;#idObj;#initR;#initC
 
     constructor(objectDB){
         this.objectDB = objectDB;
@@ -21,34 +21,36 @@ export class DataForm{
         this.#initC = 1;
         this.#initR = 1;
         this.#idObj = document.createElement('idObj');
+
     }
 
+    //the is the method that sets up the base object form
     render(){
         this.objectDB.openDatabase();
         this.#ObjForm.appendChild(this.#idObj);
         this.#ObjForm.style.display= "none";
     }
 
+    //records the number of columns and rows you can add at most
     addWH(width, height){
         this.#c.max = width;
         this.#r.max = height;
     }
 
+    //this is called at the start right after create grid to load all object saved in indexdb onto the grid
     renderWhenLoad(){
         const idArr = [];
         const areaArr = [];
-        let i = 0
         return new Promise((resolve) => {
             const allEvent = this.objectDB.getAllObject();
             allEvent
                 .then(objArr => {
                     objArr.forEach(objData => {
-                        i+=1;
                         const objectDiv = document.createElement("div");
                         objectDiv.classList.add("object");
-                        objectDiv.classList.add("tooltip");
+                        objectDiv.classList.add("hoverBox");
                         const spanElement = document.createElement("span");
-                        spanElement.classList.add("tooltiptext");
+                        spanElement.classList.add("hovertext");
                         spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
                         objectDiv.setAttribute("id", objData.id); 
                         idArr.push(objData.id);
@@ -74,6 +76,7 @@ export class DataForm{
         })
     }
 
+    //this returns the object form back to its initial state with no input
     clearForm(){
         this.#nameObj.value = "";
         this.#descripObj.value = "";
@@ -82,26 +85,28 @@ export class DataForm{
         this.#r.value = 1;
     }
 
+    //this method is added to all object token so that whn you click on the object token it will open the object form with the corresponding information for update or delete.
     #reopenForm(event){
-        this.#ObjForm.style.display= "block";
-        this.#deleteButton.style.display= "inline-block";
-        this.#updateButton.style.display= "inline-block";
-        this.#cancelButton.style.display= "none";
-        this.#createButton.style.display= "none";
-        console.log(event.target.id);
-        const getEvent = this.objectDB.getObject(Number(event.target.id)); 
-        getEvent
-        .then(objData => {
-            this.#nameObj.value = objData.name;
-            this.#descripObj.value = objData.description;
-            this.#c.value = objData.c;
-            this.#r.value = objData.r;
-            this.#numCopy.value = 1;
-            this.#idObj.setAttribute("id", String(objData.id)+"temp"); 
-        }) 
-        .catch(error => console.error('Error:', error))
+        if(!event.target.classList.contains("dragging")){
+            this.#ObjForm.style.display= "block";
+            this.#deleteButton.style.display= "inline-block";
+            this.#updateButton.style.display= "inline-block";
+            this.#createButton.style.display= "none";
+            const getEvent = this.objectDB.getObject(Number(event.target.id)); 
+            getEvent
+            .then(objData => {
+                this.#nameObj.value = objData.name;
+                this.#descripObj.value = objData.description;
+                this.#c.value = objData.c;
+                this.#r.value = objData.r;
+                this.#numCopy.value = 1;
+                this.#idObj.setAttribute("id", String(objData.id)+"temp"); 
+            }) 
+            .catch(error => console.error('Error:', error))
+        }
     }
 
+    //this the to hide the update and delete button when you click to open the object form
     clickForm(){
         function clickFormInit(){
             if(this.#ObjForm.style.display==="none"){
@@ -121,19 +126,20 @@ export class DataForm{
         this.#addObj.addEventListener("click",clickFormInit.bind(this));
     }
 
-    createObject(objData){
+    //this will create the object toke and place it on the first row and column.
+    createObject(){
         const idArr = [];
         const areaArr = [];
         return new Promise((resolve) => {
             if(this.#nameObj.value===""){
-                console.log("need name");
+                alert("need name");
             }
             else{
                 const objectDiv = document.createElement("div");
                 objectDiv.classList.add("object");
-                objectDiv.classList.add("tooltip");
+                objectDiv.classList.add("hoverBox");
                 const spanElement = document.createElement("span");
-                spanElement.classList.add("tooltiptext");
+                spanElement.classList.add("hovertext");
                 spanElement.textContent = "name: "+this.#nameObj.value+"\ndescription: "+ this.#descripObj.value;
                 const rowE = Number(this.#r.value);
                 const colE = Number(this.#c.value);
@@ -165,6 +171,7 @@ export class DataForm{
         })
     }
 
+    //this will delete the object token from the map and indexdb
     deleteObject(){
         const idArr = [];
         const areaArr = [];
@@ -182,37 +189,44 @@ export class DataForm{
         });
     }
 
+    //this will update the object token from the map and indexdb
     updateObject(){
         const idArr = [];
         const areaArrInit = [];
         const areaArrAfter = [];
         return new Promise((resolve)=> {
-            const startIndex = this.#idObj.id.indexOf("temp");
-            const result = this.#idObj.id.substring(0, startIndex);
-            const objDiv = document.getElementById(result);
-            idArr.push(result)
-            const spanElement = document.getElementById(result+"s");
-            const getEvent = this.objectDB.getObject(Number(result)); 
-            getEvent
-            .then(objData => {
-                areaArrInit.push(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
-                objData.name = this.#nameObj.value;
-                objData.description = this.#descripObj.value;
-                objData.c = Number(this.#c.value);
-                objData.r = Number(this.#r.value);
-                const rowE = Number(objData.r);
-                const colE = Number(objData.c);
-                console.log(rowE, colE)
-                this.#numCopy.value = 1; 
-                this.objectDB.updateObject(objData);
-                objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
-                areaArrAfter.push(objDiv.style.gridArea);
-                spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
-                this.clearForm();
-                this.#ObjForm.style.display= "none";
-                resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
-            })
-            .catch(error => console.error('Error:', error));
-        })
+            if(this.#nameObj.value===""){
+                alert("need name");
+            }
+            else{
+                const startIndex = this.#idObj.id.indexOf("temp");
+                const result = this.#idObj.id.substring(0, startIndex);
+                const objDiv = document.getElementById(result);
+                idArr.push(result)
+                const spanElement = document.getElementById(result+"s");
+                const getEvent = this.objectDB.getObject(Number(result)); 
+                getEvent
+                .then(objData => {
+                    areaArrInit.push(`${objData.initR}/${objData.initC}/${Number(objData.r)+objData.initR}/${Number(objData.c)+objData.initC}`)
+                    objData.name = this.#nameObj.value;
+                    objData.description = this.#descripObj.value;
+                    objData.c = Number(this.#c.value);
+                    objData.r = Number(this.#r.value);
+                    const rowE = Number(objData.r);
+                    const colE = Number(objData.c);
+                    this.#numCopy.value = 1; 
+                    this.objectDB.updateObject(objData);
+                    objDiv.style.gridArea = `${objData.initR}/${objData.initC}/${rowE+objData.initR}/${colE+objData.initC}`;
+                    areaArrAfter.push(objDiv.style.gridArea);
+                    spanElement.textContent = "name: "+objData.name+"\ndescription: "+ objData.description;
+                    this.clearForm();
+                    this.#ObjForm.style.display= "none";
+                    resolve({id:idArr, areaInit:areaArrInit, areaAfter: areaArrAfter});
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        })   
     }
 }
+
+//all function that returns will return a promise with the id of div element that were created or called on the function and their grid area, this is for adding drag and drop and for combining with imageImport feature in ObjectTokenFinal.js 

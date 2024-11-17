@@ -37,6 +37,10 @@
                     <br>
                     <button id="delete-tile-types">Delete All Tile Types</button>
                 </div>
+                <div class="zoom-controls">
+                    <button id="zoom-in">+</button>
+                    <button id="zoom-out">-</button>
+                </div>
             </div>
             <div class="main-content">
                 <div id="grid-container">
@@ -51,6 +55,8 @@
                 <input type="number" id="dice-count" name="dice-count" min="1" max="20">
                 <label for="dice-sides">Number of Sides for Dice:</label>
                 <input type="number" id="dice-sides" name="dice-sides" min="1" max="20">
+                <label for="dice-mod">Add modifier:</label>
+                <input type="number" id="dice-mod" name="dice-mod" min="-5" max="10">
                 <button id="roll-dice">Roll Dice</button>
             </div>
             <div id="dice-result"></div>
@@ -77,6 +83,7 @@
             <input type="button" value="cancel" id="cancel"/>
             <input type="button" value="update" id="update"/>
             <input type="button" value="delete" id="delete"/>
+            <input type="button" value="Delete All Object" id="deleteAll"/>
             <idObj></idObj>
         </div>
 
@@ -90,6 +97,7 @@
                 <input type="radio" id="sqaure" name="paintTool" onclick="changeTool(3)">
                 <input type="checkbox" id="paintBool" onclick="togglePaint()">
                 <input type="number" id="lineWeight" min="1" max="500">
+                <button onClick="clear_canvas()" id ="clear">Clear</button>
             </div>
         </div>
         
@@ -181,6 +189,9 @@
     <script src="js/paint.js"></script>  <!--this is for the paint -->
 
     <script type="module" src="/team/m3/js/TileLogic.js"></script> <!-- added this for the tile feature -->
+
+    <script type="module" src="js/ObjectTokenFinal.js"></script>
+
 
 </body>
 </html>
