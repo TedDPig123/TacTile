@@ -6,6 +6,10 @@
   1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/2/commits/8cac04581240690e87732482c65a882d989a7d60) Created first draft of problem.md, aided in finalizing roles and duties for everyone else
   2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/9/commits/025766f32b411639ad11ca608233165a4dde9c71) Resolved merge conflicts and finalized problem.md
   3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/15) Finalized all files needed to edit; problem.md, shanzaykhan.md, and finished adding own role in roles.md and proper commit links to all tasks overseen. Also looked over all other member's work to ensure everything meets requirements. 
+  Commits for Milestone 3 are below:
+  4. [Commit 4](https://github.com/TedDPig123/326_Project/pull/28/commits/0d65738a84a7e2f3812a3aec55e8f99b75fa3022) Created the battlegrid feature to any grid size dimensions and to fit on any screen comfortably, as well as basic UI to display it 
+  5. [Commit 5](https://github.com/TedDPig123/326_Project/pull/34/commits/1377b56b34c628b691cc7ed2b356cf36263f17af) Added related feature for dice roller (Number of dice, number of sides, adding up the rolls, displaying them) 
+  6. [Commit 6](https://github.com/TedDPig123/326_Project/pull/42/commits/08d63d8b4eac0b8aba636975a026360da771d303) Created sequence diagram of battlegrid, also reviewed all markdown files to keep it up to date
 
 ## Emily Shaw - Documentation Lead
  - **Role**: Responsible for the overseeing, maintenance and organization of all project documentation. Emily ensures that all documents required are present and in the right folder, and keeps the repository clean and visible to all member.
