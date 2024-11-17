@@ -46,17 +46,17 @@
      - `background` (image): the image applied to the entirety of the map.
  - **Data Source**: User input via Edit Grid, and a default map is created by the system if no input is given.
 
-### 5. Terrain generation
- - **Description**: records the information of the terrain created.
-     - `map_id`(string): the unique identifier for the map associated with the terrain generated.
-     - `terrain_id`(string): a unique identifier for each terrain created.
-     - `terrain_color` (string): shows the color of the terrain.
-     - `terrain_description` (string): A short description for the terrain user created.
-     - `terrain_size`(number): the numbers of tile the user wants to group together with `terrain_color`.
-     - `terrain_cord`(object): record the placement of the terrain on the map.
-     - `terrain_image`(image): the image for the terrain type.
+### 5. Tile types
+ - **Description**: records the information of the tile types for the terrain created.
+     -  `dbTileObject` (DatabaseConnection object): An indexedDB database object used to store all the tile types.
+     - `tileObject` (Class): A class used to create tileObject objects, which are used to store a tile's type, details, and image data
+     - `tileID`(number): the unique identifier for the tile type, received when adding a tile object to the dbTileObject database
+     - `tileObject.type`(string): a unique identifier for each terrain created.
+     - `tileObject.details` (string): gives the details/description of the tile
+     - `tileObject.imgData` (Data URL): gives a URL to the image that dictates the visual appearance of the tile.
+     -  `availableTiles` (array): used to keep track of all available tile types
 
- - **Data Source**: User input via Add Terrain
+ - **Data Source**: User input via Add/Customize tile menus
 
 ### 6. Drawing
  - **Description**: records the drawing on th battle map.
@@ -87,4 +87,4 @@ And there will be a default battle map with default grid size and a white backgr
 The system will automatically store the state and information of things associated with each unique `map_id`.
 
 - **interaction with IndexDB**: 
-each Token or tile have their individual indexDB objectStore, and when updating or deleting, the features takes the data from IndexDb and update it so that when the user reload the page, all information on tokens(including the image on token) and tiles and image are kept and rendered
+each Token and tile has their own individual indexDB objectStore, and when updating or deleting, the features takes the data from IndexDB and updates it so that when the user reload the page, all the information of the tokens(including the image on token) and the tiles (including the tile images) are kept and rendered
