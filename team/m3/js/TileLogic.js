@@ -93,7 +93,8 @@ async function saveEditedTile(){
         const tileObj = await dbTileObject.getObject(parseInt(tileID));
         tileObj.details = details;
         tileObj.imgData = tileImage;
-        await dbTileObject.updateObject(tileID, tileObj);
+        console.log("tileID:", tileID, "tileObj:", tileObj);
+        await dbTileObject.updateObject(tileObj);
         console.log("Fetched tile object:", tileObj);
         alert("tile edited successfully");
         hideEdit();
