@@ -1,4 +1,3 @@
-import { DatabaseConnection } from "./DatabaseConnection.js";
 
 export class DataForm{
     //adds all needed element from main.html as private attribute
