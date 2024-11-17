@@ -31,20 +31,18 @@
 ### 3. Dice Roll
 
  - **Description**: tracks dice roll made by the user.
-     - `map_id`(string): the unique identifier for the map associated with the dice roll generator.
-     - `number_of_dice`(number): the amount of dice for each roll.
-     - `dice_type`(string): the type for the dice(d6, d10, d20 etc.)
-     - `condition`(number): the extra number added onto each dice roll at the end(like +2, +1)
+     - `dice-count`(number): the amount of dice for each roll.
+     - `dice-sides`(number): the type for the dice(d6, d10, d20 etc.)
+     - `dice-mod`(number): the extra number added onto each dice roll at the end(like +2, +1)
      - `result`(number): the result of the dice roll.
  - **Data Source**: User data whenever they submit in the dice generation box. And the result will be automatically calculated by the system.
 
 ### 4. Map generation
 
  - **Description**: records the information for map generation.
-     - `map_id`(string): the unique identifier for each map created.
-     - `grid_x` (number): how wide the grid is.
-     - `grid_y` (number): how long the grid is.
-     - `grid_size` (number): the size of the grid(`grid_x`*`grid_y`)
+     - `grid_width` (number): how wide the grid is.
+     - `grid_height` (number): how long the grid is.
+     - `grid_size` (number): the size of the grid(`width`*`height`)
      - `background` (image): the image applied to the entirety of the map.
  - **Data Source**: User input via Edit Grid, and a default map is created by the system if no input is given.
 
