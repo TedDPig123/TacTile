@@ -6,6 +6,10 @@
   1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/2/commits/8cac04581240690e87732482c65a882d989a7d60) Created first draft of problem.md, aided in finalizing roles and duties for everyone else
   2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/9/commits/025766f32b411639ad11ca608233165a4dde9c71) Resolved merge conflicts and finalized problem.md
   3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/15) Finalized all files needed to edit; problem.md, shanzaykhan.md, and finished adding own role in roles.md and proper commit links to all tasks overseen. Also looked over all other member's work to ensure everything meets requirements. 
+  Commits for Milestone 3 are below:
+  4. [Commit 4](https://github.com/TedDPig123/326_Project/pull/28/commits/0d65738a84a7e2f3812a3aec55e8f99b75fa3022) Created the battlegrid feature to any grid size dimensions and to fit on any screen comfortably, as well as basic UI to display it 
+  5. [Commit 5](https://github.com/TedDPig123/326_Project/pull/34/commits/1377b56b34c628b691cc7ed2b356cf36263f17af) Added related feature for dice roller (Number of dice, number of sides, adding up the rolls, displaying them) 
+  6. [Commit 6](https://github.com/TedDPig123/326_Project/pull/42/commits/08d63d8b4eac0b8aba636975a026360da771d303) Created sequence diagram of battlegrid, also reviewed all markdown files to keep it up to date
 
 ## Emily Shaw - Documentation Lead
  - **Role**: Responsible for the overseeing, maintenance and organization of all project documentation. Emily ensures that all documents required are present and in the right folder, and keeps the repository clean and visible to all member.
@@ -13,10 +17,10 @@
    1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/4/commits/5d7a3030085a9f91b188604620fe1c4a6ce9168d): made the initial draft for data.md, outlined the data input and type.
    2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/10/commits/4856df89f742cdbe6f1453ef519ae9ffa1527966): made the final version of data.md. Added more input and reorganized it, also added data source and data relation.
    3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/12/commits/ab142c0fc9a6a2e9bf227d5c2d63c4c6dcc36264): Organized the project repository and made sure all required document are in the right folder, removed unnecessary files to ensure the repository looks clean.
-   4. [Commit 4](https://github.com/TedDPig123/326_Project/pull/27/commits/37ea653e4a865d1b0d3579395ee9a137b7f3e522): added all feature for Object Token(including update, delete, create and cancel) Also added indexDB.
-   5. [Commit 5](https://github.com/TedDPig123/326_Project/pull/35/commits/02fcf3185c94359864a9f9603f8fd413bb97045e): added all feature for image(including update, delete, create and cancel) Also added indexDB for image.
+   4. [Commit 4](https://github.com/TedDPig123/326_Project/pull/27/commits/37ea653e4a865d1b0d3579395ee9a137b7f3e522): added all feature for Object Token(including update, delete, create and cancel) Also created the indexDB export class.
+   5. [Commit 5](https://github.com/TedDPig123/326_Project/pull/35/commits/02fcf3185c94359864a9f9603f8fd413bb97045e): added all feature for image(including update, delete, create and cancel) Also implemented indexDB for image.
    6. [Commit 6](https://github.com/TedDPig123/326_Project/pull/43/commits/f14f514ac9e91b52c733c847b8a0a5de2632fcb5): added the Drag and Drop feature for moving tokens using mousedown, move and up
-
+   
 ## Beatrice Calvelo - Communication Lead
 - **Role**: Facilitates communication within the team. Beatrice is responsible for ensuring that all members stay informed and engaged by communicating through the team’s WhatsApp group.
 - **Top 3 Commits**:
