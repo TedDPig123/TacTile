@@ -28,7 +28,6 @@ export class DataForm{
     render(){
         this.objectDB.openDatabase();
         this.#ObjForm.appendChild(this.#idObj);
-        this.#ObjForm.style.display= "none";
     }
 
     //records the number of columns and rows you can add at most
@@ -67,7 +66,6 @@ export class DataForm{
                         })
                         this.#ObjGrid.appendChild(objectDiv);
                         this.clearForm();
-                        this.#ObjForm.style.display= "none";
                     });
                     resolve({id:idArr, area:areaArr});
                 })
@@ -109,11 +107,11 @@ export class DataForm{
     //this the to hide the update and delete button when you click to open the object form
     clickForm(){
         function clickFormInit(){
-            if(this.#ObjForm.style.display==="none"){
-                this.#ObjForm.style.display= "block";
+            if(this.#ObjForm.style.display === "block"){
+                this.#ObjForm.style.display= "none";
             }
             else{
-                this.#ObjForm.style.display= "none";
+                this.#ObjForm.style.display= "block";
             }
             this.#createButton.style.display= "inline-block";
             this.#cancelButton.style.display= "inline-block";
