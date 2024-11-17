@@ -65,10 +65,23 @@ function draw(event){
         ctx.stroke(); 
     } if (tools[1] == true) {
         //eraser here
+        ctx.clearRect(event.offsetX, event.offsetY, ctx.lineWidth,ctx.lineWidth);
     } if (tools[2] == true) {
         //rectangle here
     } if (tools[3] == true) {
         //circle here
+        //make circles when mousedown
+        ctx.arc(coord.x, coord.y, ctx.lineWidth, 0, 2 * Math.PI);
+        ctx.fillStyle = document.getElementById("colorPicker").value;;
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = document.getElementById("colorPicker").value;
+        ctx.stroke();
     }
   }
+
+
+}
+function clear_canvas(){
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
