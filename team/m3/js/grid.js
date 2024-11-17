@@ -1,6 +1,6 @@
 import {DataForm} from "./ObjectForm.js";
 import {DatabaseConnection } from "../js/DatabaseConnection.js";
-import {Image} from "../js/image.js";
+import {ImageForToken} from "../js/ImageImport.js";
 import {initializeBattleGrid} from "../js/TileLogic.js"; //geri imported function here
 
 const battleGrid = document.getElementById('battle-grid');
@@ -16,7 +16,7 @@ ObjForm.style.display= "none";
 const dataObjForm = new DataForm(objectDB);
 dataObjForm.clickForm()
 
-const img = new Image(document.getElementById("object_form"), imageDB)
+const img = new ImageForToken(document.getElementById("object_form"), imageDB)
 const imgInput = document.getElementById("imageInput");
 imgInput.addEventListener("change", (event) => img.PreviewImg(event))
 
