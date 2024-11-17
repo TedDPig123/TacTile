@@ -8,15 +8,28 @@ export class MoveItem{
         this.indexDb = indexDb
     }
 
+    getScale(){
+        const objGrid = document.getElementById("object-grid");
+        const transform = window.getComputedStyle(objGrid).transform
+        if (transform === 'none') {
+            return 1;
+        }
+        else{
+            const matrix =  transform.replace("matrix(", "").split(",");
+            return Number(matrix[0]);
+        }
+    }
+
     //adds class dragging after 200ml so it doesn't trigger the click eventlistener
     mouseDown(){
         this.element.addEventListener("mousedown", (event) => {
+            const c = this.getScale();
             setTimeout(()=> {
                 this.element.classList.add("dragging")
                 this.element.style.zIndex = "10"; 
             }, 200)            
-            this.#initX = event.clientX-this.element.offsetLeft;
-            this.#initY = event.clientY-this.element.offsetTop;
+            this.#initX = (event.clientX-this.element.offsetLeft*c);
+            this.#initY =(event.clientY-this.element.offsetTop*c);
         })
     }
 
@@ -24,8 +37,9 @@ export class MoveItem{
     mouseMove(){
         this.element.addEventListener("mousemove", (event) => {
             if (this.element.classList.contains("dragging")) {
-                const currentX = event.clientX - this.#initX;
-                const currentY = event.clientY - this.#initY;
+                const c = this.getScale();
+                const currentX = (event.clientX - this.#initX)/c;
+                const currentY = (event.clientY - this.#initY)/c;
 
                 this.element.style.left = currentX + "px";
                 this.element.style.top = currentY + "px";
