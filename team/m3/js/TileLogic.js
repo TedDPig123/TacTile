@@ -562,24 +562,26 @@ function showTileDetails(event) {
     const square = event.currentTarget;
     const tileName = square.getAttribute('data-tile-name');
     const tileDetails = square.getAttribute('data-tile-details');
+    
+    if (square.hasAttribute('data-tile-name')){
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('tile-tooltip');
+        tooltip.innerHTML = `<strong>${tileName}</strong><br>${tileDetails}`;
+        document.body.appendChild(tooltip);
 
-    const tooltip = document.createElement('div');
-    tooltip.classList.add('tile-tooltip');
-    tooltip.innerHTML = `<strong>${tileName}</strong><br>${tileDetails}`;
-    document.body.appendChild(tooltip);
+        const updateTooltipPosition = (e) => {
+            tooltip.style.left = `${e.pageX + 10}px`;
+            tooltip.style.top = `${e.pageY + 10}px`;
+        };
 
-    const updateTooltipPosition = (e) => {
-        tooltip.style.left = `${e.pageX + 10}px`;
-        tooltip.style.top = `${e.pageY + 10}px`;
-    };
+        updateTooltipPosition(event);
+        document.addEventListener('mousemove', updateTooltipPosition);
 
-    updateTooltipPosition(event);
-    document.addEventListener('mousemove', updateTooltipPosition);
-
-    square.addEventListener('mouseleave', () => {
-        tooltip.remove();
-        document.removeEventListener('mousemove', updateTooltipPosition);
-    });
+        square.addEventListener('mouseleave', () => {
+            tooltip.remove();
+            document.removeEventListener('mousemove', updateTooltipPosition);
+        });
+    }
 }
 
 export async function initializeBattleGrid(battleGrid) {
