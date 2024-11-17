@@ -29,7 +29,7 @@ export class Image{
                 }
             })
         })
-
+        .catch(error => console.error('Error:', error))
     }
 
     PreviewImg(event){
@@ -62,14 +62,25 @@ export class Image{
             parentDiv.appendChild(imgElement)
             this.imageDB.addObject({id:String(parentDiv.id)+"img", src:imgElement.src})
         }
+        this.#inputElement.value = ""
     }
 
     deleteImageElement(parentDiv){
         this.imageDB.deleteObject(String(parentDiv)+"img");
     }
 
+    renderImage(id){
+        if(document.getElementById(String(id)).querySelector('img')){
+            let image  = this.#inputImg;
+            this.imageDB.getObject(String(id)+"img")
+            .then(img => {
+                image.src =img.src;
+            })
+            .catch(error => console.error('Error:', error))
+        }
+    }
+
     updateImageElement(parentDiv){
-        console.log(parentDiv)
         const image  = this.#inputImg;
         if(image.src){
             if(parentDiv.querySelector('img')){
@@ -80,6 +91,7 @@ export class Image{
                     imageDB.src = imageToUpdate.src;
                     this.imageDB.updateObject({id:String(parentDiv.id)+"img", src:imageToUpdate.src})
                 })
+                .catch(error => console.error('Error:', error))
             }
             else{
                 const imgElement = document.createElement("img");
@@ -97,5 +109,6 @@ export class Image{
                 this.deleteImageElement(String(parentDiv.id))          
             }
         }
+        this.#inputElement.value = "";
     }
 }
