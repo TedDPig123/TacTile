@@ -68,6 +68,20 @@ function draw(event){
         ctx.clearRect(event.offsetX, event.offsetY, ctx.lineWidth,ctx.lineWidth);
     } if (tools[2] == true) {
         //rectangle here
+        if (!drawing) {
+        // Save the starting point
+            getPosition(event);
+            coord.startX = coord.x;
+            coord.startY = coord.y;
+    } else {
+        // Clear the canvas and redraw the rectangle
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.beginPath();
+            ctx.strokeStyle = document.getElementById("colorPicker").value;
+            ctx.lineWidth = document.getElementById("lineWeight").value;
+            let rectWidth = coord.x - coord.startX;
+            let rectHeight = coord.y - coord.startY;
+            ctx.strokeRect(coord.startX, coord.startY, rectWidth, rectHeight);
     } if (tools[3] == true) {
         //circle here
         //make circles when mousedown
