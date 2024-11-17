@@ -45,7 +45,7 @@ export class DatabaseConnection{
         });
     }
 
-    //get a task from the database
+    //get an object from the database
     async getObject(id) {
         const dbStore = this.dbStore;
 
@@ -61,7 +61,7 @@ export class DatabaseConnection{
         });
     }
 
-    //get all the task from the database
+    //get all the objects from the database
     async getAllObject() {
         const dbStore = this.dbStore;
 
@@ -77,7 +77,7 @@ export class DatabaseConnection{
         });
     }
 
-    //delete a task from the database
+    //delete an object from the database
     async deleteObject(objectID) {
         const dbStore = this.dbStore;
 
@@ -93,7 +93,7 @@ export class DatabaseConnection{
         });
     }
 
-    //update a task from the database
+    //update an object from the database
     async updateObject(object){
         const dbStore = this.dbStore;
 
@@ -106,6 +106,25 @@ export class DatabaseConnection{
             }
             updateObj.onerror = () => {
                 reject("Method not implemented.");}
+        });
+    }
+
+    //clears the database
+    async clearDatabase() {
+        const dbStore = this.dbStore;
+
+        const db = await this.openDatabase();
+        const transaction = db.transaction([dbStore], "readwrite");
+        const store = transaction.objectStore(dbStore);
+
+        return new Promise((resolve, reject) => {
+            const clearRequest = store.clear();
+            clearRequest.onsuccess = () => {
+                resolve("All objects cleared from the database!");
+            };
+            clearRequest.onerror = () => {
+                reject("Failed to clear the database.");
+            };
         });
     }
 }

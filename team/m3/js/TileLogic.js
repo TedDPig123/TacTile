@@ -65,6 +65,7 @@ async function addNewCustomTile(){
         editTileDropdown.appendChild(clone);
 
         hideCustom();
+        initializeAvailableTiles();
 
     } catch (error) {
         console.error("tile not added", error);
@@ -456,3 +457,69 @@ document.getElementById('background-image-upload').addEventListener('change', fu
         alert("No file selected or invalid file.");
     }
 });
+
+let availableTiles = [];
+let currentTileIndexes = new Map();
+
+async function initializeAvailableTiles() {
+    availableTiles = await dbTileObject.getAllObject();
+    if (!availableTiles || availableTiles.length === 0) {
+        console.warn("No tiles available to toggle");
+    }
+}
+
+function handleSquareClick(square) {
+    let currentIndex = currentTileIndexes.get(square) || 0;
+
+    if (availableTiles.length === 0) {
+        alert("No tiles available!! Please add some tiles first!!!");
+        return;
+    }
+
+    const tile = availableTiles[currentIndex];
+
+    square.style.backgroundImage = `url(${tile.imgData})`;
+    square.style.backgroundSize = "cover";
+    square.style.backgroundPosition = "center";
+
+    square.setAttribute('data-tile-name', tile.type);
+    square.setAttribute('data-tile-details', tile.details);
+
+    square.addEventListener('mouseenter', showTileDetails);
+
+    currentIndex = (currentIndex + 1) % availableTiles.length; //so we go back to the start
+    currentTileIndexes.set(square, currentIndex);
+}
+
+function showTileDetails(event) {
+    const square = event.currentTarget;
+    const tileName = square.getAttribute('data-tile-name');
+    const tileDetails = square.getAttribute('data-tile-details');
+
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tile-tooltip');
+    tooltip.innerHTML = `<strong>${tileName}</strong><br>${tileDetails}`;
+    document.body.appendChild(tooltip);
+
+    const updateTooltipPosition = (e) => {
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY + 10}px`;
+    };
+
+    updateTooltipPosition(event);
+    document.addEventListener('mousemove', updateTooltipPosition);
+
+    square.addEventListener('mouseleave', () => {
+        tooltip.remove();
+        document.removeEventListener('mousemove', updateTooltipPosition);
+    });
+}
+
+export async function initializeBattleGrid(battleGrid) {
+    await initializeAvailableTiles();
+
+    const squares = battleGrid.querySelectorAll('.grid-tile');
+    squares.forEach(square => {
+        square.addEventListener('click', () => handleSquareClick(square));
+    });
+}

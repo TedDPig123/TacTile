@@ -1,6 +1,7 @@
 import {DataForm} from "../js/DataForm.js";
 import {DatabaseConnection } from "../js/DatabaseConnection.js";
 import {Image} from "../js/image.js";
+import {initializeBattleGrid} from "../js/TileLogic.js"; //geri imported function here
 
 const battleGrid = document.getElementById('battle-grid');
 //start of emily's edit
@@ -64,26 +65,31 @@ function createGrid(width, height) {
         for (let x = 0; x < width; x++) {
             const tile = document.createElement('div');
             tile.classList.add('grid-tile');
-            tile.addEventListener('click', (event) => {
-                // Toggle terrain type on click
-                //emily's edit: this if statement is so that you can't change tiles that are where the object occupy
-                if(!event.target.classList.contains("object-tile")){
-                    if (tile.classList.contains('grass')) {
-                        tile.classList.remove('grass');
-                        tile.classList.add('stone');
-                    } else if (tile.classList.contains('stone')) {
-                        tile.classList.remove('stone');
-                        tile.classList.add('castle');
-                    } else if (tile.classList.contains('castle')) {
-                        tile.classList.remove('castle');
-                    } else {
-                        tile.classList.add('grass');
-                    }
-                }
-            });
+            // tile.addEventListener('click', (event) => {
+            //     // Toggle terrain type on click
+            //     //emily's edit: this if statement is so that you can't change tiles that are where the object occupy
+            //     if(!event.target.classList.contains("object-tile")){
+            //         if (tile.classList.contains('grass')) {
+            //             tile.classList.remove('grass');
+            //             tile.classList.add('stone');
+            //         } else if (tile.classList.contains('stone')) {
+            //             tile.classList.remove('stone');
+            //             tile.classList.add('castle');
+            //         } else if (tile.classList.contains('castle')) {
+            //             tile.classList.remove('castle');
+            //         } else {
+            //             tile.classList.add('grass');
+            //         }
+            //     }
+            // });
             battleGrid.appendChild(tile);
         }
     }
+
+    //start of geri's edi
+    //adds event listener for all tiles on the battle grid
+    initializeBattleGrid(battleGrid);
+    //end of geri's edit
 
     //start of emily's edit
     //add the event listener for add/update object form, including delete, cancel, create and update

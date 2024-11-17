@@ -674,3 +674,14 @@ svg {
 #delete-tile:hover{
   background-color: red;
 }
+
+.tile-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 500;
+}
