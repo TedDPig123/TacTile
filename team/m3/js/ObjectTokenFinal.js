@@ -55,6 +55,11 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
                 document.getElementById(String(obj.id)).style.top = obj.top;
                 document.getElementById(String(obj.id)).style.left = obj.left
             })
+            document.getElementById(String(i)).addEventListener("click", (event) => {
+                if(!event.target.classList.contains("dragging")){
+                    img.renderImage(i)
+                }
+            })
         })
     })
 
@@ -63,6 +68,8 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
     const updateButton = document.getElementById("update");
     const deleteButton = document.getElementById("delete");
     const cancelButton = document.getElementById("cancel");
+    const deleteAllButton = document.getElementById("deleteAll");
+
 
     cancelButton.addEventListener("click", () => {
         dataObjForm.clearForm();
@@ -80,6 +87,11 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
                     moveItem.mouseDown();
                     moveItem.mouseMove();
                     moveItem.mouseUP();
+                    document.getElementById(String(i)).addEventListener("click", (event) => {
+                        if(!event.target.classList.contains("dragging")){
+                            img.renderImage(i)
+                        }
+                    })
                 })
             })
         }
@@ -102,4 +114,10 @@ document.getElementById('create-grid').addEventListener('click', ()=> {
             })
         })    
     });
+
+    deleteAllButton.addEventListener("click", () => {
+        objectDB.deleteDatabse();
+        imageDB.deleteDatabse();
+        alert("please refresh the page"); 
+    })
 })
