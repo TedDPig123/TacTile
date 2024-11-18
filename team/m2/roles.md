@@ -35,9 +35,15 @@
 ## Rudy Ganesh - Quality Control 
 **Role**: Reviews the team submission to make sure they have met the required standard before deadline. Proofreads every file before the final submission. 
 - **Top 3 Commits**:
+- M2:
   1. [Commit 1](https://github.com/TedDPig123/326_Project/pulls?q=is%3Apr+reviewed-by%3A%40me+): Reviewed and proofread every file in the repository, including the `team/m2` folder, to make sure all project requirements were met.
   2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/5#pullrequestreview-2380055979): Made changes to the 'data.md' file to make sure that all the data types were accurate and any redudancy was removed.
   3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/3#pullrequestreview-2380054183): Conducted a final quality check after all documents were merged into the main branch, to ensure that nothing was missed out and milestone requriements were met.
+ - M3
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/44/commits): Completed the zoom-in functionality for the battle grid and updated .css file to faciliate it. 
+  2. [Commit 2](https://github.com/TedDPig123/326_Project/commit/1e2657064050e080ceba6ff9a7cffb67b8a4da3e): Drafted and completed the rectangle tool in paint.js.
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/44/commits/68e0dfe767a2c5b50e31acecd9470041c07e7423): Updated grid.js to allow zoom in for both objectgrid and battlegrid 
+ 
 
 
 ## Casey Hammill - Design Coordinator
