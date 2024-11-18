@@ -59,7 +59,7 @@
  - **Data Source**: User input via Add/Customize tile menus
 
 ### 6. Drawing
- - **Description**: records the drawing on th battle map.
+ - **Description**: records the drawing on the battle map.
      - `map_id`(string): the unique identifier for the map associated with the drawing.
      - `draw_id`(string): a unique identifier for each drawing created.
      - `size`(number): the size of the pen/eraser/shape.
