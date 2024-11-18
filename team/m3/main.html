@@ -51,19 +51,6 @@
                     <div id="object-grid"></div>
                 </div>
             </div>
-            <!-- BELOW is added for the dice roller -->
-            <h2>Dice Roller</h2>
-            <div>
-                <label for="dice-count">Number of Dice:</label>
-                <input type="number" id="dice-count" name="dice-count" min="1" max="20">
-                <label for="dice-sides">Number of Sides for Dice:</label>
-                <input type="number" id="dice-sides" name="dice-sides" min="1" max="20">
-                <label for="dice-mod">Add modifier:</label>
-                <input type="number" id="dice-mod" name="dice-mod" min="-5" max="10">
-                <button id="roll-dice">Roll Dice</button>
-            </div>
-            <div id="dice-result"></div>
-            <!-- end of addition for dice roller in main div -->
         </div>
 
         <div class="ObjectForm", id="object_form">
@@ -115,6 +102,24 @@
               <a href="#" id="edit-option">EDIT EXISTING TILE</a>
             </div>
         </div>
+
+        <!-- BELOW is added for the dice roller, made it into a dropdown -->
+        <div class="dropdown dice-dropdown">
+            <button class="dropbtn">DICE ROLLER</button>
+            <div class="dropdown-content">
+                <div>
+                    <label for="dice-count">Number of Dice:</label>
+                    <input type="number" id="dice-count" name="dice-count" min="1" max="20">
+                    <label for="dice-sides">Number of Sides for Dice:</label>
+                    <input type="number" id="dice-sides" name="dice-sides" min="1" max="20">
+                    <label for="dice-mod">Add modifier:</label>
+                    <input type="number" id="dice-mod" name="dice-mod" min="-5" max="10">
+                    <button id="roll-dice">Roll Dice</button>
+                </div>
+                <div id="dice-result"></div>
+            </div>
+        </div>
+        <!-- end of addition for dice roller in main div -->
     
         <!-- CREATE CUSTOM TILE -->
         <div class="custom">
