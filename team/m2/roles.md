@@ -35,9 +35,15 @@
 ## Rudy Ganesh - Quality Control 
 **Role**: Reviews the team submission to make sure they have met the required standard before deadline. Proofreads every file before the final submission. 
 - **Top 3 Commits**:
-  1. [Commit 1](https://github.com/TedDPig123/326_Project/pulls?q=is%3Apr+reviewed-by%3A%40me+): Reviewed and proofread every file in the repository, including the `team/m2` folder, to make sure all project requirements were met.
-  2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/5#pullrequestreview-2380055979): Made changes to the 'data.md' file to make sure that all the data types were accurate and any redudancy was removed.
-  3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/3#pullrequestreview-2380054183): Conducted a final quality check after all documents were merged into the main branch, to ensure that nothing was missed out and milestone requriements were met.
+- M2:
+1. [Commit 1](https://github.com/TedDPig123/326_Project/pulls?q=is%3Apr+reviewed-by%3A%40me+): Reviewed and proofread every file in the repository, including the `team/m2` folder, to make sure all project requirements were met.
+2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/5#pullrequestreview-2380055979): Made changes to the 'data.md' file to make sure that all the data types were accurate and any redudancy was removed.
+3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/3#pullrequestreview-2380054183): Conducted a final quality check after all documents were merged into the main branch, to ensure that nothing was missed out and milestone requriements were met.
+ - M3
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/44/commits): Completed the zoom-in functionality for the battle grid and updated .css file to faciliate it. 
+  2. [Commit 2](https://github.com/TedDPig123/326_Project/commit/1e2657064050e080ceba6ff9a7cffb67b8a4da3e): Drafted and completed the rectangle tool in paint.js.
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/44/commits/68e0dfe767a2c5b50e31acecd9470041c07e7423): Updated grid.js to allow zoom in for both objectgrid and battlegrid 
+ 
 
 
 ## Casey Hammill - Design Coordinator
@@ -66,7 +72,11 @@
 
 ## Gerindra Adi - Submission&Time Tracker
 - **Role**: Manages the final submission and timeline for team activity. Gerindra keeps track of deadline and ensure that we submit our project on time.
-- **Top 3 Commits**: 
+- **Top 3 Commits For Milestone 2**: 
   1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/1/commits/2bd4f17e135500f6dc5404b62cc331b4465f5ee3): Created GitHub repository, added all members as collaborators, populated the repo with the m2 directory and created all files inside it
   2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/1/commits/de7db008faa0d157b32a50989b4a1990607db6db): created and wrote the first draft for the features.md file
   3. [Commit 3](https://github.com/TedDPig123/326_Project/pull/20/commits/abb9007fffbd4b7560828d0bd420aaafab7dba8c): updated and wrote the final version for the features.md file
+- **Top 3 Commits For Milestone 3**: 
+  1. [Commit 1](https://github.com/TedDPig123/326_Project/pull/33/commits/70a378297cb9b407b92cde62e36d8a798ee924ad): Solidified the framework for the tile selection feature: adding menus for tile editing and creating new tiles, as well as setting up the indexDB implementation for saving tile objects
+  2. [Commit 2](https://github.com/TedDPig123/326_Project/pull/56/commits/30ab1dcd665cfe894b4d24d5ca009e3914f7529d): Integrated my tile adding feature with Rudy's zoom and drag feature, adding an edit mode button to prevent the user from dragging the battle grid while laying down the tiles
+  2. [Commit 3](https://github.com/TedDPig123/326_Project/pull/52/commits/a16cd662092d1f4a6a38e6adda209402bbe3739c): Now gives user the freedom to pick a tile from a drop down menu, click on the battle grid to place down the tiles, or click down and drag to place down multiple tiles
