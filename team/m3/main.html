@@ -10,41 +10,56 @@
     <div class="parent">
         <div class="container">
             <div class="sidebar">
-                <h1 style="text-align: center">TacTile</h1>
                 <h1>Customizable Battle Grid</h1>
-                <div>
-                    <label for="grid-width">Grid Width:</label>
-                    <label for="grid-height">Grid Height:</label>
-                    <input type="number" id="grid-width" name="grid-width" min="1" max="100">
-                    <input type="number" id="grid-height" name="grid-height" min="1" max="100">
-                    <p></p>
-                    <button id=>Create Grid</button>
+                    <div class="dropdown">
+                        <button style="padding-left: 85px; padding-right: 85px"class="dropbtn">GRID</button>
+                        <div class="dropdown-content">
+                          <a href="#" id="custom-option">GRID WIDTH
+                            <input style="padding-left: 45px;" type="number" id="grid-width" name="grid-width" min="1" max="100"> 
+                          </a>
+                          <a href="#" id="edit-option">GRID HEIGHT
+                            <input style="padding-left: 45px;" type="number" id="grid-height" name="grid-height" min="1" max="100">
+                          </a>
+                          <p style="padding-left: 70px;"><button id="create-grid">Create Grid</button></p>
+                          <p style="padding-left: 20px"><button id="switch_button">Switch to Battle Grid</button></p>
+                          <a href="#">Insert Background Image
+                          <input style="padding-left: 20px;" type="file" id="background-image-upload" accept="image/*"></a>
+                        </div>
+                    </div>
                     <br>
                     <br>
-                    <label for="background-image-upload">Insert Background Image</label>
-                    <input type="file" id="background-image-upload" accept="image/*">
                     <br>
                     <br>
-                    <button id="object_button">Add/Update Object</button>
                     <br>
                     <br>
-                    <button id="switch_button">Switch to Battle Grid</button>
                     <br>
                     <br>
-                    <button id="edit-mode-toggle">Enable Edit Mode</button>
-                    <br>
-                    <br>
-                    <label for="tile-selector">Select a Tile:</label>
-                    <select id="tile-selector">
-                        <option value="delete">Delete Tile</option>
-                    </select>
-                    <br>
-                    <br>
-                    <button id="delete-tile-types">Delete All Tile Types</button>
+                    <div class="dropdown">
+                        <button style="padding-left: 70px; padding-right: 70px"class="dropbtn">TOKENS</button>
+                        <div class="dropdown-content">
+                          <p style="padding-left: 10px"><button id="object_button">Add/Update Object</button></p>
+                          <p style="padding-left: 10px"><button id="edit-mode-toggle">Enable Edit Mode</button></p>
+                          <a href="#" id="edit-option">Select Tile:
+                          <select id="tile-selector">
+                              <option value="delete">Delete Tile</option>
+                          </select>
+                          </a>
+                          <p style="padding-left: 5px;"><button id="delete-tile-types"> Delete All Tile Types</button></p>
+                          <div class="zoom-controls">
+                            <p style="padding-left: 70px">
+                                <button id="zoom-in">+</button>
+                                <button id="zoom-out">-</button>
+                            </p>
+                        </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="zoom-controls">
-                    <button id="zoom-in">+</button>
-                    <button id="zoom-out">-</button>
+
+            </div>
+            <div class="main-content">
+                <div id="grid-container">
+                    <div id="battle-grid"></div>
+                    <div id="object-grid"></div>
                 </div>
             </div>
             <div class="main-content">
@@ -53,19 +68,6 @@
                     <div id="object-grid"></div>
                 </div>
             </div>
-            <!-- BELOW is added for the dice roller -->
-            <h2>Dice Roller</h2>
-            <div>
-                <label for="dice-count">Number of Dice:</label>
-                <input type="number" id="dice-count" name="dice-count" min="1" max="20">
-                <label for="dice-sides">Number of Sides for Dice:</label>
-                <input type="number" id="dice-sides" name="dice-sides" min="1" max="20">
-                <label for="dice-mod">Add modifier:</label>
-                <input type="number" id="dice-mod" name="dice-mod" min="-5" max="10">
-                <button id="roll-dice">Roll Dice</button>
-            </div>
-            <div id="dice-result"></div>
-            <!-- end of addition for dice roller in main div -->
         </div>
 
         <div class="ObjectForm", id="object_form">
@@ -107,16 +109,43 @@
         </div>
         
     </div>
-
     <!-- ALL TILE EDITING STUFF -->
     <div class="all-tile-stuff">
-        <div class="dropdown">
+        <div class="dropdown"style="padding-top: 175px;">
             <button class="dropbtn">CREATE NEW TILE</button>
             <div class="dropdown-content">
-              <a href="#" id="custom-option">CREATE NEW CUSTOM TILE</a>
-              <a href="#" id="edit-option">EDIT EXISTING TILE</a>
+              <p style="font-family: 'DragonHunter'">
+                <a href="#" id="custom-option">CREATE NEW CUSTOM TILE</a>
+                <a href="#" id="edit-option">EDIT EXISTING TILE</a>
+            </p>
             </div>
         </div>
+
+        <!-- BELOW is added for the dice roller, made it into a dropdown -->
+        <div class="dropdown dice-dropdown" style="padding-top: 135px;">
+            <button class="dropbtn" style="padding-left: 45px; padding-right: 45px;">DICE ROLLER</button>
+            <div class="dropdown-content">
+                <div>
+                    <p style="font-family: 'DragonHunter'">
+                        <a href="#">Number of Dice:
+                            <input type="number" id="dice-count" name="dice-count" min="1" max="20">
+                        </a>
+                        <a href="#"> Number of Sides for Dice:
+                            <input type="number" id="dice-sides" name="dice-sides" min="1" max="20">
+                        </a>
+                        
+                        <a href="#"> Add modifier:
+                            <input type="number" id="dice-mod" name="dice-mod" min="-5" max="10">
+                        </a>
+                        <p style="padding-left: 50px;">
+                        <button id="roll-dice">Roll Dice</button>
+                    </p>
+                    </p>
+                </div>
+                <div id="dice-result"></div>
+            </div>
+        </div>
+        <!-- end of addition for dice roller in main div -->
     
         <!-- CREATE CUSTOM TILE -->
         <div class="custom">
@@ -183,29 +212,14 @@
         </div>
     
         <div id="screen-overlay"></div>
-    </div>
-
-    <!--MAIN UI -->
-        <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
-    <div id="mySidenav" class="sidenavUI">
-        <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
-        <p id="create-grid">GRID</p> 
-        <a href="#">TOKEN</a>
-        <a href="#">TERRAIN</a>
-        <a href="#">DRAW</a>
-        <a href="#">DICE</a>
-    </div>
-    <span class="menuOpen" onclick="openNav()">&#9876;</span>
-
-    <script src="js/mainUI.js"></script>
-    
-    <script src="js/grid.js"></script>
+    </div>    
+    <script type="module" src="js/grid.js"></script>
 
     <script src="js/dice.js"></script>   <!--added this for dice roller -->
 
     <script src="js/paint.js"></script>  <!--this is for the paint -->
 
-    <script type="module" src="js/TileLogic.js"></script> <!-- added this for the tile feature -->
+    <script type="module" src="/team/m3/js/TileLogic.js"></script> <!-- added this for the tile feature -->
 
     <script type="module" src="js/ObjectTokenFinal.js"></script>
 
