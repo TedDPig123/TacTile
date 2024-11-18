@@ -48,10 +48,16 @@
 
 ## Casey Hammill - Design Coordinator
 **Role**: Oversees organization of ideas, and drafting solutions to problems. Makes sure all team members are working towards the same vision, and that vision is consistent and effective.
-- **Top 3 Commits**:
+- **Top 3 Commits (M2)**:
   1.  [Commit 1]() Designed UI diagrams by hand to show and check designs with teammates
   2.  [Commit 2](https://github.com/TedDPig123/326_Project/commit/a5c5108ba280efaf577a02ff086c5798c240b470) Created and uploaded completed UI diagrams, to give team a visual on all that was needed
   3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/80ed83c1be4c947561dbedec9b769903c8363dac) Added descriptions to all diagrams in `ui-diagrams.md`
+  - **Top 3 Commits (M3)**:
+  1.  [Commit 1](https://github.com/TedDPig123/326_Project/commit/8d773fe219a5be42bafe6b486909b34452515203) Implemented basic drawing functionality.
+  2.  [Commit 2](https://github.com/TedDPig123/326_Project/commit/04bb0ffb7774b96584b44f03541f4f89fd37302b) Fixed conflict with my drawing UI and the grid UI.
+  3. [Commit 3](https://github.com/TedDPig123/326_Project/commit/04a9218d764819b5c52d9ac99aa069931db15406) Fix paint.js after merging to rest of features
+
+
 
 ## Alina Almonte - Note taker
 - **Role**: Take notes during all team meetings that we organize, in case we'd like to ever look back on whatever ideas were given at the time and expand them in the future

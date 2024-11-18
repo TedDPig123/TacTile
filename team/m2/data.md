@@ -60,12 +60,9 @@
 
 ### 6. Drawing
  - **Description**: records the drawing on the battle map.
-     - `map_id`(string): the unique identifier for the map associated with the drawing.
-     - `draw_id`(string): a unique identifier for each drawing created.
      - `size`(number): the size of the pen/eraser/shape.
      - `color`(color): the color of the pen/shape.
-     - `mode`(boxes): is it freehand, shape or erasing mode.
-     - `drawing_cord`(canvas): record the placement of the drawing on the map.
+     - `tool`(booleans): keeps track of the currently selected drawing tool.
  - **Data Source**: User input when they select the drawing feature.
 
 # Data Relationships
