@@ -43,19 +43,39 @@ function getPosition(event){
 } 
 
 let drawing = false; //variable for whether or not you're holding down the mouse to draw
+let startPos;
 function penDown(event){ 
   drawing = true; 
   getPosition(event); //tracks cursor positon when you are
+  startPos = [coord.x, coord.y];
 } 
-function penUp(){ 
-  drawing = false; 
+function penUp(event){ 
+  drawing = false;
+  getPosition(event);
+  if (tools[2] == true) {
+    ctx.beginPath(); 
+    ctx.strokeStyle = document.getElementById("colorPicker").value;
+    ctx.lineWidth = document.getElementById("lineWeight").value;
+    let rectWidth = coord.x - startPos[0];
+    let rectHeight = coord.y - startPos[1];
+    ctx.rect(startPos[0], startPos[1], rectWidth, rectHeight);
+    ctx.stroke();
+  }
+  if (tools[3] == true) {
+    ctx.beginPath(); 
+    ctx.strokeStyle = document.getElementById("colorPicker").value;
+    ctx.lineWidth = document.getElementById("lineWeight").value;
+    let rectWidth = coord.x - startPos[0];
+    let rectHeight = coord.y - startPos[1];
+    ctx.ellipse(startPos[0], startPos[1], Math.abs(rectWidth), Math.abs(rectHeight), 0, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
 } 
-    
+
 function draw(event){ 
   if (drawing == true) {
     ctx.beginPath(); 
     ctx.lineCap = 'round';
-    console.log(tools);
     ctx.lineWidth = document.getElementById("lineWeight").value; 
     if (tools[0] == true) {
         ctx.strokeStyle = document.getElementById("colorPicker").value; 
@@ -66,32 +86,8 @@ function draw(event){
     } if (tools[1] == true) {
         //eraser here
         ctx.clearRect(event.offsetX, event.offsetY, ctx.lineWidth,ctx.lineWidth);
-    } if (tools[2] == true) {
-        //rectangle here
-        if (!drawing) {
-        // Save the starting point
-            getPosition(event);
-            coord.startX = coord.x;
-            coord.startY = coord.y;
-    } else {
-        // Clear the canvas and redraw the rectangle
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            ctx.beginPath();
-            ctx.strokeStyle = document.getElementById("colorPicker").value;
-            ctx.lineWidth = document.getElementById("lineWeight").value;
-            let rectWidth = coord.x - coord.startX;
-            let rectHeight = coord.y - coord.startY;
-            ctx.strokeRect(coord.startX, coord.startY, rectWidth, rectHeight);
-    } if (tools[3] == true) {
-        //circle here
-        //make circles when mousedown
-        ctx.arc(coord.x, coord.y, ctx.lineWidth, 0, 2 * Math.PI);
-        ctx.fillStyle = document.getElementById("colorPicker").value;;
-        ctx.fill();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = document.getElementById("colorPicker").value;
-        ctx.stroke();
-    }
+
+    } 
   }
 
 
