@@ -108,26 +108,6 @@ body {
     justify-content: center;
     cursor: pointer;
   }
-  
-  /* temporary colors and options for the types on the grid
-  Geri, look over this and change to what you need to do with objects. */
-  .grid-tile.grass {
-    background-color: green;
-  }
-  
-  .grid-tile.stone {
-    background-color: gray;
-  }
-  
-  .grid-tile.castle {
-    background-color: brown;
-  }
-  /* ADDED THIS FOR DICE ROLLER */
-  #dice-result {
-    margin-top: 20px; /* Add some space between the grid and the dice result. Adjust as needed */
-    font-size: 1.2em; /* Make the dice result text larger. Adjust to liking. */
-    font-weight: bold; /* Make the dice result text bold */
-  }
 
   #object-grid {
     z-index: 1;
@@ -747,3 +727,13 @@ svg {
      cursor: help;
   }
 
+  /* Dice Roller Dropdown */
+.dice-dropdown {
+  margin-top: 140px; /* Adjust this margin to move it further away from the "Create New Tile" dropdown */
+}
+
+#dice-result { /* Styling for the dice result text */
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
