@@ -36,4 +36,4 @@ sequenceDiagram
     tile->>tile: hideCustom() is called
     tile->>tile: initializeAvailableTiles() is called
     tile->>tile: populateTileDropdown1() is called
-    
+```
