@@ -80,7 +80,7 @@ sequenceDiagram
                         img ->> img: calls deleteImageElement()
                         img ->> db:calls deleteObject() to async delete the image in IndexDB.
                         db ->> img:returns a promise
-                        img ->> db: user delete the object token and its image
+                        img ->> web: user delete the object token and its image
 
                     end
                 end
