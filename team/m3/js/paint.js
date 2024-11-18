@@ -10,7 +10,7 @@ canvas.addEventListener('mousemove', draw);
 layer.style.pointerEvents = 'none'; //allows you to click on buttons and the grid beneath the drawings, when not drawing
 
 
-let tools = [true, false, false, false] //pencil, eraser, circle, square
+let tools = [false, false, false, false] //pencil, eraser, circle, square
 function changeTool(num)
 {
     for (let i = 0;i < tools.length; i++) {
@@ -26,9 +26,11 @@ function togglePaint() { //used for toggling whether or not you're actively draw
     if(toggle == true) {
         toggle = false;
         layer.style.pointerEvents = 'none';
+        document.getElementById('drawing-display').style.visibility = "hidden"; 
     } else {
         toggle = true;
         layer.style.pointerEvents = 'auto';
+        document.getElementById('drawing-display').style.visibility = "visible"; 
     }
 }
    
@@ -38,8 +40,8 @@ ctx.canvas.height = canvas.height;
 
 let coord = {x: 0, y: 0};  
 function getPosition(event){ 
-  coord.x = event.clientX - 15; 
-  coord.y = event.clientY - 15; 
+  coord.x = event.clientX - 400; 
+  coord.y = event.clientY - 100; 
 } 
 
 let drawing = false; //variable for whether or not you're holding down the mouse to draw
