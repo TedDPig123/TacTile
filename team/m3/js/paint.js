@@ -86,6 +86,12 @@ function draw(event){
     } if (tools[1] == true) {
         //eraser here
         ctx.clearRect(event.offsetX, event.offsetY, ctx.lineWidth,ctx.lineWidth);
+
     } 
   }
+
+
+}
+function clear_canvas(){
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
