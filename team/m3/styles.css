@@ -22,18 +22,17 @@ body {
     position: relative;
     top: 0px;
     left: 0px;
-    background-color: #2a6b2c;
     color: black;
   }
   
   button { /* might need to check in with each variation of the button(s) */
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'DragonHunter';
+    font-size: large;
     padding: 5px 5px 5px 5px;
     background-color: black;
     color: white;
   }
 
-  
   .container {
     display: flex;
     width: 100%;
@@ -271,7 +270,7 @@ svg {
 .dropdown {
   position: relative;
   display: inline-block;
-  margin:10px;
+  margin: 10px;
 }
 
 .dropbtn {
