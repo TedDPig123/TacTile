@@ -8,6 +8,11 @@ body {
     background-color: #f0f0f0;
   }
 
+  canvas {
+    border: red 1px solid;
+    height:100%;
+  }
+
   .parent {
     display: flex;
     width: 100%;
@@ -26,10 +31,14 @@ body {
     left: 0px;
   }
 
+  #drawing-display {
+    visibility: hidden;
+  }
+
   #paintLayer {
     position: absolute;
     top: 0px;
-    left: 0px;
+    left: 30%;
     pointer-events: none;
     z-index: 3;
   }

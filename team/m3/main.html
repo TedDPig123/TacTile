@@ -44,6 +44,32 @@
                     <button id="zoom-in">+</button>
                     <button id="zoom-out">-</button>
                 </div>
+                <button onclick="togglePaint()">Draw</button>
+                <br>
+                <div id="drawing-display">
+                    <table id="drawTable">
+                        <tr>
+                            <td>Color</td>
+                            <td>Width</td>
+                            <td>Pen</td>
+                            <td>Erase</td>
+                            <td>Rect</td>
+                            <td>Circle</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="color" id="colorPicker" name="head" value="#389dfb"/></td>
+                            <td><input type="number" id="lineWeight" min="1" max="500" value="1"></td>
+                            <td><input type="radio" id="pencil" name="paintTool" onclick="changeTool(0)"></td>
+                            <td><input type="radio" id="eraser" name="paintTool" onclick="changeTool(1)"></td>
+                            <td><input type="radio" id="circle" name="paintTool" onclick="changeTool(2)"></td>
+                            <td><input type="radio" id="sqaure" name="paintTool" onclick="changeTool(3)"></td>
+                            <td><button onClick="clear_canvas()" id ="clear">Clear</button></td>
+                        </tr>
+                    </table>
+                    
+                    
+                </div>
             </div>
             <div class="main-content">
                 <div id="grid-container">
@@ -51,8 +77,11 @@
                     <div id="object-grid"></div>
                 </div>
             </div>
+            
         </div>
-
+        <div id="paintLayer">
+            <canvas id="canvas" width="500x" height="500px"></canvas> 
+        </div>
         <div class="ObjectForm", id="object_form">
             <label for="name">Name: </label>
             <input type="text" id="name" maxlength="20">
@@ -77,22 +106,11 @@
             <idObj></idObj>
         </div>
 
-        <div id="paintLayer">
-            <canvas id="canvas" width="500x" height="500px"></canvas> 
-            <div id="normal">
-                <input type="color" id="colorPicker" name="head" value="#389dfb"/>
-                <input type="radio" id="pencil" name="paintTool" onclick="changeTool(0)" checked>
-                <input type="radio" id="eraser" name="paintTool" onclick="changeTool(1)">
-                <input type="radio" id="circle" name="paintTool" onclick="changeTool(2)">
-                <input type="radio" id="sqaure" name="paintTool" onclick="changeTool(3)">
-                <input type="checkbox" id="paintBool" onclick="togglePaint()">
-                <input type="number" id="lineWeight" min="1" max="500">
-                <button onClick="clear_canvas()" id ="clear">Clear</button>
-            </div>
-        </div>
+        
         
     </div>
 
+    
     <!-- ALL TILE EDITING STUFF -->
     <div class="all-tile-stuff">
         <div class="dropdown">
