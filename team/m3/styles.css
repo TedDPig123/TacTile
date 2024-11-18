@@ -9,7 +9,6 @@ body {
   }
 
   canvas {
-    border: red 1px solid;
     height:100%;
   }
 
