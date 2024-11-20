@@ -6,21 +6,17 @@
     <title>TacTile - Customizable Battle Grid</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body style="background-color: aquamarine;">
+<body>
     <div class="parent">
         <div class="container">
             <div class="sidebar">
                 <h1>TacTile - Customizable Battle Grid</h1>
                 <div>
-                    <p>
-                        <label for="grid-width">Grid Width:</label>
-                        <input type="number" id="grid-width" name="grid-width" min="1" max="100">
-                    </p>
-                    <p>
-                        <label for="grid-height">Grid Height:</label>
-                        <input type="number" id="grid-height" name="grid-height" min="1" max="100">
-                    </p>
-                    <button id="create-grid" onclick="playAudio('audio/Create Grid.mp3')">Create Grid</button>
+                    <label for="grid-width">Grid Width:</label>
+                    <input type="number" id="grid-width" name="grid-width" min="1" max="100">
+                    <label for="grid-height">Grid Height:</label>
+                    <input type="number" id="grid-height" name="grid-height" min="1" max="100">
+                    <button id="create-grid">Create Grid</button>
                     <br>
                     <br>
                     <label for="background-image-upload">Insert Background Image</label>
@@ -109,6 +105,9 @@
             <input type="button" value="Delete All Object" id="deleteAll"/>
             <idObj></idObj>
         </div>
+
+        
+        
     </div>
 
     
@@ -211,19 +210,13 @@
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
     <div id="mySidenav" class="sidenavUI">
         <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
-        <button onclick="openSubNav()">GRID</button> 
+        <a href="#">GRID</a> 
         <a href="#">TOKEN</a>
         <a href="#">TERRAIN</a>
         <a href="#">DRAW</a>
         <a href="#">DICE</a>
     </div>
     <span class="menuOpen" onclick="openNav()">&#9876;</span>
-
-    <audio autoplay> <!-- autoplay>-->
-        <source src="audio/Background Music.mp3" type="audio/mpeg">
-    </audio>
-    
-    <script src="js/mainUI.js"></script>
     
     <script type="module" src="js/grid.js"></script>
 
@@ -234,5 +227,7 @@
     <script type="module" src="/team/m3/js/TileLogic.js"></script> <!-- added this for the tile feature -->
 
     <script type="module" src="js/ObjectTokenFinal.js"></script>
+
+
 </body>
 </html>
