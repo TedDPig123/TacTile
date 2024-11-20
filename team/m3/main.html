@@ -10,7 +10,7 @@
     <div class="parent">
         <div class="container">
             <div class="sidebar">
-                <h1>TacTile - Customizable Battle Grid</h1>
+                <h1>Customizable Battle Grid</h1>
                 <div>
                     <p>
                         <label for="grid-width">Grid Width:</label>
@@ -24,25 +24,19 @@
                     <br>
                     <br>
                     <label for="background-image-upload">Insert Background Image</label>
-                    <input type="file" id="background-image-upload" accept="image/*">
-                    <br>
-                    <br>
-                    <input type="button", value="add/update object", id="object_button">
-                    <br>
+                    <input style="padding-left: 20px;" type="file" id="background-image-upload" accept="image/*">
+                    <p style="padding-left: 25px"><button id="object_button">Add/Update Object</button></p>
+                    <!-- <br>
                     <br>
                     <input type="button", value="Switch to Battle Grid", id="switch_button">
-                    <br>
-                    <br>
-                    <button id="edit-mode-toggle">Enable Edit Mode</button>
-                    <br>
-                    <br>
+                    <br> -->
+                    <p style="padding-left: 20px"><button value="Switch to Battle Grid", id="switch_button">Switch to Battle Grid</button></p>
+                    <p style="padding-left: 30px"><button id="edit-mode-toggle">Enable Edit Mode</button></p>
                     <label for="tile-selector">Select a Tile:</label>
                     <select id="tile-selector">
                         <option value="delete">Delete Tile</option>
                     </select>
-                    <br>
-                    <br>
-                    <button id="delete-tile-types">Delete All Tile Types</button>
+                    <p style="padding-left: 15px"><button id="delete-tile-types">Delete All Tile Types</button></p>
                 </div>
                 <div class="zoom-controls">
                     <button id="zoom-in">+</button>
@@ -209,7 +203,7 @@
 
     <!--MAIN UI -->
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
-    <div id="mySidenav" class="sidenavUI">
+    <!-- <div id="mySidenav" class="sidenavUI">
         <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
         <button onclick="openSubNav()">GRID</button> 
         <a href="#">TOKEN</a>
@@ -225,13 +219,13 @@
     
     <script src="js/mainUI.js"></script>
     
-    <script type="module" src="js/grid.js"></script>
+    <script src="js/grid.js"></script>
 
     <script src="js/dice.js"></script>   <!--added this for dice roller -->
 
     <script src="js/paint.js"></script>  <!--this is for the paint -->
 
-    <script type="module" src="/team/m3/js/TileLogic.js"></script> <!-- added this for the tile feature -->
+    <script type="module" src="js/TileLogic.js"></script> <!-- added this for the tile feature -->
 
     <script type="module" src="js/ObjectTokenFinal.js"></script>
 </body>
