@@ -4,7 +4,7 @@
 }
 
 body {
-    cursor: url('images/cursor.png'), pointer;
+    cursor: url('images/cursor.png') 20 15, auto;
     background-image: url('images/background.png'), url('images/beneath background.jpg');
     font-family: DragonHunter;
     margin: 20px;
@@ -704,8 +704,9 @@ svg {
 
 /* The code below is for the menu UI */
 .sidenavUI {
-  background-image: url('images/sidebar.png');
+  /* background-image: url('images/sidebar.png'); */
   background-repeat: no-repeat;
+  background-color: black;
   background-size: 100% 100%;
   height: 100%;
   width: 0;
@@ -729,32 +730,61 @@ svg {
   display: block;
   transition: 0.5s;
 }
+
+.sidenavUI a:hover {
+  color:  rgb(30, 27, 27);
+  text-shadow: 4px 3px 4px white;
+}
+
+.subsidenavUI {
+  /* background-image: url('images/sidebar.png'); */
+  background-repeat: no-repeat;
+  background-color: green;
+  background-size: 100% 100%;
+  height: 20%;
+  width: 0;
+  position: fixed;
+  z-index: 0;
+  /* background-color: rgba(0, 0, 0, 0.83); */
+  top: 10%;
+  left: 20%;
+  overflow-x: hidden;
+  transition: 0.8s;
+}
+
+.closebtnUI {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  color: black;
+  font-size: 40%;
+  margin-left: 50px;
+  transition: 1s;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.menuOpen {
+    font-size: 70px;
+    border-style: solid black 5px;
+    cursor: help;
+}
+
+.loadingScreen {
+  transition-duration: 2s;
+  position: absolute;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
   
-  .sidenavUI a:hover {
-    color:  rgb(30, 27, 27);
-    text-shadow: 4px 3px 4px white;
-  }
-  
-  .sidenavUI .closebtnUI {
-    position: absolute;
-    top: 0;
-    right: 10%;
-    color: black;
-    font-size: 40%;
-    margin-left: 50px;
-    transition: 1s;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
-  
-  .menuOpen {
-     font-size: 70px;
-     border-style: solid black 5px;
-     cursor: help;
-  }
 
   /* Dice Roller Dropdown */
 .dice-dropdown {

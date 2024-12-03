@@ -106,7 +106,7 @@ function createGrid(width, height) {
     battleGrid.innerHTML = ''; // Clear any existing grid
     battleGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
     battleGrid.style.gridTemplateRows = `repeat(${height}, 1fr)`;
-    battleGrid.style.zIndex = 3;
+    battleGrid.style.zIndex = 5;
 
     // start of emily's edit
     // added ObjectGrid

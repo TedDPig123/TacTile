@@ -6,7 +6,10 @@
     <title>TacTile - Customizable Battle Grid</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body style="background-color: aquamarine;">
+<body>
+    <!-- <div class="loadingScreen"> 
+        <h1> test </h1>
+    </div> -->
     <div class="parent">
         <div class="container">
             <div class="sidebar">
@@ -205,19 +208,33 @@
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
     <div id="mySidenav" class="sidenavUI">
         <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
-        <button onclick="openSubNav()">GRID</button> 
+        <button onclick="checkSubNav()">GRID</button> <!--change to subnavCheck-->
+            <div id="mySubsidenav" class="subsidenavUI"> 
+                <label for="grid-width">Grid Width:</label>
+                <input type="number" id="grid-width" name="grid-width" min="1" max="100">
+            </p>
+            <p>
+                <label for="grid-height">Grid Height:</label>
+                <input type="number" id="grid-height" name="grid-height" min="1" max="100">
+            </p>
+            <button id="create-grid" onclick="playAudio('audio/Create Grid.mp3')">Create Grid</button>
+            <br>
+            <br>
+            <label for="background-image-upload">Insert Background Image</label>
+            <input style="padding-left: 20px;" type="file" id="background-image-upload" accept="image/*">
+            </div>
         <a href="#">TOKEN</a>
         <a href="#">TERRAIN</a>
         <a href="#">DRAW</a>
         <a href="#">DICE</a>
     </div>
-    <span class="menuOpen" onclick="openNav()">&#9876;</span>
+    <span class="menuOpen" onclick="checkNav()">&#9876;</span>
 
     <audio autoplay> 
         <source src="audio/Background Music.mp3" type="audio/mpeg">
     </audio>
     
-    <script type="module" src="js/mainUI.js"></script>
+    <script src="js/mainUI.js"></script>
     
     <script type="module" src="js/grid.js"></script>
 
