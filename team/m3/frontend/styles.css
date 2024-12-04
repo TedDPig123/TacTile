@@ -219,8 +219,8 @@ body {
 /* ALL GERI'S TILE UI STUFF */
 @font-face {
   font-family: 'intanregular';
-  src: url('/team/m3/tileTypes/intan-webfont.woff2') format('woff2'),
-       url('/team/m3/tileTypes/intan-webfont.woff') format('woff');
+  src: url('tileTypes/intan-webfont.woff2') format('woff2'),
+       url('tileTypes/intan-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
