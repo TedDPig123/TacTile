@@ -16,7 +16,9 @@ function checkNav() {
   counter++
   if (counter % 2 === 0) {
     if (subCounter % 2 !== 0) {
-      closeSubNav();
+      closeSubSubNavGrid();
+      closeSubSubNavDraw();
+      togglePaint();
       subCounter++;
     }
     closeNav(); //opens the navigation
@@ -25,23 +27,61 @@ function checkNav() {
     openNav(); //closes the navigation 
 }
 
-function openSubNav() {
-  document.getElementById("mySubsidenav").style.width = "29%"; //literally just making the existing ui even bigger 
+function openSubSubNavGrid() {
+  document.getElementById("subSideNavGridID").style.width = "29%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
-function closeSubNav() {
-  document.getElementById("mySubsidenav").style.width = "0"; //literally just making the existing ui even bigger 
+function closeSubSubNavGrid() {
+  document.getElementById("subSideNavGridID").style.width = "0"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
-function checkSubNav() {
+function openSubSubNavDraw() {
+  document.getElementById("subSideNavDrawID").style.width = "29%"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+function closeSubSubNavDraw() {
+  document.getElementById("subSideNavDrawID").style.width = "0"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+function openSubSubNavDice() {
+  document.getElementById("subSideNavDiceID").style.width = "29%"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+function closeSubSubNavDice() {
+  document.getElementById("subSideNavDiceID").style.width = "0"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+
+function checkSubNavGrid() {
     subCounter++;
     if (subCounter % 2 === 0)
-      closeSubNav();
+      closeSubSubNavGrid();
     else 
-      openSubNav();
+      openSubSubNavGrid();
 }
+
+function checkSubNavDraw() {
+  subCounter++;
+  if (subCounter % 2 === 0)
+    closeSubSubNavDraw();
+  else 
+    openSubSubNavDraw();
+}
+
+function checkSubNavDice() {
+  subCounter++;
+  if (subCounter % 2 === 0)
+    closeSubSubNavDice();
+  else 
+    openSubSubNavDice();
+}
+
 
 
 function playAudio(url) {
