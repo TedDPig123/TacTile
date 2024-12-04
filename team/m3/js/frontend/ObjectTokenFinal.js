@@ -1,5 +1,5 @@
 import {DataForm} from "./ObjectForm.js";
-import {DatabaseConnection } from "../js/DatabaseConnection.js";
+import {DatabaseConnection } from "./DatabaseConnection.js";
 import {ImageForToken} from "./ImageImport.js";
 import { MoveItem } from "./MovingToken.js";
 

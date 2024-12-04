@@ -1,4 +1,4 @@
-import { initializeBattleGrid } from "../js/TileLogic.js"; //geri imported function here
+import { initializeBattleGrid } from "./TileLogic.js"; //geri imported function here
 // Variables for zoom and drag
 let scale = 1;
 const zoomStep = 0.1;
