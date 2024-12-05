@@ -7,10 +7,13 @@ function openNav() {
   playAudio('audio/Opening UI.mp3');
   //document.getElementById("mySidenav").style.width = "10%";
   let sideNavButtonArray = document.getElementsByClassName("sidenavUIbuttons");
+  let subSideNavArray = document.getElementsByClassName("subsidenavUI");
   for (let i = 0; i < sideNavButtonArray.length; i++) {
     sideNavButtonArray[i].style.transitionDelay= "0.5s";  
     sideNavButtonArray[i].style.transitionDuration = "2s";
     sideNavButtonArray[i].style.opacity = 1;
+
+    subSideNavArray[i].style.transitionDuration = "0.8s"
   }
 }
 
@@ -19,10 +22,13 @@ function closeNav() {
   document.getElementById("mySidenav").style.transitionDelay = "0.5s";
   playAudio('audio/Opening UI.mp3');  //sidenavUI
   let sideNavButtonArray = document.getElementsByClassName("sidenavUIbuttons");
+  let subSideNavArray = document.getElementsByClassName("subsidenavUI");
   for (let i = 0; i < sideNavButtonArray.length; i++) {
-    sideNavButtonArray[i].style.transitionDelay= "0s";  
+    sideNavButtonArray[i].style.transitionDelay = "0s";  
     sideNavButtonArray[i].style.transitionDuration = "1s";
     sideNavButtonArray[i].style.opacity = 0;
+
+    subSideNavArray[i].style.transitionDuration = "0.5s"
   }
 }
 
@@ -43,7 +49,7 @@ function checkNav() {
 }
 
 function openSubSubNavGrid() {
-  document.getElementById("subSideNavGridID").style.width = "29%"; //literally just making the existing ui even bigger 
+  document.getElementById("subSideNavGridID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -53,7 +59,7 @@ function closeSubSubNavGrid() {
 }
 
 function openSubSubNavDraw() {
-  document.getElementById("subSideNavDrawID").style.width = "29%"; //literally just making the existing ui even bigger 
+  document.getElementById("subSideNavDrawID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -63,7 +69,7 @@ function closeSubSubNavDraw() {
 }
 
 function openSubSubNavDice() {
-  document.getElementById("subSideNavDiceID").style.width = "29%"; //literally just making the existing ui even bigger 
+  document.getElementById("subSideNavDiceID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -73,7 +79,7 @@ function closeSubSubNavDice() {
 }
 
 function openSubSubNavToken() {
-  document.getElementById("subSideNavTokenID").style.width = "29%"; //literally just making the existing ui even bigger 
+  document.getElementById("subSideNavTokenID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -87,8 +93,9 @@ function checkSubNavGrid() {
     subCounter++;
     if (subCounter % 2 === 0)
       closeSubSubNavGrid();
-    else 
+    else {
       openSubSubNavGrid();
+    }
 }
 
 function checkSubNavDraw() {
@@ -114,8 +121,6 @@ function checkSubNavToken() {
   else 
     openSubSubNavToken();
 }
-
-
 
 function playAudio(url) {
   new Audio(url).play();

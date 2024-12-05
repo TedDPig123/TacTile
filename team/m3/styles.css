@@ -713,13 +713,13 @@ svg {
 
 /* The code below is for the menu UI */
 .sidenavUI {
-  /* background-image: url('images/sidebar.png'); */
+  background-image: url('images/sidebar.png');
   background-repeat: no-repeat;
-  background-color: black;
+  /* background-color: black; */
   background-size: 100% 100%;
   height: 100%;
   width: 0;
-  position: fixed;
+  position: absolute;
   z-index: 10;
   /* background-color: rgba(0, 0, 0, 0.83); */
   top: 0;
@@ -729,23 +729,22 @@ svg {
   padding-top: 5%;
 }
 
-  
-.sidenavUI a {
-  font-family: DragonHunter;
-  padding: 1% 1% 7% 15%;
-  text-decoration: none;
-  overflow-x: hidden;
-  font-size: 300%;
-  color: white;
-  display: block;
-  transition: 0.5s;
-}
-
 .sidenavUIbuttons {
+  background-image: url('images/buttonOn.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   opacity: 0;
+  left: 20%;
   transition-property: opacity;
   transition-delay: 3s;
   transition-duration: 2s;
+  position: sticky;
+  font-family: DragonHunter;
+  padding: 7%;
+  font-size: 200%;
+  color: white;
+  display: block;
+  transition: 0.5s;
 }
 
 .sidenavUI a:hover {
@@ -754,17 +753,16 @@ svg {
 }
 
 .subsidenavUI {
-  /* background-image: url('images/sidebar.png'); */
+  background-image: url('images/subsidebar.png');
   background-repeat: no-repeat;
-  background-color: green;
   background-size: 100% 100%;
-  height: 20%;
+  height: 80%;
   width: 0;
   position: fixed;
-  z-index: -5S;
+  z-index: -5;
   /* background-color: rgba(0, 0, 0, 0.83); */
-  top: 10%;
-  left: 20%;
+  top: 16%;
+  left: 17.5%;
   overflow-x: hidden;
   transition: 0.8s;
 }
