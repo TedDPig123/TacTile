@@ -28,18 +28,18 @@
                     <br>
                     <!-- <label for="background-image-upload">Insert Background Image</label>
                     <input style="padding-left: 20px;" type="file" id="background-image-upload" accept="image/*"> -->
-                    <p style="padding-left: 25px"><button id="object_button">Add/Update Object</button></p>
+                    <!-- <p style="padding-left: 25px"><button id="object_button">Add/Update Object</button></p> -->
                     <br>
                     <br>
                     <!-- <input type="button", value="Switch to Battle Grid", id="switch_button"> -->
                     <br>
-
+<!-- 
                     <p style="padding-left: 30px"><button id="edit-mode-toggle">Enable Edit Mode</button></p>
                     <label for="tile-selector">Select a Tile:</label>
                     <select id="tile-selector">
                         <option value="delete">Delete Tile</option>
                     </select>
-                    <p style="padding-left: 15px"><button id="delete-tile-types">Delete All Tile Types</button></p>
+                    <p style="padding-left: 15px"><button id="delete-tile-types">Delete All Tile Types</button></p> -->
                 </div>
                 <!-- <div class="zoom-controls">
                     <button id="zoom-in">+</button>
@@ -87,16 +87,16 @@
     
     <!-- ALL TILE EDITING STUFF -->
     <div class="all-tile-stuff">
-        <div class="dropdown">
+        <!-- <div class="dropdown">
             <button class="dropbtn">CREATE NEW TILE</button>
             <div class="dropdown-content">
               <a href="#" id="custom-option">CREATE NEW CUSTOM TILE</a>
               <a href="#" id="edit-option">EDIT EXISTING TILE</a>
             </div>
-        </div>
+        </div> -->
 
         <!-- BELOW is added for the dice roller, made it into a dropdown -->
-        <div class="dropdown dice-dropdown">
+        <!-- <div class="dropdown dice-dropdown">
             <button class="dropbtn">DICE ROLLER</button>
             <div class="dropdown-content">
                 <div>
@@ -110,7 +110,7 @@
                 </div>
                 <div id="dice-result"></div>
             </div>
-        </div>
+        </div> -->
         <!-- end of addition for dice roller in main div -->
     
         <!-- CREATE CUSTOM TILE -->
@@ -184,7 +184,7 @@
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
     <div id="mySidenav" class="sidenavUI">
         <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
-        <button onclick="checkSubNavGrid()">GRID</button> <!--change to subnavCheck-->
+        <button class="sidenavUIbuttons" onclick="checkSubNavGrid()">GRID</button> <!--change to subnavCheck-->
             <div id="subSideNavGridID" class="subsidenavUI"> 
                 <label for="grid-width">Grid Width:</label>
                 <input type="number" id="grid-width" name="grid-width" min="1" max="100">
@@ -205,9 +205,19 @@
                 <button id="zoom-out">-</button>
             </div>
             </div>
-        <a href="#">TOKEN</a>
-        <a href="#">TERRAIN</a>
-        <button onclick="togglePaint(); checkSubNavDraw()">Draw</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TOKEN</button>
+            <div id="subSideNavTokenID" class="subsidenavUI"> 
+                <button id="edit-mode-toggle">Enable Edit Mode</button></p>
+                <label for="tile-selector">Select a Tile:</label>
+                <select id="tile-selector">
+                    <option value="delete">Delete Tile</option>
+                </select>
+                <p style="padding-left: 15px"><button id="delete-tile-types">Delete All Tile Types</button></p>
+                <button id="custom-option">CREATE NEW CUSTOM TILE</button>
+                <button id="edit-option">EDIT EXISTING TILE</button>
+            </div>
+        <button class="sidenavUIbuttons" id="object_button">OBJECT</button>
+        <button class="sidenavUIbuttons" onclick="togglePaint(); checkSubNavDraw()">Draw</button>
             <div id="subSideNavDrawID" class="subsidenavUI">
                 <table id="drawTable">
                     <tr>
@@ -231,7 +241,7 @@
                 </table>
             </div>
         <br>
-        <button onclick="checkSubNavDice()">DICE ROLLER</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavDice()">DICE ROLLER</button>
         <div id="subSideNavDiceID" class="subsidenavUI">
             <div>
                 <label for="dice-count">Number of Dice:</label>

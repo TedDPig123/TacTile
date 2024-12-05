@@ -3,13 +3,27 @@ let subCounter = 0;
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "19%";
+  document.getElementById("mySidenav").style.transitionDelay = "0.1s";
   playAudio('audio/Opening UI.mp3');
   //document.getElementById("mySidenav").style.width = "10%";
+  let sideNavButtonArray = document.getElementsByClassName("sidenavUIbuttons");
+  for (let i = 0; i < sideNavButtonArray.length; i++) {
+    sideNavButtonArray[i].style.transitionDelay= "0.5s";  
+    sideNavButtonArray[i].style.transitionDuration = "2s";
+    sideNavButtonArray[i].style.opacity = 1;
+  }
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
-  playAudio('audio/Opening UI.mp3');
+  document.getElementById("mySidenav").style.transitionDelay = "0.5s";
+  playAudio('audio/Opening UI.mp3');  //sidenavUI
+  let sideNavButtonArray = document.getElementsByClassName("sidenavUIbuttons");
+  for (let i = 0; i < sideNavButtonArray.length; i++) {
+    sideNavButtonArray[i].style.transitionDelay= "0s";  
+    sideNavButtonArray[i].style.transitionDuration = "1s";
+    sideNavButtonArray[i].style.opacity = 0;
+  }
 }
 
 function checkNav() {
@@ -18,8 +32,9 @@ function checkNav() {
     if (subCounter % 2 !== 0) {
       closeSubSubNavGrid();
       closeSubSubNavDraw();
-      togglePaint();
-      subCounter++;
+      togglePaint();   // when you close the menu, this will stop you from being able to continue drawing 
+      closeSubSubNavDice();
+      closeSubSubNavToken();
     }
     closeNav(); //opens the navigation
   }
@@ -57,6 +72,16 @@ function closeSubSubNavDice() {
   playAudio('audio/Opening UI.mp3');
 }
 
+function openSubSubNavToken() {
+  document.getElementById("subSideNavTokenID").style.width = "29%"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+function closeSubSubNavToken() {
+  document.getElementById("subSideNavTokenID").style.width = "0"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
 
 function checkSubNavGrid() {
     subCounter++;
@@ -80,6 +105,14 @@ function checkSubNavDice() {
     closeSubSubNavDice();
   else 
     openSubSubNavDice();
+}
+
+function checkSubNavToken() {
+  subCounter++;
+  if (subCounter % 2 === 0)
+    closeSubSubNavToken();
+  else 
+    openSubSubNavToken();
 }
 
 

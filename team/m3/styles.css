@@ -37,6 +37,15 @@ body {
     color: white;
   }
 
+  label { /* might need to check in with each variation of the button(s) */
+    font-family: 'DragonHunter';
+    font-size: large;
+    padding: 5px 5px 5px 5px;
+    background-color: black;
+    color: white;
+  }
+
+
   .container {
     display: flex;
     width: 100%;
@@ -719,6 +728,7 @@ svg {
   transition: 0.8s;
   padding-top: 5%;
 }
+
   
 .sidenavUI a {
   font-family: DragonHunter;
@@ -729,6 +739,13 @@ svg {
   color: white;
   display: block;
   transition: 0.5s;
+}
+
+.sidenavUIbuttons {
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: 3s;
+  transition-duration: 2s;
 }
 
 .sidenavUI a:hover {
