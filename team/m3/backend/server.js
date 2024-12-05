@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import {tileCoordRouter} from "../js/backend/routers/TileCoordRouter"
+import {tileRouter} from "../js/backend/routers/TileRouter"
 
 class Server {
     constructor(){
@@ -19,7 +21,10 @@ class Server {
     }
 
     //Each person adds their routes here
-    setupRoutes() {}
+    setupRoutes() {
+        this.app.use('/tiles', tileRouter);
+        this.app.use('/tileCoordinates', tileCoordRouter);
+    }
 
 
     start(port = 3000) {
