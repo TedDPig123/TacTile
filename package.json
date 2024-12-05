@@ -4,5 +4,6 @@
     "image-js": "^0.35.6",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"
-  }
+  },
+  "type": "module"
 }
