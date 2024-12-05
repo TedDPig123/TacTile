@@ -7,27 +7,10 @@ const sequelize = new Sequelize({
 
 //this is for the tile object
 const Tile = sequelize.define('Tile',{
+    tileID: {type: DataTypes.INTEGER}, //the tileID given via indexDB
     type: {type: DataTypes.STRING}, //tile type
     details: {type: DataTypes.STRING}, //tile description
     imgData: {type: DataTypes.STRING} //this contains the image URL
 },);
 
 export default Tile;
-
-//this holds the data from each square in the battlegrid 
-const TileCoordinate = sequelize.define('TileCoordinate',{
-    x:{
-        type: DataTypes.INTEGER
-    },
-    y:{
-        type: DataTypes.INTEGER
-    }
-},);
-
-//this defines a one-to-many relationship between Tile and TileCoordinate, as each Tile can be placed
-//on different coordinates on the battlegrid. onDelete: 'CASCADE' simply ensures that when
-//a Tile is deleted its TileCoordinates are deleted too
-Tile.hasMany(TileCoordinate, {onDelete: 'CASCADE'});
-
-//THis ensures that a TileCoordinate can belong to only one Tile
-TileCoordinate.belongsTo(Tile);
