@@ -7,6 +7,9 @@ const sequelize = new Sequelize({
 });
 
 const TileCoordinate = sequelize.define('TileCoordinate',{
+    tileID:{ //the tile-id given by the indexedDB call in the front end
+        type: DataTypes.INTEGER
+    },
     x:{
         type: DataTypes.INTEGER
     },
@@ -22,4 +25,6 @@ Tile.hasMany(TileCoordinate, {onDelete: 'CASCADE'});
 
 //THis ensures that a TileCoordinate can belong to only one Tile
 TileCoordinate.belongsTo(Tile);
+
+await sequelize.sync();
 export default TileCoordinate;
