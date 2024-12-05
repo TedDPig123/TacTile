@@ -40,8 +40,9 @@ ctx.canvas.height = canvas.height;
 
 let coord = {x: 0, y: 0};  
 function getPosition(event){ 
-  coord.x = event.clientX - 400; 
-  coord.y = event.clientY - 100; 
+  const rect = canvas.getBoundingClientRect();
+  coord.x = event.clientX - rect.left;
+  coord.y = event.clientY - rect.top;
 } 
 
 let drawing = false; //variable for whether or not you're holding down the mouse to draw
@@ -83,7 +84,7 @@ function draw(event){
         ctx.strokeStyle = document.getElementById("colorPicker").value; 
         ctx.moveTo(coord.x, coord.y); 
         getPosition(event); 
-        ctx.lineTo(coord.x , coord.y); 
+        ctx.lineTo(coord.x, coord.y); 
         ctx.stroke(); 
     } if (tools[1] == true) {
         //eraser here
