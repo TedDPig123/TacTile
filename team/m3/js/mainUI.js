@@ -3,8 +3,9 @@ let isOpenDice = false;
 let isOpenDraw = false;
 let isOpenGrid = false;
 
-let counter = 0;
-let subCounter = 0;
+let isOpenMain = false;
+let isOpenSubNav= false;
+// let subCounter = 0;
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "19%";
@@ -28,30 +29,31 @@ function closeNav() {
   playAudio('audio/Opening UI.mp3');  //sidenavUI
   let sideNavButtonArray = document.getElementsByClassName("sidenavUIbuttons");
   let subSideNavArray = document.getElementsByClassName("subsidenavUI");
-  for (let i = 0; i < sideNavButtonArray.length; i++) {
-    sideNavButtonArray[i].style.transitionDelay = "0s";  
-    sideNavButtonArray[i].style.transitionDuration = "1s";
-    sideNavButtonArray[i].style.opacity = 0;
+  for (let j = 0; j < sideNavButtonArray.length; j++) {
+    sideNavButtonArray[j].style.transitionDelay = "0s";  
+    sideNavButtonArray[j].style.transitionDuration = "1s";
+    sideNavButtonArray[j].style.opacity = 0;
 
-    subSideNavArray[i].style.transitionDuration = "0.5s"
+    subSideNavArray[j].style.transitionDuration = "0.5s"
   }
 }
 
-
 function checkNav() {
-  counter++
-  if (counter % 2 === 0) {
-    if (subCounter % 2 !== 0) {
-      closeSubSubNavGrid();
-      closeSubSubNavDraw();
-      togglePaint();   // when you close the menu, this will stop you from being able to continue drawing 
-      closeSubSubNavDice();
-      closeSubSubNavToken();
-    }
+  if (isOpenMain === true) {
+    isOpenMain = false;
+    // if (subCounter % 2 !== 0) {
+    //   closeSubSubNavGrid();
+    //   closeSubSubNavToken();
+    //   closeSubSubNavDraw();
+    //   togglePaint();   // when you close the menu, this will stop you from being able to continue drawing 
+    //   closeSubSubNavDice();
+    // }
     closeNav(); //opens the navigation
   }
-  else
+  else {
+    isOpenMain = true;
     openNav(); //closes the navigation 
+  }
 }
 
 function openSubSubNavGrid() {
@@ -61,6 +63,16 @@ function openSubSubNavGrid() {
 
 function closeSubSubNavGrid() {
   document.getElementById("subSideNavGridID").style.width = "0"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+function openSubSubNavToken() {
+  document.getElementById("subSideNavTokenID").style.width = "20%"; //literally just making the existing ui even bigger 
+  playAudio('audio/Opening UI.mp3');
+}
+
+function closeSubSubNavToken() {
+  document.getElementById("subSideNavTokenID").style.width = "0"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -84,48 +96,76 @@ function closeSubSubNavDice() {
   playAudio('audio/Opening UI.mp3');
 }
 
-function openSubSubNavToken() {
-  document.getElementById("subSideNavTokenID").style.width = "20%"; //literally just making the existing ui even bigger 
-  playAudio('audio/Opening UI.mp3');
-}
-
-function closeSubSubNavToken() {
-  document.getElementById("subSideNavTokenID").style.width = "0"; //literally just making the existing ui even bigger 
-  playAudio('audio/Opening UI.mp3');
-}
-
-
 function checkSubNavGrid() {
-  subCounter++;
-    if (subCounter ===  % 2 === 0)
-      closeSubSubNavGrid();
-    else {
-      openSubSubNavGrid();
-    }
-}
-
-function checkSubNavDraw() {
-  subCounter++;
-  if (subCounter % 2 === 0)
+  if (isOpenGrid === true) {
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+  }
+  else {
+    isOpenGrid = true;
+    openSubSubNavGrid();
+    isOpenToken = false;
+    closeSubSubNavToken();
+    isOpenDraw = false;
     closeSubSubNavDraw();
-  else 
-    openSubSubNavDraw();
-}
-
-function checkSubNavDice() {
-  subCounter++;
-  if (subCounter % 2 === 0)
+    togglePaint();
+    isOpenDice = false;
     closeSubSubNavDice();
-  else 
-    openSubSubNavDice();
+  }
 }
 
 function checkSubNavToken() {
-  subCounter++;
-  if (subCounter % 2 === 0)
+  if (isOpenToken === true) {
+    isOpenToken = false;
     closeSubSubNavToken();
-  else 
+  }
+  else {
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+    isOpenToken = true;
     openSubSubNavToken();
+    isOpenDraw = false;
+    closeSubSubNavDraw();
+    togglePaint();
+    isOpenDice = false;
+    closeSubSubNavDice();
+  }
+}
+
+function checkSubNavDraw() {
+  if (isOpenDraw === true) {
+    isOpenDraw = false;
+    togglePaint();
+    closeSubSubNavDraw();
+  }
+  else { 
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+    isOpenToken = false;
+    closeSubSubNavToken();
+    isOpenDraw = true;
+    openSubSubNavDraw();
+    isOpenDice = false;
+    closeSubSubNavDice();
+  }
+}
+
+function checkSubNavDice() {
+  if (isOpenDice === true) {
+    isOpenDice = false;
+    closeSubSubNavDice();
+  }
+  else {
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+    isOpenToken = false;
+    closeSubSubNavToken();
+    isOpenDraw = false;
+    closeSubSubNavDraw();
+    togglePaint();
+    isOpenDice = true;
+    openSubSubNavDice();
+  }
 }
 
 function playAudio(url) {
