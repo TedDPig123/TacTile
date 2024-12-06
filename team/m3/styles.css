@@ -781,10 +781,16 @@ svg {
   display: flex;
   flex-direction: column;
 }
-
+.drawTable td {
+  padding-top: 10%;
+  padding-bottom: 3%;
+}
 .subsidenavUILabels{
+  font-size: 150%;
+  color: white;
   position: absolute;
-  bottom: 40%;
+  top: 10%;
+  left: 3%;
 }
 
 .closebtnUI {

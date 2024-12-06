@@ -15,9 +15,9 @@ function openNav() {
   let sideNavButtonArray = document.getElementsByClassName("sidenavUIbuttons");
   let subSideNavArray = document.getElementsByClassName("subsidenavUI");
   for (let i = 0; i < sideNavButtonArray.length; i++) {
-    sideNavButtonArray[i].style.transitionDelay= "0.5s";  
-    sideNavButtonArray[i].style.transitionDuration = "2s";
-    sideNavButtonArray[i].style.opacity = 1;
+    sideNavButtonArray[i].style.transitionDelay= "0.5s";  //Main menu button 
+    sideNavButtonArray[i].style.transitionDuration = "2s"; //Main menu button 
+    sideNavButtonArray[i].style.opacity = 1; //Main menu button 
 
     subSideNavArray[i].style.transitionDuration = "0.8s"
   }
@@ -41,13 +41,16 @@ function closeNav() {
 function checkNav() {
   if (isOpenMain === true) {
     isOpenMain = false;
-    // if (subCounter % 2 !== 0) {
-    //   closeSubSubNavGrid();
-    //   closeSubSubNavToken();
-    //   closeSubSubNavDraw();
-    //   togglePaint();   // when you close the menu, this will stop you from being able to continue drawing 
-    //   closeSubSubNavDice();
-    // }
+
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+    isOpenToken = false;
+    closeSubSubNavToken();
+    isOpenDraw = false;
+    closeSubSubNavDraw();
+    togglePaint();
+    isOpenDice = false;
+    closeSubSubNavDice();
     closeNav(); //opens the navigation
   }
   else {
