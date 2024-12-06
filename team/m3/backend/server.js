@@ -5,6 +5,7 @@ import { dirname } from 'path';
 // import {tileCoordRouter} from "../js/backend/routers/TileCoordRouter"
 // import {tileRouter} from "../js/backend/routers/TileRouter"
 import TokenRoutes from './routers/tokenRoutes.js'
+import userRouter from './routers/userRouter.js';
 
 
 class Server {
@@ -27,6 +28,7 @@ class Server {
         // this.app.use('/tiles', tileRouter);
         // this.app.use('/tileCoordinates', tileCoordRouter);
         this.app.use("/tokens", TokenRoutes)
+        this.app.use("/users", userRouter);
     }
 
 
