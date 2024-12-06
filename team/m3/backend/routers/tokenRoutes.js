@@ -36,6 +36,17 @@ class TokenRoutes {
             }
         });
 
+        //this is for adding a new token
+        this.router.post("/newToken", async (req, res) => {
+            try {
+                const newToken = await this.database.create(req.body);
+                res.status(201).json(newToken);
+            } catch (error) {
+                res.status(500).json({ message:"Failed to create token." });
+            }
+        });
+
+
     }
 
     getRouter(){
