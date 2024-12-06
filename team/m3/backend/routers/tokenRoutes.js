@@ -46,7 +46,6 @@ class TokenRoutes {
             }
         });
 
-
         //this is for updating token
         this.router.put("/update", async (req, res) => {
             try{
@@ -58,6 +57,30 @@ class TokenRoutes {
             }
         }); 
 
+        //this is for deleting token
+        this.router.delete("/delete/:id", async(req, res)=>{
+            try{
+                const id = req.params.id;
+                const num = await this.database.delete(id);
+                (num===0)?res.status(404).json({ message: "Token not found" }):res.status(201).json({ message: 'token deleted successfully' });
+            }
+            catch(error){
+                res.status(500).json({ message:"Failed to delete token." });
+
+            }
+        });
+
+
+        //this is for deleting all token
+        this.router.delete("/deleteAll", async(req, res)=>{
+            try{
+                await this.database.deleteAll();
+                res.status(201).json({ message: 'all token deleted successfully' });
+            }
+            catch(error){
+                res.status(500).json({ message:"Failed to delete all token." });
+            }
+        });
     }
 
     getRouter(){
