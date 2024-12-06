@@ -52,44 +52,82 @@ const Token = sequelize.define("Token", {
 class _SQLiteToken{
     constructor(){}
 
-    async init(refresh = false){
+    //initialize the database
+    async init(){
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
-
-        if(refresh){
-            await this.deleteAll();
-        }
     }
 
+    //to create a new Token in the database
     async create(token){
-        return await Token.create(token);
-    }
-
-    async getToken(id){
-        return await Token.findByPk(id)
-    }
-
-    async getAllToken(){
-        return await Token.findAll();
-    }
-
-    async update(token){
-        const currtoken = await Task.findByPk(token.tokenid);
-        if (!currtoken) {
-          return null;
+        try{
+            const newToken = await Token.create(token);
+            return newToken;
         }
-        await currtoken.update(token);
-        return currtoken;
+        catch(error){
+            throw error;
+        }
     }
 
-    async delete(token){
-        await Token.destroy({where: {tokenid: token.tokenid}});
-        return token
+    //to get a specific token with its id
+    async getToken(id){
+        try{
+            const requiredToken = await Token.findByPk(id);
+            return requiredToken;
+        }
+        catch(error){
+            throw error;
+        }   
     }
 
+    //to get all token
+    async getAllToken(){
+        try{
+            const allTokens = await Token.findAll();
+            return allTokens;
+        }
+        catch(error){
+            throw error;
+        }   
+    }
+
+    //to update a specific token
+    async update(token) {
+        try {
+            const updatedRecords = await Token.update(
+                token,
+                {
+                    where: { tokenid: token.tokenid }, 
+                    returning: true,   
+                }
+            );
+            return updatedRecords[1];
+        } 
+        catch (error) {
+            throw error;
+        }
+    }
+
+    //to delete a specific token
+    async delete(id){
+        try{
+            const numDeleted = await Token.destroy({where: {tokenid: id}});
+            return numDeleted;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    //to delete all token
     async deleteAll(){
-        await Token.destroy({truncate: true});
-        return;
+        try{
+            await Token.truncate();
+            return;
+        }
+        catch (error) {
+            throw error;
+        }
     }
 }
 
