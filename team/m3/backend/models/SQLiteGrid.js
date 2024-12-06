@@ -1,10 +1,12 @@
 import { Sequelize, DataTypes } from "sequelize";
 
+// Initialize a new Sequelize instance with SQLite
 const sequelize = new Sequelize({
     dialect: "sqlite",
     storage: "database.sqlite",
 });
 
+// Define the Grid model with its attributes
 const Grid = sequelize.define("Grid", {
     gridId: {
         type: DataTypes.UUID,
@@ -27,7 +29,7 @@ class _SQLiteGrid{
     async init(refresh = false){
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
-
+     // An exception will be thrown if either of these operations fail.
         if(refresh){
             await this.deleteAll();
         }
