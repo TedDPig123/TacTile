@@ -120,10 +120,6 @@ function createGrid(width, height) {
         for (let x = 0; x < width; x++) {
             const tile = document.createElement('div');
             tile.classList.add('grid-tile');
-            //geri edit - keeping track of x and y coordinates of each tile:
-            tile.dataset.x = x;
-            tile.dataset.y = y;
-
             battleGrid.appendChild(tile);
         }
     }
