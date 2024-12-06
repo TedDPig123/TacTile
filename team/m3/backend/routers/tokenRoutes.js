@@ -47,6 +47,17 @@ class TokenRoutes {
         });
 
 
+        //this is for updating token
+        this.router.put("/update", async (req, res) => {
+            try{
+                const numRowsUpdated = await this.database.update(req.body);
+                return (numRowsUpdated === 0)?res.status(404).json({ message: "Token not found" }):res.status(201).json({ message: "Token updated successfully" });
+            }
+            catch (error) {
+                res.status(500).json({ message:"Failed to update token." });
+            }
+        }); 
+
     }
 
     getRouter(){
