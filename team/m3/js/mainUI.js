@@ -1,3 +1,8 @@
+let isOpenToken = false;
+let isOpenDice = false;
+let isOpenDraw = false;
+let isOpenGrid = false;
+
 let counter = 0;
 let subCounter = 0;
 
@@ -31,6 +36,7 @@ function closeNav() {
     subSideNavArray[i].style.transitionDuration = "0.5s"
   }
 }
+
 
 function checkNav() {
   counter++
@@ -90,8 +96,8 @@ function closeSubSubNavToken() {
 
 
 function checkSubNavGrid() {
-    subCounter++;
-    if (subCounter % 2 === 0)
+  subCounter++;
+    if (subCounter ===  % 2 === 0)
       closeSubSubNavGrid();
     else {
       openSubSubNavGrid();

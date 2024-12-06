@@ -303,18 +303,20 @@ svg {
 
 /* THIS IS FOR THE CREATE CUSTOM TILE SETTING */
 .custom{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
   position: fixed;
   z-index: 3;
   display: none;
   flex-direction: column;
   width:30vw;
-  background-color: #B7874C;
   margin:auto;
   padding:20px 20px 20px 20px;
   min-width: 500px;
 
   top: 50%;
-  left: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
 }
 
@@ -556,18 +558,20 @@ svg {
 /* FOR EDITING */
 
 .edit{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
   position: fixed;
   z-index: 3;
   display: none;
   flex-direction: column;
   width:30vw;
-  background-color: #B7874C;
   margin:auto;
   padding:20px 20px 20px 20px;
   min-width: 500px;
 
   top: 50%;
-  left: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
 }
 
@@ -733,8 +737,8 @@ svg {
   background-image: url('images/buttonOn.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  width: 75%;
   opacity: 0;
-  left: 20%;
   transition-property: opacity;
   transition-delay: 3s;
   transition-duration: 2s;
@@ -744,7 +748,16 @@ svg {
   font-size: 200%;
   color: white;
   display: block;
+  border: none;
   transition: 0.5s;
+  margin-left: 7%;
+  margin-top: 15%;
+}
+
+.sidenavUIbuttons:active {
+  background-image: url('images/buttonOff.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .sidenavUI a:hover {
@@ -761,10 +774,17 @@ svg {
   position: fixed;
   z-index: -5;
   /* background-color: rgba(0, 0, 0, 0.83); */
-  top: 16%;
+  top: 16.7%;
   left: 17.5%;
   overflow-x: hidden;
   transition: 0.8s;
+  display: flex;
+  flex-direction: column;
+}
+
+.subsidenavUILabels{
+  position: absolute;
+  bottom: 40%;
 }
 
 .closebtnUI {

@@ -116,7 +116,7 @@
         <!-- CREATE CUSTOM TILE -->
         <div class="custom">
             <div class="custom-1 container-1">
-                <span style="font-size: 30px;">CREATE NEW CUSTOM TILE</span>
+                <span style="font-size: 30px; color: white; padding-top: 25px">CREATE NEW CUSTOM TILE</span>
                 <svg id="cross-svg" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </div>
             <div class="custom-1 container-2">
@@ -128,24 +128,24 @@
                 <textarea class="text-input" id="details"></textarea>
             </div>
             <div class="custom-1 container-4">
-                <div>TILE PREVIEW</div>
+                <div style="color: white;">TILE PREVIEW</div>
                 <div id="visual-container">
                     <canvas id="tile-preview" width="200" height="200"></canvas>
                     <div id="visual-picker">
                         <label for="color-picker">COLOR (#XXXXXX)</label>
                         <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
-                        <div>UPLOAD IMAGE</div>
+                        <div style="color: white;">UPLOAD IMAGE</div>
                         <input type="file" id="img-upload" accept="image/*" />
                     </div>
                 </div>
             </div>
-            <div id="add-tile-1">ADD NEW TILE</div>
+            <div style="color: white;" id="add-tile-1">ADD NEW TILE</div>
         </div>
     
         <!-- EDIT EXISTING TILE -->
         <div class="edit">
             <div class="custom-1 container-1">
-                <span style="font-size: 30px;">EDIT EXISTING TILE</span>
+                <span style="font-size: 30px; color: white; padding-top: 25px">EDIT EXISTING TILE</span>
                 <svg id="edit-cross-svg" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </div>
             <div class="custom-1 container-2">
@@ -160,24 +160,54 @@
                 <textarea class="text-input" id="edit-details"></textarea>
             </div>
             <div class="custom-1 container-4">
-                <div>TILE PREVIEW</div>
+                <div style="color: white">TILE PREVIEW</div>
                 <div id="edit-visual-container">
                     <canvas id="edit-tile-preview" width="200" height="200"></canvas>
                     <div id="edit-visual-picker">
                         <label for="color-picker">COLOR (#XXXXXX)</label>
                         <input class="text-input" id="edit-tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
-                        <div>UPLOAD IMAGE</div>
+                        <div style="color: white">UPLOAD IMAGE</div>
                         <input type="file" id="edit-img-upload" accept="image/*" />
                     </div>
                 </div>
             </div>
             <div class="edit-delete">
-                <div id="edit-tile">EDIT TILE</div>
-                <div id="delete-tile">DELETE TILE</div>
+                <div style="color: white" id="edit-tile">EDIT TILE</div>
+                <div style="color: white" id="delete-tile">DELETE TILE</div>
             </div>
         </div>
     
         <div id="screen-overlay"></div>
+    </div>
+
+    <!-- work in progress -->
+    <!-- CREATE OBJECT -->
+    <div class="custom">
+        <div class="custom-1 container-1">
+            <label for="name"><span style="font-size: 30px;">CREATE NEW OBJECT</span></label>
+            <svg id="cross-svg" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </div>
+        <div class="custom-1 container-2">
+            <label for="tile-name">NAME</label>
+            <input class="text-input" id="tile-name" type="text">
+        </div>
+        <div class="custom-1 container-3">
+            <label for="details">DESCRIPTION</label>
+            <textarea class="text-input" id="details"></textarea>
+        </div>
+        <div class="custom-1 container-4">
+            <div>TILE PREVIEW</div>
+            <div id="visual-container">
+                <canvas id="tile-preview" width="200" height="200"></canvas>
+                <div id="visual-picker">
+                    <label for="color-picker">COLOR (#XXXXXX)</label>
+                    <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
+                    <div>UPLOAD IMAGE</div>
+                    <input type="file" id="img-upload" accept="image/*" />
+                </div>
+            </div>
+        </div>
+        <div id="add-tile-1">ADD NEW TILE</div>
     </div>
 
     <!--MAIN UI -->
@@ -205,7 +235,7 @@
             </div>
             </div>
         <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TOKEN</button>
-            <div id="subSideNavTokenID" class="subsidenavUI"> 
+            <div id="subSideNavTokenID" class="subsidenavUI" > 
                 <button id="edit-mode-toggle">Enable Edit Mode</button></p>
                 <label for="tile-selector">Select a Tile:</label>
                 <select id="tile-selector">
@@ -239,7 +269,6 @@
                     </tr>
                 </table>
             </div>
-        <br>
         <button class="sidenavUIbuttons" onclick="checkSubNavDice()">DICE ROLLER</button>
         <div id="subSideNavDiceID" class="subsidenavUI">
             <div>
