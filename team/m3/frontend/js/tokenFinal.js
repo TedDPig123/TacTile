@@ -97,12 +97,10 @@ document.getElementById('create-grid').addEventListener('click', async ()=> {
         inputElement.value="";    
     })
 
-    //created the token and place it on the grid
-    createButton.addEventListener("click", async(event) => {
-        const numCopy = document.getElementById("copy").value;
-        for(let i = 0; i<numCopy; i++){
-            const id = await tokenObj.createToken(event);
-            //id = the token id
+    async function cToken(event) {
+        const id = await tokenObj.createToken(event);
+        //id = the token id
+        if(id){
             const moveT = new moveToken(id);
             moveT.mouseDown();
             moveT.mouseMove();
@@ -114,14 +112,23 @@ document.getElementById('create-grid').addEventListener('click', async ()=> {
                     img.renderImage();
                 }
             });
+        }
+    }
+    //created the token and place it on the grid
+    createButton.addEventListener("click", (event) => {
+        const numCopy = document.getElementById("copy").value;
+        for(let i = 0; i<numCopy; i++){
+            cToken(event)
         };
     });
 
     //updates the token
     updateButton.addEventListener("click", async () => {
         const id = await tokenObj.updateObject();
-        const img = new imageForToken(id);
-        img.updateImageElement()
+        if(id){
+            const img = new imageForToken(id);
+            img.updateImageElement()
+        }
     });
 
     //deletes the token

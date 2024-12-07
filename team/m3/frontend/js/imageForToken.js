@@ -42,9 +42,9 @@ export class imageForToken{
             };
             const data = await response.json();
             //the base64 img string
-            data.img = this.#inputImg.src.split(",")[1];
+            data.img = imgElement.src.split(",")[1];
             //the type of the img(data:(type);base64
-            data.mime = this.#inputImg.src.split(",")[0];
+            data.mime = imgElement.src.split(",")[0];
             //updates the data of this token in sqlite databse
             await fetch("/tokens/update", {
                 method: 'PUT',
@@ -67,7 +67,7 @@ export class imageForToken{
                 throw new Error("Failed to get token");
             };
             const data = await response.json();
-            this.#inputImg.src = data.mime+", "+data.img
+            this.#inputImg.src = data.mime+", "+data.img;
         }
     }
 
@@ -87,8 +87,8 @@ export class imageForToken{
                         throw new Error("Failed to get token");
                     };
                     const data = await response.json()
-                    data.img = img.src.split(",")[1];
-                    data.mime = img.src.split(",")[0]
+                    data.img = image.src.split(",")[1];
+                    data.mime = image.src.split(",")[0]
                     await fetch("/tokens/update", {
                         method: 'PUT',
                         headers: {
