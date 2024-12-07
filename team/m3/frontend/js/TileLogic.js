@@ -1,4 +1,12 @@
 import { DatabaseConnection } from "./DatabaseConnection.js";
+import {createTile,
+    getAllTiles,
+    getTileById,
+    updateTile,
+    deleteTile,
+    addTileCoordinate,
+    deleteTileCoordinate
+} from "./TileClientRequests.js";
 
 //initialize indexedDB database for tile objects
 const dbTileObject = new DatabaseConnection();
@@ -273,6 +281,183 @@ function changeTilePreviewColorEdit(){
     }
 }
 
+let availableTiles = [];
+
+async function initializeAvailableTiles() {
+    availableTiles = await dbTileObject.getAllObject();
+    if (!availableTiles || availableTiles.length === 0) {
+        console.warn("No tiles available to toggle");
+    }
+}
+
+let isMouseDown = false; 
+let selectedTile = null; 
+let deleteMode = false;
+
+async function handleSquareClick(square) {
+    const currID = document.getElementById("tile-selector").value;
+    
+    if (!currID) {
+        console.error("No tile selected in the tile selector.");
+        return;
+    }
+
+    try {
+        deleteMode = currID === "delete";
+
+        if (deleteMode) {
+            square.style.backgroundImage = "";
+            square.style.backgroundSize = "";
+            square.style.backgroundPosition = "";
+            square.removeAttribute('data-tile-name');
+            square.removeAttribute('data-tile-details');
+        } else {
+            const tile = await dbTileObject.getObject(parseInt(currID)); 
+            if (!tile) {
+                console.error("Tile not found for ID:", currID);
+                return;
+            }
+
+            selectedTile = tile;
+
+            square.style.backgroundImage = `url(${tile.imgData})`;
+            square.style.backgroundSize = "cover";
+            square.style.backgroundPosition = "center";
+
+            square.setAttribute('data-tile-name', tile.type);
+            square.setAttribute('data-tile-details', tile.details);
+        }
+
+        square.addEventListener('mouseenter', showTileDetails);
+    } catch (error) {
+        console.error("Error loading tile:", error);
+    }
+}
+
+function onMouseDown(event) {
+    const square = event.target;
+    if (square.classList.contains('grid-tile')) {
+        isMouseDown = true;
+        handleSquareClick(square);
+    }
+}
+
+function onMouseMove(event) {
+    if (!isMouseDown || !selectedTile && !deleteMode) return;
+    const square = event.target;
+    if (square.classList.contains('grid-tile')) {
+        if (deleteMode) {
+            square.style.backgroundImage = "";
+            square.style.backgroundSize = "";
+            square.style.backgroundPosition = "";
+            square.removeAttribute('data-tile-name');
+            square.removeAttribute('data-tile-details');
+        } else {
+            square.style.backgroundImage = `url(${selectedTile.imgData})`;
+            square.style.backgroundSize = "cover";
+            square.style.backgroundPosition = "center";
+            square.setAttribute('data-tile-name', selectedTile.type);
+            square.setAttribute('data-tile-details', selectedTile.details);
+        }
+        square.addEventListener('mouseenter', showTileDetails);
+    }
+}
+
+function onMouseUp() {
+    isMouseDown = false;
+}
+
+function showTileDetails(event) {
+    const square = event.currentTarget;
+    const tileName = square.getAttribute('data-tile-name');
+    const tileDetails = square.getAttribute('data-tile-details');
+    
+    if (square.hasAttribute('data-tile-name')){
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('tile-tooltip');
+        tooltip.innerHTML = `<strong>${tileName}</strong><br>${tileDetails}`;
+        document.body.appendChild(tooltip);
+
+        const updateTooltipPosition = (e) => {
+            tooltip.style.left = `${e.pageX + 10}px`;
+            tooltip.style.top = `${e.pageY + 10}px`;
+        };
+
+        updateTooltipPosition(event);
+        document.addEventListener('mousemove', updateTooltipPosition);
+
+        square.addEventListener('mouseleave', () => {
+            tooltip.remove();
+            document.removeEventListener('mousemove', updateTooltipPosition);
+        });
+    }
+}
+
+export async function initializeBattleGrid(battleGrid) {
+    await initializeAvailableTiles();
+
+    const squares = battleGrid.querySelectorAll('.grid-tile');
+    squares.forEach(square => {
+        square.addEventListener('mousedown', onMouseDown);
+        square.addEventListener('mousemove', onMouseMove);
+        square.addEventListener('mouseup', onMouseUp);
+        square.addEventListener('mouseenter', showTileDetails);
+    });
+}
+
+//should make this an option
+async function clearTileObjectDB() {
+    try {
+        const message = await dbTileObject.clearDatabase();
+        console.log(message);
+    } catch (error) {
+        console.error("Error clearing dbTileObject:", error);
+    }
+}
+
+async function populateTileDropdown1() {
+    const tileSelector = document.getElementById("tile-selector");
+    try {
+        const tiles = await dbTileObject.getAllObject();
+        tiles.forEach(tile => {
+            const option = document.createElement('option');
+            option.value = tile.id; 
+            option.textContent = tile.type;
+            tileSelector.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error populating tile dropdown:", error);
+    }
+}
+
+async function populateTileDropdowns() {
+    try {
+        const tiles = await dbTileObject.getAllObject();
+
+        // Populate the CREATE NEW TILE dropdown
+        const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');
+
+        // Clear existing options or else it will look uggooo
+        editTileDropdown.innerHTML = '';
+
+        // render the EDIT EXISTING TILE dropdown
+        tiles.forEach(tile => {
+            const option = document.createElement('a');
+            option.href = "#";
+            option.setAttribute("tile-id", tile.id);
+            option.textContent = tile.type;
+            option.addEventListener('click', () => {
+                document.getElementById('edit-details').value = tile.details;
+                document.getElementById('edit-tile-color').value = tile.color || '#FF0000';
+                document.getElementById('edit-img-upload').value = '';
+            });
+            editTileDropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error populating tile dropdowns:", error);
+    }
+}
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const deleteTile = document.getElementById("delete-tile");
     if (deleteTile) {
@@ -480,140 +665,6 @@ document.getElementById('background-image-upload').addEventListener('change', fu
     }
 });
 
-let availableTiles = [];
-
-async function initializeAvailableTiles() {
-    availableTiles = await dbTileObject.getAllObject();
-    if (!availableTiles || availableTiles.length === 0) {
-        console.warn("No tiles available to toggle");
-    }
-}
-
-let isMouseDown = false; 
-let selectedTile = null; 
-let deleteMode = false;
-
-async function handleSquareClick(square) {
-    const currID = document.getElementById("tile-selector").value;
-    
-    if (!currID) {
-        console.error("No tile selected in the tile selector.");
-        return;
-    }
-
-    try {
-        deleteMode = currID === "delete";
-
-        if (deleteMode) {
-            square.style.backgroundImage = "";
-            square.style.backgroundSize = "";
-            square.style.backgroundPosition = "";
-            square.removeAttribute('data-tile-name');
-            square.removeAttribute('data-tile-details');
-        } else {
-            const tile = await dbTileObject.getObject(parseInt(currID)); 
-            if (!tile) {
-                console.error("Tile not found for ID:", currID);
-                return;
-            }
-
-            selectedTile = tile;
-
-            square.style.backgroundImage = `url(${tile.imgData})`;
-            square.style.backgroundSize = "cover";
-            square.style.backgroundPosition = "center";
-
-            square.setAttribute('data-tile-name', tile.type);
-            square.setAttribute('data-tile-details', tile.details);
-        }
-
-        square.addEventListener('mouseenter', showTileDetails);
-    } catch (error) {
-        console.error("Error loading tile:", error);
-    }
-}
-
-function onMouseDown(event) {
-    const square = event.target;
-    if (square.classList.contains('grid-tile')) {
-        isMouseDown = true;
-        handleSquareClick(square);
-    }
-}
-
-function onMouseMove(event) {
-    if (!isMouseDown || !selectedTile && !deleteMode) return;
-    const square = event.target;
-    if (square.classList.contains('grid-tile')) {
-        if (deleteMode) {
-            square.style.backgroundImage = "";
-            square.style.backgroundSize = "";
-            square.style.backgroundPosition = "";
-            square.removeAttribute('data-tile-name');
-            square.removeAttribute('data-tile-details');
-        } else {
-            square.style.backgroundImage = `url(${selectedTile.imgData})`;
-            square.style.backgroundSize = "cover";
-            square.style.backgroundPosition = "center";
-            square.setAttribute('data-tile-name', selectedTile.type);
-            square.setAttribute('data-tile-details', selectedTile.details);
-        }
-        square.addEventListener('mouseenter', showTileDetails);
-    }
-}
-
-function onMouseUp() {
-    isMouseDown = false;
-}
-
-function showTileDetails(event) {
-    const square = event.currentTarget;
-    const tileName = square.getAttribute('data-tile-name');
-    const tileDetails = square.getAttribute('data-tile-details');
-    
-    if (square.hasAttribute('data-tile-name')){
-        const tooltip = document.createElement('div');
-        tooltip.classList.add('tile-tooltip');
-        tooltip.innerHTML = `<strong>${tileName}</strong><br>${tileDetails}`;
-        document.body.appendChild(tooltip);
-
-        const updateTooltipPosition = (e) => {
-            tooltip.style.left = `${e.pageX + 10}px`;
-            tooltip.style.top = `${e.pageY + 10}px`;
-        };
-
-        updateTooltipPosition(event);
-        document.addEventListener('mousemove', updateTooltipPosition);
-
-        square.addEventListener('mouseleave', () => {
-            tooltip.remove();
-            document.removeEventListener('mousemove', updateTooltipPosition);
-        });
-    }
-}
-
-export async function initializeBattleGrid(battleGrid) {
-    await initializeAvailableTiles();
-
-    const squares = battleGrid.querySelectorAll('.grid-tile');
-    squares.forEach(square => {
-        square.addEventListener('mousedown', onMouseDown);
-        square.addEventListener('mousemove', onMouseMove);
-        square.addEventListener('mouseup', onMouseUp);
-        square.addEventListener('mouseenter', showTileDetails);
-    });
-}
-
-//should make this an option
-async function clearTileObjectDB() {
-    try {
-        const message = await dbTileObject.clearDatabase();
-        console.log(message);
-    } catch (error) {
-        console.error("Error clearing dbTileObject:", error);
-    }
-}
-
 document.getElementById("delete-tile-types").addEventListener('click', (event) => {
     clearTileObjectDB();
     populateTileDropdowns();
@@ -622,21 +673,6 @@ document.getElementById("delete-tile-types").addEventListener('click', (event) =
 
     alert("deleted all tile types");
 });
-
-async function populateTileDropdown1() {
-    const tileSelector = document.getElementById("tile-selector");
-    try {
-        const tiles = await dbTileObject.getAllObject();
-        tiles.forEach(tile => {
-            const option = document.createElement('option');
-            option.value = tile.id; 
-            option.textContent = tile.type;
-            tileSelector.appendChild(option);
-        });
-    } catch (error) {
-        console.error("Error populating tile dropdown:", error);
-    }
-}
 
 // Call the populateTileDropdown function on page load
 window.addEventListener('load', () => {
@@ -647,34 +683,6 @@ document.getElementById("tile-selector").addEventListener('change', (event) => {
     const selectedTileId = event.target.value;
     console.log("Selected Tile ID:", selectedTileId);
 });
-
-async function populateTileDropdowns() {
-    try {
-        const tiles = await dbTileObject.getAllObject();
-
-        // Populate the CREATE NEW TILE dropdown
-        const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');
-
-        // Clear existing options or else it will look uggooo
-        editTileDropdown.innerHTML = '';
-
-        // render the EDIT EXISTING TILE dropdown
-        tiles.forEach(tile => {
-            const option = document.createElement('a');
-            option.href = "#";
-            option.setAttribute("tile-id", tile.id);
-            option.textContent = tile.type;
-            option.addEventListener('click', () => {
-                document.getElementById('edit-details').value = tile.details;
-                document.getElementById('edit-tile-color').value = tile.color || '#FF0000';
-                document.getElementById('edit-img-upload').value = '';
-            });
-            editTileDropdown.appendChild(option);
-        });
-    } catch (error) {
-        console.error("Error populating tile dropdowns:", error);
-    }
-}
 
 window.addEventListener('load', () => {
     populateTileDropdowns();
