@@ -7,10 +7,10 @@ canvas.addEventListener('mousedown', penDown);
 canvas.addEventListener('mouseup', penUp); 
 canvas.addEventListener('mousemove', draw); 
 
-layer.style.pointerEvents = 'none'; //allows you to click on buttons and the grid beneath the drawings, when not drawing
+layer.style.pointerEvents = 'none';
 
 
-let tools = [false, false, false, false] //pencil, eraser, circle, square
+let tools = [false, false, false, false] //in order: pencil, eraser, circle, square. false when not selected
 function changeTool(num)
 {
     for (let i = 0;i < tools.length; i++) {
@@ -22,7 +22,18 @@ function changeTool(num)
     }
 }
 
-function togglePaint() { //used for toggling whether or not you're actively drawing. prevents you from clicking on anything else if you are
+//since the tool selection remains checked on reload, ensures the proper tool is selected too
+if (document.getElementById("pencil").checked) { changeTool(0); }
+if (document.getElementById("eraser").checked) { changeTool(1); }
+if (document.getElementById("circle").checked) { changeTool(2); }
+if (document.getElementById("square").checked) { changeTool(3); }
+
+if (false) {
+  loadCanvas();
+}
+
+
+function togglePaint() { //used for toggling whether or not you're actively drawing. prevents you from clicking on the grid if you are
     if(toggle == true) {
         toggle = false;
         layer.style.pointerEvents = 'none';
@@ -39,8 +50,8 @@ ctx.canvas.width = canvas.width;
 ctx.canvas.height = canvas.height; 
 
 let coord = {x: 0, y: 0};  
-function getPosition(event){ 
-  const rect = canvas.getBoundingClientRect();
+function getPosition(event){  //stores current position of mouse cursor
+  const rect = canvas.getBoundingClientRect(); //used to get coordinates relative to canvas, instead of relative to the page
   coord.x = event.clientX - rect.left;
   coord.y = event.clientY - rect.top;
 } 
@@ -73,6 +84,7 @@ function penUp(event){
     ctx.ellipse(startPos[0], startPos[1], Math.abs(rectWidth), Math.abs(rectHeight), 0, 0, 2 * Math.PI);
     ctx.stroke();
   }
+  saveCanvas();
 } 
 
 function draw(event){ 
@@ -95,6 +107,15 @@ function draw(event){
 
 
 }
-function clear_canvas(){
+function clearCanvas(){
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    saveCanvas();
+}
+
+function saveCanvas() {
+  let data = ctx.getImageData(0,0,canvas.width,canvas.height)
+}
+
+function loadCanvas() {
+  ctx.putImageData(data, 0,0);
 }
