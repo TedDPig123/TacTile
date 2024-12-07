@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-import {Tile} from "./SQLiteTile"
+import Tile from "./SQLiteTile.js"
 
 const sequelize = new Sequelize({
     dialect: "sqlite",

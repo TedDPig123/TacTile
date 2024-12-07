@@ -1,4 +1,4 @@
-import {Tile} from "../models/SQLiteTile";
+import Tile from "../models/SQLiteTile.js";
 // This function creates a response object with a status and a message.
 const factoryResponse = (status, message) => ({ status, message });
 
