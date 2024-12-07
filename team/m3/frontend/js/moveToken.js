@@ -1,16 +1,29 @@
-export class MoveItem{
+export class moveToken{
     #initY;#initX;top;left
 
-    constructor(indexDb,element){
-        this.element = element;
+    //takes in the token id that this is being applied on
+    constructor(id){
+        this.id = id
+        this.element = document.getElementById(this.id);
         this.top = undefined;
         this.left = undefined;
-        this.indexDb = indexDb
     }
 
+    //gets the top and left px of the token when you refresh the page and apply them
+    async render(){
+        const response = await fetch("/tokens/token/"+this.id);
+        if (!response.ok) {
+            throw new Error("Failed to get token");
+        };
+        const data = await response.json();
+        this.element.style.top = data.top;
+        this.element.style.left = data.left;
+    }
+
+    //get the scale of the grid after zoom in/out
     getScale(){
-        const objGrid = document.getElementById("object-grid");
-        const transform = window.getComputedStyle(objGrid).transform
+        const tokenGrid = document.getElementById("object-grid");
+        const transform = window.getComputedStyle(tokenGrid).transform
         if (transform === 'none') {
             return 1;
         }
@@ -33,7 +46,7 @@ export class MoveItem{
         })
     }
 
-    //tracks the mouse movement and updates the object
+    //tracks the mouse movement and updates the token
     mouseMove(){
         this.element.addEventListener("mousemove", (event) => {
             if (this.element.classList.contains("dragging")) {
@@ -47,18 +60,25 @@ export class MoveItem{
         });
     }
 
-    //removes class dragging after 150ml so it doesn't trigger the click eventlistener, save the final coordinate in the corresponding div element
+    //removes class dragging after 150ml so it doesn't trigger the click eventlistener, save the final coordinate in the corresponding div element and sqlite database
     mouseUP(){
-        this.element.addEventListener("mouseup", () => {
+        this.element.addEventListener("mouseup", async () => {
             this.top = this.element.style.top;
             this.left = this.element.style.left;
-            this.indexDb.getObject(Number(this.element.id))
-            .then(objData => {
-                objData["top"] = this.top;
-                objData["left"] = this.left;
-                this.indexDb.updateObject(objData)
-            })
-            .catch(error => console.error('Error:', error));
+            const response = await fetch("/tokens/token/"+this.id);
+            if (!response.ok) {
+                throw new Error("Failed to get token");
+            };
+            const data = await response.json();
+            data.top = this.top;
+            data.left = this.left;
+            await fetch("/tokens/update", {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data), 
+            });
             setTimeout(()=> {
                 this.element.style.zIndex = "auto"; 
                 this.element.classList.remove("dragging");
