@@ -1,7 +1,9 @@
 import { DatabaseConnection } from "./DatabaseConnection.js";
 
-//initialize default tiles
+//initialize indexedDB database for tile objects
 const dbTileObject = new DatabaseConnection();
+
+//create class for tile object
 export class tileObject{
     type;
     details;
@@ -21,12 +23,14 @@ function getCanvasImageFromCustom() {
     return canvas.toDataURL("image/png");
 }
 
+//This gets the canvas image url from the edit-tile-preview square
+//Makes it so the last thing the user chooses is saved to the tile
 function getCanvasImageFromEdit() {
     const canvas = document.getElementById("edit-tile-preview");
     return canvas.toDataURL("image/png");
 }
 
-
+//TODO: POST - Add Backend implementation
 //This creates a new custom tile object
 async function addNewCustomTile(){
     const type = document.getElementById("tile-name").value;
@@ -62,6 +66,7 @@ async function addNewCustomTile(){
     }
 }
 
+//TODO: PUT - Add backend
 async function saveEditedTile(){
     const type = document.getElementById("edit-displayed-tile").textContent;
     const details = document.getElementById("edit-details").value;
@@ -95,6 +100,7 @@ async function saveEditedTile(){
     }
 }
 
+//TODO: DELETE - Add backend implementation
 async function deleteEditedTile(){
     const type = document.getElementById("edit-displayed-tile").textContent;
     const details = document.getElementById("edit-details").value;
@@ -133,47 +139,6 @@ async function deleteEditedTile(){
         console.error("tile not edited", error);
     }
 }
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    const deleteTile = document.getElementById("delete-tile");
-    if (deleteTile) {
-        deleteTile.addEventListener("click", deleteEditedTile);
-    }
-});
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    const editButton = document.getElementById("edit-tile");
-    if (editButton) {
-        editButton.addEventListener("click", saveEditedTile);
-    }
-});
-
-//
-window.addEventListener("DOMContentLoaded", (event) => {
-    const dropDown = document.querySelector(".tile-dropdown-content");
-    if (dropDown) {
-        dropDown.addEventListener("click", function(event) {
-            if (event.target.tagName === "A") {
-                console.log(" thing done");
-                const targetID = parseInt(event.target.getAttribute("tile-id"));
-                displayTileDetailsForExisting(targetID);
-            }
-        });
-    }
-});
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    const dropDown = document.querySelector(".edit-tile-dropdown-content");
-    if (dropDown) {
-        dropDown.addEventListener("click", function(event) {
-            if (event.target.tagName === "A") {
-                console.log(" thing done");
-                const targetID = parseInt(event.target.getAttribute("tile-id"));
-                displayTileDetailsForEditing(targetID);
-            }
-        });
-    }
-});
 
 async function displayTileDetailsForExisting(tileID) {
     const tileObject = await dbTileObject.getObject(tileID);
@@ -214,20 +179,6 @@ async function displayTileDetailsForEditing(tileID) {
 
     newImage.src = tileObject.imgData;
 }
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    const addTile = document.getElementById("add-tile-1");
-    if (addTile) {
-        addTile.addEventListener("click", addNewCustomTile);
-    }
-});
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    const tilePreview = document.getElementById("tile-preview");
-    if (tilePreview) {
-        tilePreview.getContext("2d", { willReadFrequently: true });
-    }
-});
 
 function showCustom(){
     console.log("toggle works!")
@@ -280,6 +231,103 @@ function hideEdit(){
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function hexToRgba(hex) {
+    hex = hex.replace('#', '');
+
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    return `rgba(${r}, ${g}, ${b})`;
+}
+
+function changeTilePreviewColor(){
+    const tilePreviewBox = document.getElementById("tile-preview");
+    const colorVal = document.getElementById("tile-color").value;
+    let ctx = tilePreviewBox.getContext("2d");
+
+    if(colorVal.match(/#([0-9]|[A-F]|[a-f]){6}/)){
+        document.getElementById("tile-color").style.backgroundColor = "white"; 
+        console.log('updated color')
+        ctx.clearRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+        ctx.fillStyle = hexToRgba(colorVal);
+        ctx.fillRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+    }else{
+        document.getElementById("tile-color").style.backgroundColor = "red"; 
+    }
+}
+
+function changeTilePreviewColorEdit(){
+    const tilePreviewBox = document.getElementById("edit-tile-preview");
+    const colorVal = document.getElementById("edit-tile-color").value;
+    let ctx = tilePreviewBox.getContext("2d");
+
+    if(colorVal.match(/#([0-9]|[A-F]|[a-f]){6}/)){
+        document.getElementById("edit-tile-color").style.backgroundColor = "white"; 
+        console.log('updated color')
+        ctx.clearRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+        ctx.fillStyle = hexToRgba(colorVal);
+        ctx.fillRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
+    }else{
+        document.getElementById("edit-tile-color").style.backgroundColor = "red"; 
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const deleteTile = document.getElementById("delete-tile");
+    if (deleteTile) {
+        deleteTile.addEventListener("click", deleteEditedTile);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const editButton = document.getElementById("edit-tile");
+    if (editButton) {
+        editButton.addEventListener("click", saveEditedTile);
+    }
+});
+
+//
+window.addEventListener("DOMContentLoaded", (event) => {
+    const dropDown = document.querySelector(".tile-dropdown-content");
+    if (dropDown) {
+        dropDown.addEventListener("click", function(event) {
+            if (event.target.tagName === "A") {
+                console.log(" thing done");
+                const targetID = parseInt(event.target.getAttribute("tile-id"));
+                displayTileDetailsForExisting(targetID);
+            }
+        });
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const dropDown = document.querySelector(".edit-tile-dropdown-content");
+    if (dropDown) {
+        dropDown.addEventListener("click", function(event) {
+            if (event.target.tagName === "A") {
+                console.log(" thing done");
+                const targetID = parseInt(event.target.getAttribute("tile-id"));
+                displayTileDetailsForEditing(targetID);
+            }
+        });
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const addTile = document.getElementById("add-tile-1");
+    if (addTile) {
+        addTile.addEventListener("click", addNewCustomTile);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const tilePreview = document.getElementById("tile-preview");
+    if (tilePreview) {
+        tilePreview.getContext("2d", { willReadFrequently: true });
+    }
+});
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const editOption = document.getElementById("edit-option");
     if(editOption){
@@ -322,47 +370,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 });
 
-function hexToRgba(hex) {
-    hex = hex.replace('#', '');
 
-    let r = parseInt(hex.substring(0, 2), 16);
-    let g = parseInt(hex.substring(2, 4), 16);
-    let b = parseInt(hex.substring(4, 6), 16);
-
-    return `rgba(${r}, ${g}, ${b})`;
-}
-
-function changeTilePreviewColor(){
-    const tilePreviewBox = document.getElementById("tile-preview");
-    const colorVal = document.getElementById("tile-color").value;
-    let ctx = tilePreviewBox.getContext("2d");
-
-    if(colorVal.match(/#([0-9]|[A-F]|[a-f]){6}/)){
-        document.getElementById("tile-color").style.backgroundColor = "white"; 
-        console.log('updated color')
-        ctx.clearRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
-        ctx.fillStyle = hexToRgba(colorVal);
-        ctx.fillRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
-    }else{
-        document.getElementById("tile-color").style.backgroundColor = "red"; 
-    }
-}
-
-function changeTilePreviewColorEdit(){
-    const tilePreviewBox = document.getElementById("edit-tile-preview");
-    const colorVal = document.getElementById("edit-tile-color").value;
-    let ctx = tilePreviewBox.getContext("2d");
-
-    if(colorVal.match(/#([0-9]|[A-F]|[a-f]){6}/)){
-        document.getElementById("edit-tile-color").style.backgroundColor = "white"; 
-        console.log('updated color')
-        ctx.clearRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
-        ctx.fillStyle = hexToRgba(colorVal);
-        ctx.fillRect(0, 0, tilePreviewBox.width, tilePreviewBox.height);
-    }else{
-        document.getElementById("edit-tile-color").style.backgroundColor = "red"; 
-    }
-}
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const tilePreview = document.getElementById("edit-tile-color");

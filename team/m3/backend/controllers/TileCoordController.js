@@ -7,6 +7,11 @@ const factoryResponse = (status, message) => ({ status, message });
 export const placeTileCoordinate = async (req, res) =>{
     const {tileID, x, y} = req.body;
     try{
+        const tile = await Tile.findByPk(tileID);
+        if (!tile) {
+            return res.status(404).json({ error: 'Tile not found' });
+        }
+
         await TileCoordinate.create({x:x, y:y, tileID: tileID});
         res.status(200).json(factoryResponse(200, "Tile placed successfully"));
     }catch(error){
@@ -16,13 +21,10 @@ export const placeTileCoordinate = async (req, res) =>{
 
 //DELETE: Deletes a placed tile coordinate object
 export const deleteTileCoordinate = async (req, res) =>{
-    const {x, y} = req.body;
+    const {tileID, x, y} = req.body;
     try{
-         const tileCoord = await TileCoordinate.findAll({
-            where: {
-              x: x,
-              y: y
-            },
+        const tileCoord = await TileCoordinate.findOne({
+            where: { tileID, x, y },
         });
 
         if (!tileCoord) {
