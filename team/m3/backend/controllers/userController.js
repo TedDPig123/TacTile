@@ -1,4 +1,4 @@
-import SQLiteUser from '../models/user';
+import SQLiteUser from '../models/user.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -12,7 +12,7 @@ export const registerUser = async (req, res) => {
         const user = await SQLiteUser.create({ username, email, password });
         res.status(201).json(user);
     } catch (error) {
-        res.status(500).json(factoryResponse(500, 'User not created due to error'));
+        res.status(500).json(factoryResponse(500, 'User not created due to error; userController'));
     }
 };
 
@@ -33,7 +33,7 @@ export const loginUser = async (req, res) => {
         const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
         res.status(200).json({ token });
     } catch (error) {
-        res.status(500).json(factoryResponse(500, 'Error logging in'));
+        res.status(500).json(factoryResponse(500, 'Error logging in--Usercontroller'));
     }
 };
 

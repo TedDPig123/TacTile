@@ -20,7 +20,7 @@ const User = sequelize.define('User', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        // unique: true,
         validate: {
             isEmail: true, // Ensure the email is in a valid format
             notEmpty: true, // Ensure the email is not empty
@@ -61,39 +61,75 @@ class _SQLiteUser {
 
     // Create a new user
     async create(user) {
-        return await User.create(user);
+        try {
+            return await User.create(user);
+        } catch (error) {
+            console.error('user.js; Error creating user:', error);
+            throw error;
+        }
     }
 
     // Get a user by ID
     async getUser(id) {
-        return await User.findByPk(id);
+        try {
+            return await User.findByPk(id);
+        } catch (error) {
+            console.error('user.js; Error getting user by ID:', error);
+            throw error;
+        }
+    }
+
+    // Get a user by email 
+    async getUserByEmail(email) {
+        try {
+            return await User.findOne({ where: { email } });
+        } catch (error) {
+            console.error('user.js; Error getting user by email:', error);
+            throw error;
+        }
     }
 
     // Get all users
     async getAllUsers() {
-        return await User.findAll();
+        try {
+            return await User.findAll();
+        } catch (error) {
+            throw error;
+        }
     }
 
     // Update a user
     async update(user) {
-        const currUser = await User.findByPk(user.id);
-        if (!currUser) {
-            return null;
+        try {
+            const currUser = await User.findByPk(user.id);
+            if (!currUser) {
+                return null;
+            }
+            await currUser.update(user);
+            return currUser;
+        } catch (error) {
+            throw error;
         }
-        await currUser.update(user);
-        return currUser;
     }
 
     // Delete a user
     async delete(user) {
-        await User.destroy({ where: { id: user.id } });
-        return user;
+        try {
+            await User.destroy({ where: { id: user.id } });
+            return user;
+        } catch (error) {
+            throw error;
+        }
     }
 
     // Delete all users
     async deleteAll() {
-        await User.destroy({ truncate: true });
-        return;
+        try {
+            await User.destroy({ truncate: true });
+            return;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 
