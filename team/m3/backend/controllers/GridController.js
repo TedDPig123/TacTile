@@ -2,7 +2,7 @@ import {Grid} from "..models/SQLiteGrid";
 
 const factoryResponse = (status, message) => ({ status, message });
 
-//CREATE, make new grid
+//CREATE, make new grid (with attributes width, height, and id)
 export const createGrid = async (req, res) =>{
     const {gridId, gridWidth, gridHeight} = req.body;
     try{
