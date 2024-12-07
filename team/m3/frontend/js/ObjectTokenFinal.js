@@ -1,7 +1,7 @@
 import {tokenForm} from "./tokenForm.js";
 import {DatabaseConnection } from "./DatabaseConnection.js";
 import {ImageForToken} from "./ImageImport.js";
-import { MoveItem } from "./MovingToken.js";
+import { MoveItem } from "./moveToken.js";
 
 const battleGrid = document.getElementById('battle-grid');
 
