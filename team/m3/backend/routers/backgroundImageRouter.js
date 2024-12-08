@@ -6,7 +6,7 @@ class BackgroundImageRoutes {
         this.router = express.Router();
         this.initializeRoutes();
     }
-
+ 
     initializeRoutes() {
         // Get all background images
         this.router.get("/background-image", async (req, res) => {
