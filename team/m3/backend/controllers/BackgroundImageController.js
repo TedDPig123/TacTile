@@ -15,7 +15,7 @@ export const createBackgroundImage = async (req, res) => {
 
 // GET: Retrieve all background images
 export const getAllBackgroundImages = async (req, res) => {
-    try {
+    try { 
         const allBackgroundImages = await BackgroundImage.findAll();
         res.status(200).json(allBackgroundImages);
     } catch (error) {
