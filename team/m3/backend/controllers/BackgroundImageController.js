@@ -42,7 +42,7 @@ export const updateBackgroundImage = async (req, res) => {
 };
 
 // DELETE: Delete a background image
-export const deleteBackgroundImage = async (req, res) => {
+export const deleteBackgroundImage = async (req, res) => { 
     const { imageId } = req.params;
     try {
         const backgroundImage = await BackgroundImage.findByPk(imageId);
