@@ -31,7 +31,7 @@ class _SQLiteBackgroundImage {
     constructor() {}
 
     async init(refresh = false) {
-        await sequelize.authenticate();
+        await sequelize.authenticate();     
         await sequelize.sync({ force: refresh });
         if (refresh) {
             await this.deleteAll();
