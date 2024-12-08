@@ -1,4 +1,4 @@
-//POST: Request for creating a new tile object
+//POST: Request for creating a new tile object - SYNCED
 export async function createTile(tileObject){
     try {
         const response = await fetch('/tiles', {
@@ -59,7 +59,7 @@ export async function getTileById(tileId) {
     }
 }
 
-//PUT: Request to update a single tile type
+//PUT: Request to update a single tile type - SYNCED
 export async function updateTile(tileId, updatedData) {
     try {
         const response = await fetch(`/tiles/${tileId}`, {
@@ -82,7 +82,7 @@ export async function updateTile(tileId, updatedData) {
     }
 }
 
-//DELETE: deletes a tile type
+//DELETE: deletes a tile type - SYNCED
 export async function deleteTile(tileId) {
     try {
         const response = await fetch(`/tiles/${tileId}`, {

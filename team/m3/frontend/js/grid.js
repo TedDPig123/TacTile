@@ -1,4 +1,22 @@
 import { initializeBattleGrid } from "./TileLogic.js"; //geri imported function here
+import { DatabaseConnection } from "./DatabaseConnection.js";
+import {addTileCoordinate} from "./TileClientRequests.js";
+
+//class for tile coordinate object
+export class tileCoord{
+    tileID;
+    x;
+    y;
+    constructor(tileID, x, y){
+        this.tileID = tileID;
+        this.x = x;
+        this.y = y;
+    }
+}
+
+//indexeddb database object for tile coordinates
+export const dbTileCoords = new DatabaseConnection();
+
 // Variables for zoom and drag
 let scale = 1;
 const zoomStep = 0.1;
@@ -101,7 +119,7 @@ document.getElementById('create-grid').addEventListener('click', function () {
 });
 
 // Create the grid
-function createGrid(width, height) {
+async function createGrid(width, height) {
     const battleGrid = document.getElementById('battle-grid');
     battleGrid.innerHTML = ''; // Clear any existing grid
     battleGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
@@ -123,6 +141,10 @@ function createGrid(width, height) {
             //geri edit - keeping track of x and y coordinates of each tile:
             tile.dataset.x = x;
             tile.dataset.y = y;
+
+            //indexed db database update for tile coordinates
+            const newTileCoord = new tileCoord(null,x,y);
+            await dbTileCoords.addObject(newTileCoord);
 
             battleGrid.appendChild(tile);
         }

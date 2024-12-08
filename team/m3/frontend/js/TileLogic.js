@@ -23,7 +23,14 @@ export class tileObject{
     }
 }
 
+//tile coordinate objects for tracking placed tiles
+
+
+//ON-LOAD: Populate the tile types, update indexedDB
+
 // ALL DATABASE STUFF!
+
+//make an indexedDB object first, then sync it up
 
 //This gets the canvas image url from the tile-preview square
 function getCanvasImageFromCustom() {
@@ -38,8 +45,8 @@ function getCanvasImageFromEdit() {
     return canvas.toDataURL("image/png");
 }
 
-//TODO: POST - Add Backend implementation
 //This creates a new custom tile object
+//TODO: PUT - check backend 
 async function addNewCustomTile(){
     const type = document.getElementById("tile-name").value;
     const details = document.getElementById("details").value;
@@ -69,12 +76,14 @@ async function addNewCustomTile(){
         initializeAvailableTiles();
         populateTileDropdown1();
 
+        //backend syncing
+        await createTile({tileID, type, details, tileImage});
     } catch (error) {
         console.error("tile not added", error);
     }
 }
 
-//TODO: PUT - Add backend
+//TODO: PUT - Check backend
 async function saveEditedTile(){
     const type = document.getElementById("edit-displayed-tile").textContent;
     const details = document.getElementById("edit-details").value;
@@ -102,6 +111,9 @@ async function saveEditedTile(){
         console.log("Fetched tile object:", tileObj);
         alert("tile edited successfully");
         hideEdit();
+
+        //backend syncing
+        await updateTile(tileID, {type, details, tileImage});
 
     } catch (error) {
         console.error("tile not edited", error);
@@ -143,8 +155,11 @@ async function deleteEditedTile(){
         hideEdit();
         alert("Tile deleted successfully");
 
+        //backend syncing
+        await deleteTile(tileID);
+
     } catch (error) {
-        console.error("tile not edited", error);
+        console.error("tile not deleted", error);
     }
 }
 
@@ -283,6 +298,7 @@ function changeTilePreviewColorEdit(){
 
 let availableTiles = [];
 
+//TODO: add backend functionality
 async function initializeAvailableTiles() {
     availableTiles = await dbTileObject.getAllObject();
     if (!availableTiles || availableTiles.length === 0) {
@@ -294,6 +310,7 @@ let isMouseDown = false;
 let selectedTile = null; 
 let deleteMode = false;
 
+//TODO: add backend functionality
 async function handleSquareClick(square) {
     const currID = document.getElementById("tile-selector").value;
     
@@ -323,7 +340,6 @@ async function handleSquareClick(square) {
             square.style.backgroundImage = `url(${tile.imgData})`;
             square.style.backgroundSize = "cover";
             square.style.backgroundPosition = "center";
-
             square.setAttribute('data-tile-name', tile.type);
             square.setAttribute('data-tile-details', tile.details);
         }

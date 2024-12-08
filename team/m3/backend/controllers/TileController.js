@@ -4,9 +4,9 @@ const factoryResponse = (status, message) => ({ status, message });
 
 //POST: Creates tile type
 export const createTile = async (req, res) =>{
-    const {tileID, type, color, imgData} = req.body;
+    const {tileID, type, details, imgData} = req.body;
     try{
-        const tile = await Tile.create({tileID, type, color, imgData});
+        const tile = await Tile.create({tileID, type, details, imgData});
         res.status(200).json(tile);
     }catch(error){
         res.status(500).json(factoryResponse(500, "Tile not created due to error"));
@@ -37,7 +37,7 @@ export const getTileByID = async (req, res) =>{
 //PUT: Updates a single tile type
 export const updateTile = async (req, res) =>{
     const {id} = req.params;
-    const {type, color, imgData } = req.body;
+    const {type, details, imgData } = req.body;
 
     try{
         const tile = await Tile.findByPk(id);
@@ -45,7 +45,7 @@ export const updateTile = async (req, res) =>{
             return res.status(404).json(factoryResponse(404, "Tile not found"));
         }
 
-        await tile.update({ type, color, imgData });
+        await tile.update({ type, details, imgData });
         res.status(200).json(allTiles);
     }catch(error){
         res.status(500).json(factoryResponse(500, "Error retrieving tiles"));
