@@ -30,7 +30,7 @@ class Server {
         // this.app.use('/tiles', tileRouter);
         // this.app.use('/tileCoordinates', tileCoordRouter);
         this.app.use("/tokens", TokenRoutes)
-        this.app.use("/users", userRouter);
+        this.app.use("/users", userRouter)
     }
 
     // Initialize the database
