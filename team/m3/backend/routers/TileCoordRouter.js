@@ -2,9 +2,9 @@ import express from "express";
 import {
     placeTileCoordinate,
     deleteTileCoordinate
-} from "../controllers/TileCoordController"
+} from "../controllers/TileCoordController.js"
 
-const tileCoordRouter = new express.Router();
+const tileCoordRouter = express.Router();
 
 tileCoordRouter.post('/', placeTileCoordinate);
 tileCoordRouter.delete('/', deleteTileCoordinate);

@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-import {Tile} from "./SQLiteTile"
+import Tile from "./SQLiteTile.js"
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
@@ -7,9 +7,9 @@ const sequelize = new Sequelize({
 });
 
 const TileCoordinate = sequelize.define('TileCoordinate',{
-    tileID:{ //the tile-id given by the indexedDB call in the front end
-        type: DataTypes.INTEGER
-    },
+    // tileID:{ //the tile-id given by the indexedDB call in the front end
+    //     type: DataTypes.INTEGER
+    // },
     x:{
         type: DataTypes.INTEGER
     },

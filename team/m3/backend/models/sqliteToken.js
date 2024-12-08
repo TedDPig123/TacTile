@@ -39,10 +39,6 @@ const Token = sequelize.define("Token", {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    imgname: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
     mime: {
         type: DataTypes.STRING,
         allowNull: true,
