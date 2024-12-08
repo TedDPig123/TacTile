@@ -76,8 +76,14 @@ async function addNewCustomTile(){
         initializeAvailableTiles();
         populateTileDropdown1();
 
+        const serverTile = {
+            IDBtileID: parseInt(tileID, 10),
+            type: type,
+            details: details,
+            imgData: tileImage
+        }
         //backend syncing
-        await createTile({tileID, type, details, tileImage});
+        await createTile(serverTile);
     } catch (error) {
         console.error("tile not added", error);
     }
@@ -446,9 +452,11 @@ async function populateTileDropdown1() {
     }
 }
 
+//actual tile dropdown content
 async function populateTileDropdowns() {
     try {
         const tiles = await dbTileObject.getAllObject();
+        console.log("Tiles in database:", tiles);
 
         // Populate the CREATE NEW TILE dropdown
         const editTileDropdown = document.querySelector('.edit-tile-dropdown-content');

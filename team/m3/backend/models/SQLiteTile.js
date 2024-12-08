@@ -7,10 +7,12 @@ const sequelize = new Sequelize({
 
 //this is for the tile object
 const Tile = sequelize.define('Tile',{
-    tileID: {type: DataTypes.INTEGER},//tile ID
+    IDBtileID: {type: DataTypes.INTEGER,
+        primaryKey: true
+    },//tile ID
     type: {type: DataTypes.STRING}, //tile type
-    details: {type: DataTypes.STRING}, //tile description
-    imgData: {type: DataTypes.STRING} //this contains the image URL
+    details: {type: DataTypes.TEXT}, //tile description
+    imgData: {type: DataTypes.TEXT} //this contains the image URL
 },);
 
 await sequelize.sync();

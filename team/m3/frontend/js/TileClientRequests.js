@@ -1,5 +1,5 @@
 //POST: Request for creating a new tile object - SYNCED
-export async function createTile(tileObject){
+export async function createTile(tileObject) {
     try {
         const response = await fetch('/tiles', {
             method: 'POST',
@@ -14,10 +14,11 @@ export async function createTile(tileObject){
         }
 
         const newTileObject = await response.json();
-        console.log('tile created:', newTileObject);
+        console.log('Tile created:', newTileObject);
         return newTileObject;
     } catch (error) {
-        console.log(error, "something went wrong");
+        console.error("Error creating tile:", error);
+        alert("Error creating tile on the server.");
     }
 }
 
@@ -71,14 +72,15 @@ export async function updateTile(tileId, updatedData) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to update tile');
+            const errorResponse = await response.json();
+            throw new Error("Failed to update tile");
         }
-
         const updatedTile = await response.json();
         console.log(`TileID ${tileId} updated:`, updatedTile);
         return updatedTile;
     } catch (error) {
-        console.log('something went wrong: ', error);
+        console.error("Failed to update tile:", error);
+        alert(`Error updating tile: ${error.message}`);
     }
 }
 

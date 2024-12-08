@@ -7,9 +7,10 @@ const sequelize = new Sequelize({
 });
 
 const TileCoordinate = sequelize.define('TileCoordinate',{
-    tileID: {
+    IDBtileID: {
         type: DataTypes.STRING,
         allowNull: true,
+        primaryKey: true
     },
     x:{
         type: DataTypes.INTEGER
