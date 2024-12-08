@@ -68,8 +68,25 @@
 
                         </tr>
                     </table>
-                    
-                    
+                </div>
+                <!-- User Authentication Forms -->
+                <h2>User Authentication</h2>
+                <div>
+                    <h3>Register</h3>
+                    <form id="register-form">
+                        <input type="text" id="register-username" placeholder="Username" required>
+                        <input type="email" id="register-email" placeholder="Email" required>
+                        <input type="password" id="register-password" placeholder="Password" required>
+                        <button type="submit">Register</button>
+                    </form>
+                    <h3>Login</h3>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <button id="logout-button">Logout</button>
+                    <div id="message"></div>
                 </div>
             </div>
             <div class="main-content">
@@ -229,6 +246,7 @@
 
     <script type="module" src="js/tokenFinal.js"></script>
 
+    <script src="js/userScripts.js"></script>
 
 </body>
 </html>

@@ -5,6 +5,8 @@ import { dirname } from 'path';
 import tileCoordRouter from "./routers/TileCoordRouter.js"
 import tileRouter from "./routers/TileRouter.js"
 import TokenRoutes from './routers/tokenRoutes.js'
+import userRouter from './routers/userRouter.js';
+import SQLiteUser from './models/user.js';
 import GridRouter from './routers/GridRouter.js';
 
 class Server {
@@ -12,6 +14,7 @@ class Server {
         this.app = express();
         this.configureMiddleware();
         this.setupRoutes();
+        this.initializeDatabase();
     }
     
     configureMiddleware(){
@@ -27,7 +30,18 @@ class Server {
         // this.app.use('/tiles', tileRouter);
         // this.app.use('/tileCoordinates', tileCoordRouter);
         this.app.use("/tokens", TokenRoutes)
+        this.app.use("/users", userRouter)
         this.app.use("/grid", GridRouter)
+    }
+
+    // Initialize the database
+    async initializeDatabase() {
+        try {
+            await SQLiteUser.init();
+            console.log('Database initialized successfully');
+        } catch (error) {
+            console.error('Error initializing database:', error);
+        }
     }
 
 
