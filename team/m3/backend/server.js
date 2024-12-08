@@ -24,7 +24,7 @@ class Server {
     //Each person adds their routes here
     setupRoutes() {
         this.app.use('/tiles', tileRouter);
-        this.app.use('/tileCoordinates', tileCoordRouter);
+        // this.app.use('/tileCoordinates', tileCoordRouter);
         this.app.use("/tokens", TokenRoutes)
     }
 

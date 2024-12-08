@@ -11,7 +11,9 @@ const Tile = sequelize.define('Tile',{
         primaryKey: true
     },//tile ID
     type: {type: DataTypes.STRING}, //tile type
-    details: {type: DataTypes.TEXT}, //tile description
+    details: {type: DataTypes.TEXT,
+        defaultValue: ''
+    }, //tile description
     imgData: {type: DataTypes.TEXT} //this contains the image URL
 },);
 

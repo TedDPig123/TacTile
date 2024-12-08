@@ -12,11 +12,8 @@ export const createTile = async (req, res) => {
         if (isNaN(IDBtileID)) {
             return res.status(400).json(factoryResponse(400, "IDBtileID must be a valid integer"));
         }
-        // validation
-        if (!type || !details || !imgData) {
-            return res.status(400).json(factoryResponse(400, "Type, details, and imgData are required"));
-        }
-        const tile = await Tile.create({ IDBtileID, type, details, imgData });
+        
+        const tile = await Tile.create({IDBtileID, type, details, imgData });
         console.log("Tile created:", tile); // Log the created tile
         res.status(200).json(tile);
     } catch (error) {
@@ -50,6 +47,7 @@ export const getTileByID = async (req, res) =>{
 export const updateTile = async (req, res) => {
     const { id } = req.params;
     const { type, details, imgData } = req.body;
+    console.log("details: ", typeof(details));
     try {
         const tile = await Tile.findByPk(id); 
         if (!tile) {

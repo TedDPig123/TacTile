@@ -22,11 +22,52 @@ export class tileObject{
         this.imgData = imgData;
     }
 }
-
-//tile coordinate objects for tracking placed tiles
-
-
 //ON-LOAD: Populate the tile types, update indexedDB
+
+async function tileRenderOnLoad() {
+    const allTiles = await getAllTiles();
+
+    if (!allTiles) {
+        console.log("Failed to retrieve tiles from server");
+        return;
+    }
+
+    await clearTileObjectDB();
+
+    for (const serverTile of allTiles) { // Use `for...of` to iterate over the array
+        const { type, details, imgData, IDBtileID } = serverTile;
+
+        if (!IDBtileID) {
+            console.error("Invalid tile ID received from server:", serverTile);
+            continue;
+        }
+
+        const tileID = IDBtileID.toString(); // Safely call toString here
+        const tileObj = new tileObject(type, details, imgData);
+
+        const oldTileID = await dbTileObject.addObject(tileObj);
+
+        // Sync tile with the correct tileID
+        await dbTileObject.changeObjectID(oldTileID, tileID);
+
+        const newTileOption = document.createElement("a");
+        newTileOption.setAttribute("tile-id", tileID);
+        newTileOption.setAttribute("href", "#");
+        newTileOption.textContent = type;
+
+        const clone = newTileOption.cloneNode(true);
+        const editTileDropdown = document.querySelector(".edit-tile-dropdown-content");
+        editTileDropdown.appendChild(clone);
+    }
+
+    hideCustom();
+    initializeAvailableTiles();
+    populateTileDropdown1();
+
+    console.log("Synced server tile types");
+}
+
+tileRenderOnLoad();
 
 // ALL DATABASE STUFF!
 
@@ -210,7 +251,6 @@ async function displayTileDetailsForEditing(tileID) {
 }
 
 function showCustom(){
-    console.log("toggle works!")
     const tileMenu = document.querySelector('.custom');
     const greyOverlay = document.getElementById('screen-overlay');
     greyOverlay.style.display = 'flex';
@@ -218,7 +258,6 @@ function showCustom(){
 }
 
 function hideCustom(){
-    console.log("toggle works!")
     const tileMenu = document.querySelector('.custom');
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
@@ -236,7 +275,6 @@ function hideCustom(){
 }
 
 function showEdit(){
-    console.log("toggle works!")
     const tileMenu = document.querySelector('.edit');
     const greyOverlay = document.getElementById('screen-overlay');
     greyOverlay.style.display = 'flex';
@@ -244,7 +282,6 @@ function showEdit(){
 }
 
 function hideEdit(){
-    console.log("toggle works!")
     const tileMenu = document.querySelector('.edit');
     const greyOverlay = document.getElementById('screen-overlay');
     tileMenu.style.display = 'none';
