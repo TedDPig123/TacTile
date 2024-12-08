@@ -3,7 +3,7 @@ import { Sequelize, DataTypes } from "sequelize";
 // Initialize a new Sequelize instance with SQLite
 const sequelize = new Sequelize({
     dialect: "sqlite",
-    storage: "database.sqlite",
+    storage: "database.sqlite",  
 });
 
 // Define the BackgroundImage model with its attributes
