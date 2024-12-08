@@ -2,11 +2,10 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-// import {tileCoordRouter} from "../js/backend/routers/TileCoordRouter"
-// import {tileRouter} from "../js/backend/routers/TileRouter"
+import tileCoordRouter from "./routers/TileCoordRouter.js"
+import tileRouter from "./routers/TileRouter.js"
 import TokenRoutes from './routers/tokenRoutes.js'
 import GridRouter from './routers/GridRouter.js';
-
 
 class Server {
     constructor(){
