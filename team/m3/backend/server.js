@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 // import {tileCoordRouter} from "../js/backend/routers/TileCoordRouter"
 // import {tileRouter} from "../js/backend/routers/TileRouter"
+import canvasRouter from './routers/CanvasRouter.js';
 import TokenRoutes from './routers/tokenRoutes.js'
 import GridRouter from './routers/GridRouter.js';
 
@@ -27,6 +28,7 @@ class Server {
     setupRoutes() {
         // this.app.use('/tiles', tileRouter);
         // this.app.use('/tileCoordinates', tileCoordRouter);
+        this.app.use("/canvas", canvasRouter)
         this.app.use("/tokens", TokenRoutes)
         this.app.use("/grid", GridRouter)
     }
