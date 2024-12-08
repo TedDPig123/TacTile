@@ -5,7 +5,7 @@ const factoryResponse = (status, message) => ({ status, message });
 // CREATE: Add a new background image
 export const createBackgroundImage = async (req, res) => {
     const { backgroundId, name, image } = req.body;
-    try {
+    try { 
         const backgroundImage = await BackgroundImage.create({ mapId, name, image });
         res.status(200).json(backgroundImage);
     } catch (error) {
