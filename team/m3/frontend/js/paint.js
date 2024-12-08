@@ -107,15 +107,17 @@ function draw(event){
 
 
 }
-function clearCanvas(){
+function clear_canvas(){
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     saveCanvas();
 }
 
 function saveCanvas() {
-  let data = ctx.getImageData(0,0,canvas.width,canvas.height)
+  let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
+  let imageData = canvasState.data;
+  console.log(JSON.parse(JSON.stringify(imageData)));
 }
 
 function loadCanvas() {
-  ctx.putImageData(data, 0,0);
+  ctx.putImageData(canvasState, 0,0);
 }
