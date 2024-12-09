@@ -111,6 +111,7 @@ async function saveGridState() {
     console.log("Grid state saved:", gridState);
 }
 
+//EMILY THIS IS WHERE I RERENDER!!!!
 export async function rerenderGrid() {
     const arrayGridState = await dbGridState.getAllObject();
     const currGridState = arrayGridState[0];
