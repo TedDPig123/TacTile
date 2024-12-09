@@ -1,5 +1,9 @@
 import express from "express";
-import GridController from "../controllers/GridController.js";
+import {
+  createGrid,
+  getAllGrids,
+  deleteGrid,
+} from "../controllers/GridController.js"
 
 class GridRoutes {
     constructor() {
@@ -23,7 +27,7 @@ class GridRoutes {
       //   200 - OK: The request was successful
       //   500 - Internal Server Error: The server encountered an error
       this.router.get("/grid", async (req, res) => {
-        await GridController.getAllGrids(req, res);
+        await getAllGrids(req, res);
       });
   
       // DESCRIPTION
@@ -46,7 +50,7 @@ class GridRoutes {
       //   400 - Bad Request: The request was invalid or missing required data
       //   500 - Internal Server Error: The server encountered an error
       this.router.post("/grid", async (req, res) => {
-        await GridController.createGrid(req, res);
+        await createGrid(req, res);
       });
   
       // DESCRIPTION
@@ -60,7 +64,7 @@ class GridRoutes {
       //   200 - OK: The grid was cleared successfully
       //   500 - Internal Server Error: The server encountered an error
       this.router.delete("/grid", async (req, res) => {
-        await GridController.deleteGrid(req, res);
+        await deleteGrid(req, res);
       });
     }
   

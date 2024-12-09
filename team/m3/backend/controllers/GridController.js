@@ -1,5 +1,5 @@
 
-import {Grid} from "../models/SQLiteGrid.js";
+import Grid from "../models/SQLiteGrid.js";
 
 const factoryResponse = (status, message) => ({ status, message });
 
