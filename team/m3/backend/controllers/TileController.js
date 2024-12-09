@@ -79,3 +79,50 @@ export const deleteTile = async (req, res) => {
         res.status(500).json(factoryResponse(404, "Error in deleting tile"));
     }
 };
+
+// PUT: Updates the IDBtileID of a specific tile for syncing
+export const changeTileID = async (req, res) => {
+    const { id } = req.params;
+    const { newIDBtileID } = req.body;
+
+    try {
+        if (isNaN(newIDBtileID) || !Number.isInteger(Number(newIDBtileID))) {
+            return res.status(400).json(factoryResponse(400, "new IDBtileID must be valid integer"));
+        }
+
+        const tile = await Tile.findByPk(id);
+        if (!tile) {
+            return res.status(404).json(factoryResponse(404, "tile not found"));
+        }
+
+        await tile.update({ IDBtileID: newIDBtileID });
+
+        res.status(200).json(tile);
+        console.log("Tile ID successfully updated:", tile);
+    } catch (error) {
+        console.error("Error changing tile ID:", error);
+        res.status(500).json(factoryResponse(500, "Error changing tile ID: " + error.message));
+    }
+};
+
+export const clearAllTiles = async (req, res) => {
+    console.log("Request to clear all tiles received");
+    try {
+        await sequelize.query('PRAGMA foreign_keys = OFF;');
+        
+        const deletedTiles = await Tile.destroy({
+            where: {},
+        });
+        console.log(`Deleted ${deletedTiles} tiles.`);
+
+        if (deletedTiles === 0) {
+            console.log("No tiles found to delete.");
+            return res.status(200).json({ message: "No tiles to delete. The database is already empty." });
+        }
+
+        res.status(200).json({ message: `${deletedTiles} tiles were deleted successfully.` });
+    } catch (error) {
+        console.error("Error clearing all tiles:", error);
+        res.status(500).json({ message: "Error clearing all tiles" });
+    }
+};
