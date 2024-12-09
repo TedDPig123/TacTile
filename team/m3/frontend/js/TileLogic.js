@@ -1,12 +1,17 @@
 import { DatabaseConnection } from "./DatabaseConnection.js";
+import { enableDragging } from "./grid.js";
 import {createTile,
     getAllTiles,
     updateTile,
-    deleteTile
+    deleteTile,
+    changeTileID,
+    clearAllTiles,
+    
 } from "./TileClientRequests.js";
 
 //initialize indexedDB database for tile objects
-const dbTileObject = new DatabaseConnection();
+const dbTileObject = new DatabaseConnection('tileDatabase');
+const dbGridState = new DatabaseConnection('gridStateDatabase');
 
 //initialize indexedDB database for grid state
 class gridObject{
@@ -15,10 +20,6 @@ class gridObject{
         this.array = array;
     }
 }
-
-const gridStateCurr = new gridObject([]);
-const dbGridState = new DatabaseConnection();
-const gridStateID = await dbGridState.addObject(gridStateCurr);
 
 //create class for tile object
 export class tileObject{
@@ -35,47 +36,52 @@ export class tileObject{
 
 async function tileRenderOnLoad() {
     const allTiles = await getAllTiles();
-
     if (!allTiles) {
-        console.log("Failed to retrieve tiles from server");
+        console.error("Failed to retrieve tiles from server");
         return;
     }
 
-    await clearTileObjectDB();
+    await dbTileObject.clearDatabase()
 
-    for (const serverTile of allTiles) { // Use `for...of` to iterate over the array
-        const { type, details, imgData, IDBtileID } = serverTile;
+    // wait for all tiles to be added and synced first
+    await Promise.all(
+        allTiles.map(async (serverTile) => {
+            const type = serverTile.type;
+            const details = serverTile.details;
+            const imgData = serverTile.imgData;
+            const IDBtileID = serverTile.IDBtileID;
 
-        if (!IDBtileID) {
-            console.error("Invalid tile ID received from server:", serverTile);
-            continue;
-        }
+            await deleteTile(IDBtileID);
 
-        const tileID = IDBtileID.toString(); // Safely call toString here
-        const tileObj = new tileObject(type, details, imgData);
+            const tileObj = new tileObject(type, details, imgData);
+            const newTileID = await dbTileObject.addObject(tileObj);
+            
+            const newServerTile = {
+                IDBtileID: parseInt(newTileID, 10),
+                type: type,
+                details: details,
+                imgData: imgData
+            }
+            //backend syncing
+            await createTile(newServerTile);
 
-        const oldTileID = await dbTileObject.addObject(tileObj);
+            // Add dropdown element
+            const newTileOption = document.createElement("a");
+            newTileOption.setAttribute("tile-id", newTileID);
+            newTileOption.setAttribute("href", "#");
+            newTileOption.textContent = type;
+            document.querySelector(".edit-tile-dropdown-content").appendChild(newTileOption);
+        })
+    );
 
-        // Sync tile with the correct tileID
-        await dbTileObject.changeObjectID(oldTileID, tileID);
-
-        const newTileOption = document.createElement("a");
-        newTileOption.setAttribute("tile-id", tileID);
-        newTileOption.setAttribute("href", "#");
-        newTileOption.textContent = type;
-
-        const clone = newTileOption.cloneNode(true);
-        const editTileDropdown = document.querySelector(".edit-tile-dropdown-content");
-        editTileDropdown.appendChild(clone);
-    }
-
-    //initializeAvailableTiles();
+    initializeAvailableTiles();
     populateTileDropdown1();
 
-    console.log("Synced server tile types");
+    console.log("Final available tiles:", availableTiles);
 }
 
-//tileRenderOnLoad();
+tileRenderOnLoad();
+rerenderGrid();
 
 //saving the grid state
 async function saveGridState() {
@@ -98,15 +104,65 @@ async function saveGridState() {
         });
     });
 
-    const gridObj = await dbGridState.getObject(parseInt(gridStateID));
-    gridObj.array = gridState;
-    await dbGridState.updateObject(gridObj);
+    const gridStateObject = new gridObject(gridState);
+    dbGridState.clearDatabase();
+    dbGridState.addObject(gridStateObject);
+
     console.log("Grid state saved:", gridState);
 }
 
-// ALL DATABASE STUFF!
+export async function rerenderGrid() {
+    const arrayGridState = await dbGridState.getAllObject();
+    const currGridState = arrayGridState[0];
+    console.log("current grid state", currGridState);
 
-//make an indexedDB object first, then sync it up
+    if (!currGridState || currGridState.length === 0) {
+        console.log("No saved grid state found.");
+        return;
+    }
+
+    const width = Math.max(...currGridState.array.map(tile => tile.x)) + 1;
+    const height = Math.max(...currGridState.array.map(tile => tile.y)) + 1;
+
+    const battleGrid = document.getElementById('battle-grid');
+    battleGrid.innerHTML = ''; // Clear any existing grid
+    battleGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
+    battleGrid.style.gridTemplateRows = `repeat(${height}, 1fr)`;
+    battleGrid.style.zIndex = 3;
+
+    const objectGrid = document.getElementById('object-grid');
+    objectGrid.innerHTML = ''; // Clear any existing grid
+    objectGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
+    objectGrid.style.gridTemplateRows = `repeat(${height}, 1fr)`;
+
+    // Create and render the tiles based on the saved grid state
+    for (let i = 0; i < currGridState.array.length; i++) {
+        const tileCoord = currGridState.array[i];
+        const tile = document.createElement('div');
+        tile.classList.add('grid-tile');
+        tile.dataset.x = tileCoord.x;
+        tile.dataset.y = tileCoord.y;
+
+        if (tileCoord.tileName) {
+            tile.setAttribute('data-tile-name', tileCoord.tileName);
+        }
+        if (tileCoord.tileDetails) {
+            tile.setAttribute('data-tile-details', tileCoord.tileDetails);
+        }
+        if (tileCoord.tileImage) {
+            tile.style.backgroundImage = `url(${tileCoord.tileImage})`;
+        }
+
+        battleGrid.appendChild(tile);
+    }
+
+    initializeBattleGrid(battleGrid);
+    enableDragging(battleGrid);
+    enableDragging(battleGrid);
+}
+
+
+// ALL DATABASE STUFF!
 
 //This gets the canvas image url from the tile-preview square
 function getCanvasImageFromCustom() {
@@ -424,7 +480,7 @@ async function handleSquareClick(square) {
         }
 
         //saves the state of the grid
-        //saveGridState();
+        saveGridState();
 
         square.addEventListener('mouseenter', showTileDetails);
     } catch (error) {
@@ -457,7 +513,7 @@ function onMouseMove(event) {
             square.setAttribute('data-tile-name', selectedTile.type);
             square.setAttribute('data-tile-details', selectedTile.details);
         }
-        //saveGridState();
+        saveGridState();
         square.addEventListener('mouseenter', showTileDetails);
     }
 }
@@ -504,10 +560,20 @@ export async function initializeBattleGrid(battleGrid) {
     });
 }
 
+//TODO: add backend
 //should make this an option
 async function clearTileObjectDB() {
     try {
+        await dbGridState.clearDatabase();
         const message = await dbTileObject.clearDatabase();
+        const allTiles = await getAllTiles();
+        await Promise.all(
+            allTiles.map(async (serverTile) => {
+
+                const IDBtileID = serverTile.IDBtileID;
+                await deleteTile(IDBtileID);
+            })
+        );
         console.log(message);
     } catch (error) {
         console.error("Error clearing dbTileObject:", error);
