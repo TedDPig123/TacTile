@@ -1,15 +1,24 @@
 import { DatabaseConnection } from "./DatabaseConnection.js";
 import {createTile,
     getAllTiles,
-    getTileById,
     updateTile,
-    deleteTile,
-    addTileCoordinate,
-    deleteTileCoordinate
+    deleteTile
 } from "./TileClientRequests.js";
 
 //initialize indexedDB database for tile objects
 const dbTileObject = new DatabaseConnection();
+
+//initialize indexedDB database for grid state
+class gridObject{
+    array;
+    constructor(array){
+        this.array = array;
+    }
+}
+
+const gridStateCurr = new gridObject([]);
+const dbGridState = new DatabaseConnection();
+const gridStateID = await dbGridState.addObject(gridStateCurr);
 
 //create class for tile object
 export class tileObject{
@@ -60,14 +69,40 @@ async function tileRenderOnLoad() {
         editTileDropdown.appendChild(clone);
     }
 
-    hideCustom();
-    initializeAvailableTiles();
+    //initializeAvailableTiles();
     populateTileDropdown1();
 
     console.log("Synced server tile types");
 }
 
-tileRenderOnLoad();
+//tileRenderOnLoad();
+
+//saving the grid state
+async function saveGridState() {
+    const gridState = [];
+
+    const tiles = document.querySelectorAll('.grid-tile');
+    tiles.forEach((tile) => {
+        const x = tile.dataset.x;
+        const y = tile.dataset.y;
+        const tileName = tile.getAttribute('data-tile-name') || null;
+        const tileDetails = tile.getAttribute('data-tile-details') || null;
+        const tileImage = tile.style.backgroundImage || null;
+
+        gridState.push({
+            x: parseInt(x),
+            y: parseInt(y),
+            tileName,
+            tileDetails,
+            tileImage: tileImage ? tileImage.slice(5, -2) : null, // to remove the `url("")` wrapper
+        });
+    });
+
+    const gridObj = await dbGridState.getObject(parseInt(gridStateID));
+    gridObj.array = gridState;
+    await dbGridState.updateObject(gridObj);
+    console.log("Grid state saved:", gridState);
+}
 
 // ALL DATABASE STUFF!
 
@@ -251,6 +286,7 @@ async function displayTileDetailsForEditing(tileID) {
 }
 
 function showCustom(){
+    console.log("toggle");
     const tileMenu = document.querySelector('.custom');
     const greyOverlay = document.getElementById('screen-overlay');
     greyOverlay.style.display = 'flex';
@@ -387,6 +423,9 @@ async function handleSquareClick(square) {
             square.setAttribute('data-tile-details', tile.details);
         }
 
+        //saves the state of the grid
+        //saveGridState();
+
         square.addEventListener('mouseenter', showTileDetails);
     } catch (error) {
         console.error("Error loading tile:", error);
@@ -418,6 +457,7 @@ function onMouseMove(event) {
             square.setAttribute('data-tile-name', selectedTile.type);
             square.setAttribute('data-tile-details', selectedTile.details);
         }
+        //saveGridState();
         square.addEventListener('mouseenter', showTileDetails);
     }
 }

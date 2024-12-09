@@ -102,52 +102,6 @@ export async function deleteTile(tileId) {
     }
 }
 
-//PUT: Create a placed tile coordinate
-export async function addTileCoordinate(tileID, x, y) {
-    try {
-        const response = await fetch('/tileCoordinates', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tileID, x, y }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add tile coordinate');
-        }
-
-        const newCoordinate = await response.json();
-        console.log('Tile coordinate added:', newCoordinate);
-        return newCoordinate;
-    } catch (error) {
-        console.log('something went wrong: ', error);
-    }
-}
-
-//DELETE: Delete a placed tile coordinate object based off x and y axis
-export async function deleteTileCoordinate(tileID, x, y) {
-    try {
-        const response = await fetch('/tileCoordinates', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tileID, x, y }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to delete tile coordinate');
-        }
-
-        const result = await response.json();
-        console.log(result.message);
-    } catch (error) {
-        console.log('something went wrong: ', error);
-    }
-}
-
-//TODO:create a render function to render all of this stuff on the board
 
 
 

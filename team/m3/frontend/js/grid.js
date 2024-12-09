@@ -1,6 +1,5 @@
 import { initializeBattleGrid } from "./TileLogic.js"; //geri imported function here
 import { DatabaseConnection } from "./DatabaseConnection.js";
-import {addTileCoordinate} from "./TileClientRequests.js";
 
 //class for tile coordinate object
 export class tileCoord{
