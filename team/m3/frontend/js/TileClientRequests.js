@@ -147,3 +147,58 @@ export async function clearAllTiles() {
         alert("Error clearing all tiles.");
     }
 }
+
+
+//POST: creating the grid state
+export const createGridState = async (array) => {
+    try {
+        const response = await fetch('/gridState', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ array }),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to create GridState');
+        }
+        const newGridState = await response.json();
+        console.log('Created GridState:', newGridState);
+    } catch (error) {
+        console.error('Error creating GridState:', error);
+    }
+};
+
+//GET: get all the grid states
+export const getAllGridStates = async () => {
+    try {
+        const response = await fetch('/gridState', {
+            method: 'GET',
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch GridStates');
+        }
+        const gridStates = await response.json();
+        console.log('Fetched GridStates:', gridStates);
+    } catch (error) {
+        console.error('Error fetching GridStates:', error);
+    }
+};
+
+//DELETE: delete all the grid states
+export const deleteAllGridStates = async () => {
+    try {
+        const response = await fetch('/gridState', {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete all GridStates');
+        }
+
+        const result = await response.json();
+        console.log(result.message); 
+    } catch (error) {
+        console.error('Error deleting all GridStates:', error);
+    }
+};

@@ -6,7 +6,9 @@ import {createTile,
     deleteTile,
     changeTileID,
     clearAllTiles,
-    
+    createGridState,
+    deleteAllGridStates,
+    getAllGridStates
 } from "./TileClientRequests.js";
 
 //initialize indexedDB database for tile objects
@@ -78,6 +80,17 @@ async function tileRenderOnLoad() {
     populateTileDropdown1();
 
     console.log("Final available tiles:", availableTiles);
+
+    //also load in gridstate
+
+    const serverGridStateObjects = await getAllGridStates();
+    if(serverGridStateObjects && serverGridStateObjects.length > 0){
+        const serverGridStateArray = serverGridStateObjects[0].array;
+        const newGridState = new gridObject(serverGridStateArray);
+        dbGridState.clearDatabase();
+        dbGridState.addObject(newGridState);
+    }
+   
 }
 
 tileRenderOnLoad();
@@ -107,6 +120,10 @@ async function saveGridState() {
     const gridStateObject = new gridObject(gridState);
     dbGridState.clearDatabase();
     dbGridState.addObject(gridStateObject);
+
+    //backend sync
+    await deleteAllGridStates();
+    await createGridState(gridState);
 
     console.log("Grid state saved:", gridState);
 }
