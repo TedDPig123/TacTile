@@ -23,10 +23,10 @@
                     <input type="file" id="background-image-upload" accept="image/*">
                     <br>
                     <br>
-                    <input type="button", value="add/update object", id="object_button">
+                    <input type="button", value="Add Token", id="object_button">
                     <br>
                     <br>
-                    <input type="button", value="Switch to Battle Grid", id="switch_button">
+                    <input type="button", value="Currently on Battle Grid", id="switch_button">
                     <br>
                     <br>
                     <button id="edit-mode-toggle">Enable Edit Mode</button>
@@ -68,8 +68,27 @@
 
                         </tr>
                     </table>
-                    
-                    
+                </div>
+                <!-- User Authentication Forms, prototype and can be changed if need be -->
+                <h2>User Authentication</h2>
+                <div>
+                    <h3>Register</h3>
+                    <form id="register-form">
+                        <input type="text" id="register-username" placeholder="Username" required>
+                        <input type="email" id="register-email" placeholder="Email" required>
+                        <input type="password" id="register-password" placeholder="Password" required>
+                        <button type="submit">Register</button>
+                    </form>
+                    <h3>Login</h3>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <!-- temporary logout and delete user button. Change to suit your needs -->
+                    <button id="logout-button">Logout</button>
+                    <button id="delete-button">Delete User</button> 
+                    <div id="message"></div>
                 </div>
             </div>
             <div class="main-content">
@@ -99,11 +118,11 @@
             <label for="r">R: </label>
             <input type="number" min="1" max="8" id="r" value="1">
             <br /><br />
-            <input type="button" value="create" id="create"/>
-            <input type="button" value="cancel" id="cancel"/>
-            <input type="button" value="update" id="update"/>
-            <input type="button" value="delete" id="delete"/>
-            <input type="button" value="Delete All Object" id="deleteAll"/>
+            <input type="button" value="Create" id="create"/>
+            <input type="button" value="Cancel" id="cancel"/>
+            <input type="button" value="Update" id="update"/>
+            <input type="button" value="Delete" id="delete"/>
+            <input type="button" value="Delete All Token" id="deleteAll"/>
             <idObj></idObj>
         </div>
 
@@ -227,8 +246,9 @@
 
     <script type="module" src="js/TileLogic.js"></script> <!-- added this for the tile feature -->
 
-    <script type="module" src="js/ObjectTokenFinal.js"></script>
+    <script type="module" src="js/tokenFinal.js"></script>
 
+    <script src="js/userScripts.js"></script>
 
 </body>
 </html>
