@@ -26,7 +26,7 @@ export const getAllBackgroundImages = async (req, res) => {
 // UPDATE: Update an existing background image
 export const updateBackgroundImage = async (req, res) => { 
     const { imageId } = req.params;
-    const { mapId, name, image } = req.body;
+    const { backgroundId, name, image } = req.body;
 
     try {
         const backgroundImage = await BackgroundImage.findByPk(imageId);
