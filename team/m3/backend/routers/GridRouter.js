@@ -1,5 +1,5 @@
 import express from "express";
-import GridController from "../controllers/GridController";
+import GridController from "../controllers/GridController.js";
 
 class GridRoutes {
     constructor() {
