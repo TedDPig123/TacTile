@@ -140,24 +140,4 @@ export class DatabaseConnection{
                 reject("Error deleting database.");}
         });
     }
-
-    //this changes the id of an object, needed for syncing with server
-    async changeObjectID(oldID, newID) {
-        try {
-            const object = await this.getObject(oldID);
-
-            if (!object) {
-                throw new Error(`Object with ID ${oldID} not found.`);
-            }
-
-            await this.deleteObject(oldID);
-
-            object.id = newID;
-            await this.addObject(object);
-
-            return `ID successfully changed from ${oldID} to ${newID}`;
-        } catch (error) {
-            throw new Error(`Error changing ID: ${error.message}`);
-        }
-    }
 }
