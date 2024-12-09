@@ -1,18 +1,6 @@
 import { initializeBattleGrid } from "./TileLogic.js"; //geri imported function here
 import { DatabaseConnection } from "./DatabaseConnection.js";
 
-//class for tile coordinate object
-export class tileCoord{
-    tileID;
-    x;
-    y;
-    constructor(tileID, x, y){
-        this.tileID = tileID;
-        this.x = x;
-        this.y = y;
-    }
-}
-
 //indexeddb database object for tile coordinates
 export const dbTileCoords = new DatabaseConnection();
 
@@ -34,7 +22,7 @@ function updateGridTransform() {
 
 let gridDraggingListeners = {}; // Object to store listeners
 
-function enableDragging(grid) {
+export function enableDragging(grid) {
     const mouseDownHandler = (e) => {
         if (!e.target.classList.contains("object")) {
             isDragging = true;
@@ -140,10 +128,6 @@ async function createGrid(width, height) {
             //geri edit - keeping track of x and y coordinates of each tile:
             tile.dataset.x = x;
             tile.dataset.y = y;
-
-            //indexed db database update for tile coordinates
-            const newTileCoord = new tileCoord(null,x,y);
-            await dbTileCoords.addObject(newTileCoord);
 
             battleGrid.appendChild(tile);
         }
