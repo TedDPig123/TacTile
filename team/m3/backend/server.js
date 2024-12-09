@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import tileCoordRouter from "./routers/TileCoordRouter.js"
 import tileRouter from "./routers/TileRouter.js"
 import TokenRoutes from './routers/tokenRoutes.js'
 import userRouter from './routers/userRouter.js';
@@ -27,8 +26,7 @@ class Server {
 
     //Each person adds their routes here
     setupRoutes() {
-        // this.app.use('/tiles', tileRouter);
-        // this.app.use('/tileCoordinates', tileCoordRouter);
+        this.app.use('/tiles', tileRouter);
         this.app.use("/tokens", TokenRoutes)
         this.app.use("/users", userRouter)
         this.app.use("/grid", GridRouter)
