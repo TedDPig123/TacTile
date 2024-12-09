@@ -6,7 +6,7 @@ const factoryResponse = (status, message) => ({ status, message });
 export const createBackgroundImage = async (req, res) => {
     const { backgroundId, name, image } = req.body;
     try { 
-        const backgroundImage = await BackgroundImage.create({ mapId, name, image });
+        const backgroundImage = await BackgroundImage.create({ backgroundId, name, image });
         res.status(200).json(backgroundImage);
     } catch (error) {
         res.status(500).json(factoryResponse(500, "Background image not created due to error"));
