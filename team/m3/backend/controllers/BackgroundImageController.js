@@ -34,7 +34,7 @@ export const updateBackgroundImage = async (req, res) => {
             return res.status(404).json(factoryResponse(404, "Background image not found"));
         }
 
-        await backgroundImage.update({ mapId, name, image });
+        await backgroundImage.update({ backgroundId, name, image });
         res.status(200).json(backgroundImage);
     } catch (error) {
         res.status(500).json(factoryResponse(500, "Error updating background image"));
