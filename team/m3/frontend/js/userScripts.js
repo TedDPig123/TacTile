@@ -79,3 +79,30 @@ document.getElementById('logout-button').addEventListener('click', async () => {
         document.getElementById('message').innerText = 'Logout failed';
     }
 });
+
+// Event listener for the delete button click
+document.getElementById('delete-button').addEventListener('click', async () => {
+    const email = prompt('Please enter your email to confirm deletion:');
+    if (!email) {
+        document.getElementById('message').innerText = 'User deletion cancelled';
+        return;
+    }
+
+    try {
+        // Send a DELETE request to the server to delete the user
+        const response = await fetch('/users/delete', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }), // Send the user email in the request body
+        });
+
+        // Parse the response from the server
+        const data = await response.json();
+
+        // Display a message to the user
+        document.getElementById('message').innerText = data.message || 'User deleted successfully';
+    } catch (error) {
+        // Display an error message if the deletion fails
+        document.getElementById('message').innerText = 'User deletion failed';
+    }
+});

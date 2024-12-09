@@ -42,3 +42,18 @@ export const logoutUser = (req, res) => {
     // Invalidate the token 
     res.status(200).json({ message: 'Logged out successfully' });
 };
+
+// DELETE: Controller function to handle user deletion
+export const deleteUser = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await SQLiteUser.getUserByEmail(email);
+        if (!user) {
+            return res.status(404).json(factoryResponse(404, 'User not found'));
+        }
+        await SQLiteUser.delete(user);
+        res.status(200).json(factoryResponse(200, 'User deleted successfully'));
+    } catch (error) {
+        res.status(500).json(factoryResponse(500, 'Error deleting user'));
+    }
+};

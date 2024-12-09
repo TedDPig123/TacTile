@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser, logoutUser } from '../controllers/userController.js';
+import { registerUser, loginUser, logoutUser, deleteUser } from '../controllers/userController.js';
 
 // Create a new router for user-related routes
 const userRouter = express.Router();
@@ -8,5 +8,6 @@ const userRouter = express.Router();
 userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/logout', logoutUser);
+userRouter.delete('/delete', deleteUser);
 
 export default userRouter;
