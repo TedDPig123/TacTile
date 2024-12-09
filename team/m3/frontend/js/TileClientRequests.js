@@ -102,6 +102,48 @@ export async function deleteTile(tileId) {
     }
 }
 
+//PUT: Request to change the IDBtileID of a tile
+export async function changeTileID(tileId, newIDBtileID) {
+    try {
+        const response = await fetch(`/tiles/${tileId}/change-id`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ newIDBtileID }),
+        });
 
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(`Failed to change IDBtileID: ${errorResponse.message}`);
+        }
 
+        const updatedTile = await response.json();
+        console.log(`TileID ${tileId} updated with new IDBtileID ${newIDBtileID}:`, updatedTile);
+        return updatedTile;
+    } catch (error) {
+        console.error("Failed to change IDBtileID:", error);
+        alert(`Error changing IDBtileID: ${error.message}`);
+    }
+}
 
+// DELETE: Request to clear all tiles
+export async function clearAllTiles() {
+    try {
+        const response = await fetch('/tiles/clear', {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(`Failed to clear all tiles: ${errorResponse.message}`);
+        }
+
+        const message = await response.json();
+        console.log('All tiles cleared:', message);
+        alert("All tiles have been cleared.");
+    } catch (error) {
+        console.error("Failed to clear all tiles:", error);
+        alert("Error clearing all tiles.");
+    }
+}
