@@ -9,6 +9,7 @@ import userRouter from './routers/userRouter.js';
 import SQLiteUser from './models/user.js';
 import GridRouter from './routers/GridRouter.js';
 import BackgroundImageRoutes from './routers/backgroundImageRouter.js';
+import canvasRouter from './routers/CanvasRouter.js';
 
 class Server {
     constructor(){
@@ -34,6 +35,7 @@ class Server {
         this.app.use("/users", userRouter)
         this.app.use("/grid", GridRouter)
         this.app.use("/backgroundImage", BackgroundImageRoutes)
+        this.app.use("/canvas", canvasRouter)
     }
 
     // Initialize the database
