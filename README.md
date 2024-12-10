@@ -10,6 +10,7 @@ TacTile is a web application designed to help Dungeon Masters create customizabl
 - [Usage](#usage)
   - [Creating the Grid](#creating-the-grid)
   - [Using the Dice Roller](#using-the-dice-roller)
+  - [Using Paint Mode](#using-paint-mode)
   - [User Controls](#user-controls)
 
 ## Installation
@@ -46,6 +47,12 @@ Enter any modifier to be added to each roll in the "Add modifier" input field.
 ### Roll the Dice:
 Click the "Roll Dice" button to roll the dice.
 The results of the dice roll will be displayed in the "Dice Result" section.
+
+## Using Paint Mode
+### Turn on Drawing Mode
+### Change Brush
+### Clear Canvas
+
 
 ## User Controls
 ### Register User
