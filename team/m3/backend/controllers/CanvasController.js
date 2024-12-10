@@ -1,4 +1,4 @@
-import {Canvas} from "..models/SQLiteCanvas";
+import Canvas from "../models/SQLiteCanvas.js";
 
 const factoryResponse = (status, message) => ({ status, message });
 
@@ -6,9 +6,10 @@ const factoryResponse = (status, message) => ({ status, message });
 export const putCanvas = async (req, res) =>{
     const imgData = req.body;
     try{
-        const newCanvas = await Canvas.create(imgData);
+        const newCanvas = await Canvas.create({imgData: JSON.stringify(imgData)});
         res.status(200).json(newCanvas);
     }catch(error){
+        console.log(error);
         res.status(500).json(factoryResponse(500, "Canvas data not uploaded to error"));
     }
 }
@@ -20,6 +21,18 @@ export const getCanvas = async (req, res) =>{
         res.status(200).json(imgData);
     }catch(error){
         res.status(500).json(factoryResponse(500, "Error retrieving canvas data"));
+    }
+}
+
+//UPDATE: Updates canvas state
+export const updateCanvas = async (req, res) =>{
+    const imgData = req.body;
+    try{
+        const newCanvas = await Canvas.create({imgData: JSON.stringify(imgData)});
+        res.status(200).json(newCanvas);
+    }catch(error){
+        console.log(error);
+        res.status(500).json(factoryResponse(500, "Canvas data not uploaded to error"));
     }
 }
 

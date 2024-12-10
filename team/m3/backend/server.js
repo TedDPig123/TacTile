@@ -1,17 +1,20 @@
 import express from 'express';
 import path from 'path';
+import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 // import {tileCoordRouter} from "../js/backend/routers/TileCoordRouter"
 // import {tileRouter} from "../js/backend/routers/TileRouter"
 import canvasRouter from './routers/CanvasRouter.js';
 import TokenRoutes from './routers/tokenRoutes.js'
-import GridRouter from './routers/GridRouter.js';
+// import GridRouter from './routers/GridRouter.js';
 
 
 class Server {
     constructor(){
         this.app = express();
+        this.app.use(bodyParser.json({ limit: '50mb' }));
+        this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
         this.configureMiddleware();
         this.setupRoutes();
     }
@@ -30,7 +33,7 @@ class Server {
         // this.app.use('/tileCoordinates', tileCoordRouter);
         this.app.use("/canvas", canvasRouter)
         this.app.use("/tokens", TokenRoutes)
-        this.app.use("/grid", GridRouter)
+        // this.app.use("/grid", GridRouter)
     }
 
 

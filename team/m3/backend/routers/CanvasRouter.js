@@ -3,12 +3,12 @@ import {
     putCanvas,
     getCanvas,
     deleteCanvas,
-} from "../controllers/CanvasController"
+} from "../controllers/CanvasController.js"
 
 const canvasRouter = new express.Router();
 
-router.post('/', putCanvas);
-router.get('/', getCanvas);
-router.delete('/:id', deleteCanvas);
+canvasRouter.post('/post', putCanvas);
+canvasRouter.get('/get', getCanvas);
+canvasRouter.delete('/delete', deleteCanvas);
 
 export default canvasRouter;

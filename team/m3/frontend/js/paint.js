@@ -1,4 +1,3 @@
-
 let toggle = false;
 const canvas = document.getElementById('canvas'); 
 const layer = document.getElementById("paintLayer");
@@ -28,9 +27,7 @@ if (document.getElementById("eraser").checked) { changeTool(1); }
 if (document.getElementById("circle").checked) { changeTool(2); }
 if (document.getElementById("square").checked) { changeTool(3); }
 
-if (false) {
-  loadCanvas();
-}
+
 
 
 function togglePaint() { //used for toggling whether or not you're actively drawing. prevents you from clicking on the grid if you are
@@ -112,12 +109,33 @@ function clear_canvas(){
     saveCanvas();
 }
 
-function saveCanvas() {
+async function saveCanvas() {
   let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
-  let imageData = canvasState.data;
-  console.log(JSON.parse(JSON.stringify(imageData)));
+  const imageData = canvasState.data;
+  const response = await fetch('/canvas/post', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(imageData),
+  });
+  console.log(response);
+  if (!response.ok) {
+    throw new Error("Failed");
+  };
 }
 
-function loadCanvas() {
-  ctx.putImageData(canvasState, 0,0);
+async function loadCanvas() {
+  const response = await fetch('/canvas/get', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  console.log("GET");
+  console.log(response);
+  if (!response.ok) {
+    throw new Error("Failed");
+  };
+  const data = await response.json();
+  ctx.putImageData(data, 0, 0);
 }
+
+loadCanvas();
+//loadCanvas();
