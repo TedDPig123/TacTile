@@ -1,4 +1,4 @@
-import { BackgroundImage } from "../models/SQLiteBackgroundImage";
+import SQLiteBackgroundImage from "../models/SQLiteBackgroundImage.js";
 
 const factoryResponse = (status, message) => ({ status, message });
 
@@ -6,7 +6,7 @@ const factoryResponse = (status, message) => ({ status, message });
 export const createBackgroundImage = async (req, res) => {
     const { backgroundId, name, image } = req.body;
     try { 
-        const backgroundImage = await BackgroundImage.create({ backgroundId, name, image });
+        const backgroundImage = await SQLiteBackgroundImage.create({ backgroundId, name, image });
         res.status(200).json(backgroundImage);
     } catch (error) {
         res.status(500).json(factoryResponse(500, "Background image not created due to error"));
@@ -16,7 +16,7 @@ export const createBackgroundImage = async (req, res) => {
 // GET: Retrieve all background images
 export const getAllBackgroundImages = async (req, res) => {
     try { 
-        const allBackgroundImages = await BackgroundImage.findAll();
+        const allBackgroundImages = await SQLiteBackgroundImage.findAll();
         res.status(200).json(allBackgroundImages);
     } catch (error) {
         res.status(500).json(factoryResponse(500, "Error retrieving all background images"));
@@ -29,7 +29,7 @@ export const updateBackgroundImage = async (req, res) => {
     const { backgroundId, name, image } = req.body;
 
     try {
-        const backgroundImage = await BackgroundImage.findByPk(imageId);
+        const backgroundImage = await SQLiteBackgroundImage.findByPk(imageId);
         if (!backgroundImage) {
             return res.status(404).json(factoryResponse(404, "Background image not found"));
         }
@@ -45,7 +45,7 @@ export const updateBackgroundImage = async (req, res) => {
 export const deleteBackgroundImage = async (req, res) => { 
     const { imageId } = req.params;
     try {
-        const backgroundImage = await BackgroundImage.findByPk(imageId);
+        const backgroundImage = await SQLiteBackgroundImage.findByPk(imageId);
         if (!backgroundImage) {
             return res.status(404).json(factoryResponse(404, "Background image not found"));
         }
