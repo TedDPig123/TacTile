@@ -1,4 +1,9 @@
 import { initializeBattleGrid } from "./TileLogic.js"; //geri imported function here
+import { DatabaseConnection } from "./DatabaseConnection.js";
+
+//indexeddb database object for tile coordinates
+export const dbTileCoords = new DatabaseConnection();
+
 // Variables for zoom and drag
 let scale = 1;
 const zoomStep = 0.1;
@@ -17,7 +22,7 @@ function updateGridTransform() {
 
 let gridDraggingListeners = {}; // Object to store listeners
 
-function enableDragging(grid) {
+export function enableDragging(grid) {
     const mouseDownHandler = (e) => {
         if (!e.target.classList.contains("object")) {
             isDragging = true;
@@ -101,7 +106,7 @@ document.getElementById('create-grid').addEventListener('click', function () {
 });
 
 // Create the grid
-function createGrid(width, height) {
+async function createGrid(width, height) {
     const battleGrid = document.getElementById('battle-grid');
     battleGrid.innerHTML = ''; // Clear any existing grid
     battleGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;

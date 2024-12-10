@@ -1,5 +1,5 @@
 
-import {Grid} from "..models/SQLiteGrid";
+import Grid from "../models/SQLiteGrid.js";
 
 const factoryResponse = (status, message) => ({ status, message });
 
@@ -35,7 +35,7 @@ export const updateGrid = async (req, res) =>{
             return res.status(404).json(factoryResponse(404, "Grid not found"));
         }
 
-        await tile.update({gridWidth, gridHeight });
+        await grid.update({gridWidth, gridHeight });
         res.status(200).json(allGrids);
     }catch(error){
         res.status(500).json(factoryResponse(500, "Error retrieving grid"));

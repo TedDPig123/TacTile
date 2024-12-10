@@ -5,14 +5,19 @@ import {
     getTileByID,
     updateTile,
     deleteTile,
-} from "../controllers/TileController"
+    changeTileID,
+    clearAllTiles
+} from "../controllers/TileController.js"
 
 const tileRouter = new express.Router();
 
-router.post('/', createTile);
-router.get('/', getAllTiles);
-router.get('/:id', getTileByID);
-router.put('/:id', updateTile);
-router.delete('/:id', deleteTile);
+tileRouter.post('/', createTile);
+tileRouter.get('/', getAllTiles);
+tileRouter.get('/:id', getTileByID);
+tileRouter.put('/:id', updateTile);
+tileRouter.delete('/:id', deleteTile);
+tileRouter.put('/:id/change-id', changeTileID);
+tileRouter.delete('/clear', clearAllTiles);
+
 
 export default tileRouter;
