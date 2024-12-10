@@ -36,26 +36,17 @@ export class tileObject{
     }
 }
 
-document.getElementById('logout-button').addEventListener('click', async () => {
-    try {
-        await updateMegaDB();
-        await clearTileObjectDB();
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-    try {
-        await tileRenderOnLoad();
-    } catch (error) {
-        console.log(error);
-    }
-});
-
+// document.getElementById('logout-button').addEventListener('click', async () => {
+//     try {
+//         await updateMegaDB();
+//         await clearTileObjectDB();
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
 //ON-LOAD: Populate the tile types, update indexedDB
 
-async function tileRenderOnLoad() {
+export async function tileRenderOnLoad() {
     await updateMegaDB();
 
     const allTiles = await getAllTiles();

@@ -1,5 +1,8 @@
 import { syncWithMegaDatabase } from "./megaDBRequests.js";
 import { createOrUpdateMegaDatabase, getAllDatabaseDataForRegistration} from "./megaDBRequests.js";
+import { clearTileObjectDB, tileRenderOnLoad } from "./TileLogic.js";
+import { updateMegaDB } from "./megaDBRequests.js";
+
 localStorage.removeItem('userEmail');
 
 
@@ -63,7 +66,8 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             //geri edit start
             localStorage.setItem('userEmail', email);
 
-            syncWithMegaDatabase(email);
+            await syncWithMegaDatabase(email);
+            await tileRenderOnLoad();
             //geri edit end
 
             document.getElementById('message').innerText = 'Login successful';
@@ -90,6 +94,8 @@ document.getElementById('logout-button').addEventListener('click', async () => {
         const data = await response.json();
 
         // Remove the token from localStorage and display a success message
+        await updateMegaDB();
+        await clearTileObjectDB()
         localStorage.removeItem('token');
         localStorage.removeItem('userEmail');
         document.getElementById('message').innerText = data.message || 'Logged out successfully';
