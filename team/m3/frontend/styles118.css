@@ -1,0 +1,867 @@
+@font-face {
+  font-family: DragonHunter;
+  src: url('font/DragonHunter.otf');
+}
+
+body {
+    cursor: url('images/cursor.png') 20 15, auto;
+    background-image: url('images/background.png'), url('images/beneath background.jpg');
+    font-family: DragonHunter;
+    margin: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+
+  canvas {
+    height:100%;
+  }
+
+  .parent {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    color: black;
+  }
+  
+  button { /* might need to check in with each variation of the button(s) */
+    font-family: 'DragonHunter';
+    font-size: large;
+    padding: 5px 5px 5px 5px;
+    background-color: black;
+    color: white;
+    position: relative;
+  }
+
+  label { /* might need to check in with each variation of the button(s) */
+    font-family: 'DragonHunter';
+    font-size: large;
+    padding: 5px 5px 5px 5px;
+    background-color: black;
+    color: white;
+  }
+
+
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
+
+  #drawing-display {
+    visibility: hidden;
+  }
+
+  #paintLayer {
+    position: absolute;
+    top: 0px;
+    left: 30%;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  #normal
+  {
+    pointer-events: auto;
+  }
+  
+  .sidebar {
+    width: 30%;
+    padding: 20px;
+  }
+  
+  .main-content {
+    overflow: hidden;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    justify-content: center;
+    position: relative;
+  }
+  
+  #grid-container {
+    position: relative; 
+    width: 90%;
+    height: 90%;
+    justify-content: center;
+  }
+
+  #grid-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  #grid-container::before {
+    background-image: var(--background-image);
+  }
+  
+  #battle-grid, #object-grid  {
+    top: 0;
+    left: 0;
+    display: grid;
+    gap: 1px;
+    margin-top: 20px;
+    justify-content: center;
+    z-index: 1;
+    /* Controls the size of the grid itself being displayed */
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    min-width: 800px;      
+    min-height: 600px;     
+    transform-origin: top left;
+    cursor: grab;
+    transition: transform 0.1s ease; /* Smooth zooming */
+  }
+
+  .grid-tile {
+    width: 100%; /* Make each tile take the full width of its grid cell */
+    height: 100%; /* Make each tile take the full height of its grid cell */
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  #object-grid {
+    z-index: 1;
+  }
+  
+  .object1 {
+    background-color: aqua;
+    width: 100%; /* Make each tile take the full width of its grid cell */
+    height: 100%; /* Make each tile take the full height of its grid cell */
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+  }
+  
+  
+  .ObjectForm{
+    position: absolute;
+    width: 300px;
+    height: 700px;
+    padding: 5px;
+    background-color: rgb(31, 30, 30);
+    left: 250px;
+    border-radius: 3px;
+    z-index: 3;
+    opacity: 95%;
+  }
+  
+  .ObjectForm #description{
+    border-radius: 3px;
+  }
+  
+  .ObjectForm label{
+    color:rgb(121, 224, 224);
+    font-size: 20px;
+  }
+  
+  #delete{
+    display: none;
+  }
+  
+  #update{
+    display: none;
+  }
+  
+  .hoverBox {
+    position: relative; 
+    display: inline-block; 
+    cursor: pointer; 
+    z-index: 4;
+
+  }
+  
+  .hoverBox .hovertext {
+    visibility: hidden;
+    position: absolute;
+    padding: 5px;
+    background-color: rgb(25, 25, 99);
+    width: 250px;
+    height: 150px;
+    color: white;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-radius: 6px;
+    top: 110%;
+    left: 50%;
+    z-index: 4;
+    transform: translateX(-50%);
+  }
+  
+  .hoverBox:hover .hovertext {
+    visibility: visible;
+  }
+  
+  
+  #preview{
+    object-fit: fill;
+    position: relative;
+    top: 10px;
+    width: 300px;
+    height: 300px;
+    color: white;
+  }
+  
+  #imageInput{
+    color: white;
+  }
+  
+  .imageToken{
+    position: absolute;
+    overflow:hidden;
+    object-fit:fill; 
+    width: 100%;     
+    height: 100%; 
+    pointer-events: none;
+  }
+
+/* ALL GERI'S TILE UI STUFF */
+@font-face {
+  font-family: 'intanregular';
+  src: url('/team/m3/tileTypes/intan-webfont.woff2') format('woff2'),
+       url('/team/m3/tileTypes/intan-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+svg {
+  fill: black;
+  transition:0.3s;
+}
+
+.all-tile-stuff{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: intanregular;
+  font-size: 20px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.dropbtn {        /* delete later */
+  background-color: #B7874C;
+  color: black;
+  padding: 24px;
+  font-size: 20px;
+  border: none;
+  transition: 0.3s;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #457f47;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #699e6b;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #457f47;}
+
+
+.object{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
+  position: fixed;
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  width:30vw;
+  margin:auto;
+  padding:20px 20px 20px 20px;
+  min-width: 500px;
+
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+/* THIS IS FOR THE CREATE CUSTOM TILE SETTING */
+.custom{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
+  position: fixed;
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  width:30vw;
+  margin:auto;
+  padding:20px 20px 20px 20px;
+  min-width: 500px;
+
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-1{
+  display:flex;
+  flex-direction: column;
+}
+
+.text-input{
+  width:auto;
+  border: 6px solid black;
+  padding:4px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#details{
+  height:100px;
+}
+
+.custom-1.container-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size:30px; 
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.custom-1.container-2{
+  margin-bottom: 15px;
+}
+
+.custom-1.container-3{
+  margin-bottom: 15px;
+}
+
+#tile-preview{
+  border: 6px solid black;
+  background-color: grey;
+}
+
+#visual-container{
+  display:flex;
+  justify-content: space-between;
+}
+
+#visual-picker{
+  padding:20px 20px 20px 20px;
+  display:flex;
+  flex-direction: column;
+}
+
+#upload-image{
+  width:auto; 
+  background-color: grey; 
+  padding:4px; 
+  border: 6px solid black; 
+  text-align:center;
+  transition: 0.3s;
+  cursor: default;
+}
+
+#upload-image:hover{
+  background-color: rgb(240, 240, 240);
+}
+
+#tile-color{
+  width:250px;
+}
+
+#img-upload{
+  font-size: 11px;
+  background-color: white;
+  width:250px;
+  padding:5px;
+  border: 6px solid black;
+}
+  
+#cross-svg:hover{
+  height:40px;
+  width:40px;
+}
+
+#screen-overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(51,51,51);
+  z-index: 2;
+  opacity: 0.6;
+  display:none; 
+}
+
+/* THIS IS FOR THE CHOOSE EXISTING MENU */
+.existing{
+  position: fixed;
+  z-index: 4;
+  display: none;
+  flex-direction: column;
+  width:30vw;
+  background-color: #B7874C;
+  margin:auto;
+  padding:20px 20px 20px 20px;
+  min-width: 500px;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.existing-1{
+  display:flex;
+  flex-direction: column;
+}
+
+#details-2{
+  height:218px;
+}
+
+.existing-1.container-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size:30px; 
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.existing-1.container-2{
+  margin-bottom: 15px;
+}
+
+.existing-1.container-3{
+  margin-bottom: 15px;
+}
+
+#tile-preview-2{
+  border: 6px solid black;
+  background-color: grey;
+}
+
+#visual-container-2{
+  display:flex;
+  justify-content: space-between;
+}
+
+#visual-picker-2{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+#add-tile-2{
+  padding:10px;
+  margin-right: 50px;
+}
+
+#cross-svg-2:hover{
+  height:40px;
+  width:40px;
+}
+
+.tile-dropdown {
+  position: relative;
+  display: inline-block;
+  width:auto;
+}
+
+.tile-dropbtn {
+  background-color: grey;
+  color: black;
+  padding: 10px;
+  font-size: 20px;
+  transition: background-color 0.3s;
+  width:100%;
+  border: 6px solid black;
+  z-index:2
+}
+
+.tile-dropdown-content {
+  top:6px;
+  display: none;
+  position: absolute;
+  background-color: grey;
+  width: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 50;
+  width:97.6%;
+  margin-left:6px;
+  margin-right:6px;
+}
+
+.tile-dropdown-content a {
+  color: black;
+  font-size: 15px;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.tile-dropdown-content a:hover {background-color: rgb(183, 183, 183);}
+
+.tile-dropdown:hover .tile-dropdown-content {display: block;}
+
+#add-tile-2{
+  width:auto; 
+  background-color: grey; 
+  padding:4px; 
+  border: 6px solid black; 
+  text-align:center;
+  transition: 0.3s;
+  cursor: default;
+}
+
+#add-tile-2:hover{
+  background-color: rgb(240, 240, 240);
+}
+
+#add-tile-1{
+  width:auto; 
+  background-color: grey; 
+  padding:4px; 
+  border: 6px solid black; 
+  text-align:center;
+  transition: 0.3s;
+  cursor: default;
+  margin-top:15px;
+}
+
+#add-tile-1:hover{
+  background-color: rgb(240, 240, 240);
+}
+
+/* FOR EDITING */
+
+.edit{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
+  position: fixed;
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  width:30vw;
+  margin:auto;
+  padding:20px 20px 20px 20px;
+  min-width: 500px;
+
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.edit-1{
+  display:flex;
+  flex-direction: column;
+}
+
+#edit-details{
+  height:100;
+}
+
+.edit-1.container-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size:30px; 
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.edit-1.container-2{
+  margin-bottom: 15px;
+}
+
+.tile-dropbtn {
+  background-color: grey;
+  color: black;
+  padding: 10px;
+  font-size: 20px;
+  transition: background-color 0.3s;
+  width:100%;
+  border: 6px solid black;
+  z-index:2
+}
+
+.edit-tile-dropdown-content {
+  top:6px;
+  display: none;
+  position: absolute;
+  background-color: grey;
+  width: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 50;
+  width:97.6%;
+  margin-left:6px;
+  margin-right:6px;
+}
+
+.edit-tile-dropdown-content a {
+  color: black;
+  font-size: 15px;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.edit-tile-dropdown-content a:hover {background-color: rgb(183, 183, 183);}
+
+.tile-dropdown:hover .edit-tile-dropdown-content {display: block;}
+
+.edit-1.container-3{
+  margin-bottom: 15px;
+}
+
+#edit-tile-preview{
+  border: 6px solid black;
+  background-color: grey;
+}
+
+#edit-visual-container{
+  display:flex;
+  justify-content: space-between;
+}
+
+#edit-visual-picker{
+  padding:20px 20px 20px 20px;
+  display:flex;
+  flex-direction: column;
+}
+
+#edit-tile-color{
+  width:250px;
+}
+
+#edit-img-upload{
+  font-size: 11px;
+  background-color: white;
+  width:250px;
+  padding:5px;
+  border: 6px solid black;
+}
+  
+#edit-cross-svg:hover{
+  height:40px;
+  width:40px;
+}
+
+.edit-delete{
+  display: flex;
+  justify-content: space-around;
+}
+
+.edit-delete div{
+  width:auto; 
+  background-color: grey; 
+  padding:4px; 
+  border: 6px solid black; 
+  text-align:center;
+  transition: 0.3s;
+  cursor: default;
+  margin-top:15px;
+  flex: 1 1 0px;
+}
+
+#edit-tile:hover{
+  background-color: #2a6b2c;
+}
+
+#edit-tile{
+  margin-right:10px;
+}
+
+#delete-tile{
+  margin-left:10px;
+}
+
+#delete-tile:hover{
+  background-color: red;
+}
+
+.tile-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 500;
+}
+
+/* The code below is for the menu UI */
+.sidenavUI {
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  /* background-color: black; */
+  background-size: 100% 100%;
+  height: 100%;
+  width: 0;
+  position: absolute;
+  z-index: 10;
+  /* background-color: rgba(0, 0, 0, 0.83); */
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.8s;
+  padding-top: 5%;
+}
+
+.sidenavUIbuttons {
+  background-image: url('images/buttonOn.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 75%;
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: 3s;
+  transition-duration: 2s;
+  position: sticky;
+  font-family: DragonHunter;
+  padding: 7%;
+  font-size: 200%;
+  color: white;
+  display: block;
+  border: none;
+  transition: 0.5s;
+  margin-left: 7%;
+  margin-top: 15%;
+}
+
+.sidenavUIbuttons:active {
+  background-image: url('images/buttonOff.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.sidenavUI a:hover {
+  color:  rgb(30, 27, 27);
+  text-shadow: 4px 3px 4px white;
+}
+
+.subsidenavUI {
+  background-image: url('images/subsidebar.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 80%;
+  width: 0;
+  position: fixed;
+  z-index: -5;
+  /* background-color: rgba(0, 0, 0, 0.83); */
+  top: 16.7%;
+  left: 17.5%;
+  overflow-x: hidden;
+  transition: 0.8s;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawTable td {
+  padding-top: 10%;
+  padding-left: 3%;
+}
+
+.drawTable tr {
+  opacity: 0;
+}
+
+.subsidenavUILabels{
+  font-size: 150%;
+  color: white;
+  position: absolute;
+  top: 10%;
+  left: 3%;
+}
+
+.closebtnUI {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  color: black;
+  font-size: 40%;
+  margin-left: 50px;
+  transition: 1s;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.menuOpen {
+    font-size: 70px;
+    border-style: solid black 5px;
+    cursor: help;
+}
+
+.loadingScreen {
+  transition-duration: 2s;
+  position: absolute;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
+
+  /* Dice Roller Dropdown */
+.dice-dropdown {
+  margin-top: 140px; /* Adjust this margin to move it further away from the "Create New Tile" dropdown */
+}
+
+.dice-result { /* Styling for the dice result text */
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+}

@@ -372,6 +372,37 @@ async function displayTileDetailsForEditing(tileID) {
     newImage.src = tileObject.imgData;
 }
 
+
+function showObject(){
+    console.log("toggle");
+    const tileMenu = document.querySelector('.custom');
+    const greyOverlay = document.getElementById('screen-overlay');
+    greyOverlay.style.display = 'flex';
+    tileMenu.style.display = 'flex';
+}
+
+function hideObject(){
+    const tileMenu = document.querySelector('.custom');
+    const greyOverlay = document.getElementById('screen-overlay');
+    tileMenu.style.display = 'none';
+    greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("tile-name");
+    tileOption.innerHTML = "";
+    tileOption.value = "";
+
+    const details = document.getElementById("details");
+    details.value = "";
+
+    const canvas = document.getElementById("tile-preview");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+}
+
+
+
+
+
+
 function showCustom(){
     console.log("toggle");
     const tileMenu = document.querySelector('.custom');
@@ -657,6 +688,43 @@ async function populateTileDropdowns() {
     }
 }
 
+async function clearGrid(){
+    const gridState = [];
+
+    const tiles = document.querySelectorAll('.grid-tile');
+    tiles.forEach((tile) => {
+        const x = tile.dataset.x;
+        const y = tile.dataset.y;
+        const tileName = null;
+        const tileDetails = null;
+        const tileImage = null;
+
+        gridState.push({
+            x: parseInt(x),
+            y: parseInt(y),
+            tileName,
+            tileDetails,
+            tileImage: tileImage ? tileImage.slice(5, -2) : null, // to remove the `url("")` wrapper
+        });
+    });
+
+    const gridStateObject = new gridObject(gridState);
+    dbGridState.clearDatabase();
+    dbGridState.addObject(gridStateObject);
+
+    //backend sync
+    await deleteAllGridStates();
+    await createGridState(gridState);
+    await rerenderGrid();
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const clearButton = document.getElementById("clear-grid");
+    if (clearButton) {
+        clearButton.addEventListener("click", clearGrid);
+    }
+});
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const deleteTile = document.getElementById("delete-tile");
     if (deleteTile) {
@@ -718,6 +786,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
         editOption.addEventListener("click", showEdit);
     }
 });
+
+//object UI 
+window.addEventListener("DOMContentLoaded", (event) => {
+    const objectOption = document.getElementById("object-option");
+    if(objectOption){
+        objectOption.addEventListener("click", showObject);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const x1 = document.getElementById("object-cross-svg");
+    if(x1){
+        x1.addEventListener("click", hideObject);
+    }
+});
+// end of object UI
+
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const customOption = document.getElementById("custom-option");
