@@ -14,7 +14,5 @@ const gridState = sequelize.define('GridState',{
     }
 },);
 
-GridState.belongsTo(SQLiteUser.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
-
 await sequelize.sync();
 export default gridState;
