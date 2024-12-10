@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import tileRouter from "./routers/TileRouter.js"
@@ -15,8 +14,6 @@ import canvasRouter from './routers/CanvasRouter.js';
 class Server {
     constructor(){
         this.app = express();
-        this.app.use(bodyParser.json({ limit: '50mb' }));
-        this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
         this.configureMiddleware();
         this.setupRoutes();
         this.initializeDatabase();
