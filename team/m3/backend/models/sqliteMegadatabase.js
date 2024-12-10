@@ -1,32 +1,28 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
-    storage: "megadatabase.sqlite",
+    storage: "database.sqlite",
 });
 
 const megaDatabase = sequelize.define("MegaDatabase", {
-    userId: {
+    userId: { //stored regularly
         type: DataTypes.UUID,
         primaryKey: true,
     },
-    gridData: {
+    gridData: { //stores object {gridWidth:..., gridHeight:...}
         type: DataTypes.JSONB,
         allowNull: false,
     },
-    gridStateData: {
+    gridStateData: { //stores array [{array, id}]
         type: DataTypes.JSONB,
         allowNull: false,
     },
-    tileData: {
+    tileData: { //stores array [{IDBtileID:... type:... details:... imgData}]
         type: DataTypes.JSONB,
         allowNull: false,
     },
-    tokenData: {
-        type: DataTypes.JSONB,
-        allowNull: false,
-    },
-    userData: {
+    tokenData: { //stores array of tokens [{tokenid, name, description, column, row, top, left, img, mime}]
         type: DataTypes.JSONB,
         allowNull: false,
     },
