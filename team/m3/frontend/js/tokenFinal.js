@@ -60,6 +60,7 @@ switchButton.addEventListener("click", ()=>{
 export function allrender(width, height){
     tokenObj.addWH(width, height);
     tokenObj.render();
+    const idarr = tokenObj.renderWhenLoad();
     idarr.forEach(id => {
         const img = new imageForToken(id);
         img.render();
