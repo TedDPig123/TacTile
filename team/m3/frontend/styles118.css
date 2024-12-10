@@ -46,7 +46,7 @@ body {
     color: white;
   }
 
-  
+
   .container {
     display: flex;
     width: 100%;
@@ -245,8 +245,8 @@ body {
 /* ALL GERI'S TILE UI STUFF */
 @font-face {
   font-family: 'intanregular';
-  src: url('tileTypes/intan-webfont.woff2') format('woff2'),
-       url('tileTypes/intan-webfont.woff') format('woff');
+  src: url('/team/m3/tileTypes/intan-webfont.woff2') format('woff2'),
+       url('/team/m3/tileTypes/intan-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
@@ -271,7 +271,7 @@ svg {
   margin: 10px;
 }
 
-.dropbtn {
+.dropbtn {        /* delete later */
   background-color: #B7874C;
   color: black;
   padding: 24px;
@@ -743,18 +743,18 @@ svg {
   background-repeat: no-repeat;
   /* background-color: black; */
   background-size: 100% 100%;
-    height: 100%;
-    width: 0;
+  height: 100%;
+  width: 0;
   position: absolute;
-    z-index: 10;
+  z-index: 10;
   /* background-color: rgba(0, 0, 0, 0.83); */
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    transition: 0.8s;
-    padding-top: 5%;
-  }
-  
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.8s;
+  padding-top: 5%;
+}
+
 .sidenavUIbuttons {
   background-image: url('images/buttonOn.png');
   background-repeat: no-repeat;
@@ -768,10 +768,10 @@ svg {
   font-family: DragonHunter;
   padding: 7%;
   font-size: 200%;
-    color: white;
-    display: block;
+  color: white;
+  display: block;
   border: none;
-    transition: 0.5s;
+  transition: 0.5s;
   margin-left: 7%;
   margin-top: 15%;
 }
@@ -780,13 +780,13 @@ svg {
   background-image: url('images/buttonOff.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  }
-  
-  .sidenavUI a:hover {
+}
+
+.sidenavUI a:hover {
   color:  rgb(30, 27, 27);
   text-shadow: 4px 3px 4px white;
-  }
-  
+}
+
 .subsidenavUI {
   background-image: url('images/subsidebar.png');
   background-repeat: no-repeat;
@@ -822,25 +822,25 @@ svg {
 }
 
 .closebtnUI {
-    position: absolute;
-    top: 0;
+  position: absolute;
+  top: 0;
   right: 10%;
   color: black;
   font-size: 40%;
-    margin-left: 50px;
-    transition: 1s;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
-  
-  .menuOpen {
-     font-size: 70px;
-     border-style: solid black 5px;
-     cursor: help;
-  }
+  margin-left: 50px;
+  transition: 1s;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.menuOpen {
+    font-size: 70px;
+    border-style: solid black 5px;
+    cursor: help;
+}
 
 .loadingScreen {
   transition-duration: 2s;
@@ -860,71 +860,8 @@ svg {
   margin-top: 140px; /* Adjust this margin to move it further away from the "Create New Tile" dropdown */
 }
 
-#dice-result { /* Styling for the dice result text */
+.dice-result { /* Styling for the dice result text */
   margin-top: 10px;
   font-size: 0.8em;
   font-weight: bold;
-}
-
-/* User Authentication Forms */
-.sidebar h2 {
-  margin-top: 20px;
-}
-
-.sidebar form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.sidebar form input {
-  margin-bottom: 10px;
-  padding: 8px;
-  font-size: 16px;
-}
-
-.sidebar form button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.sidebar form button:hover {
-  background-color: #45a049;
-}
-
-#logout-button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-#logout-button:hover {
-  background-color: #e53935;
-}
-
-#message {
-  margin-top: 10px;
-  font-size: 14px;
-  color: red;
-}
-
-#delete-button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-#delete-user-button:hover {
-    background-color: #e53935;
 }
