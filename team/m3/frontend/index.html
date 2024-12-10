@@ -11,7 +11,6 @@
         <div class="container">
             <div class="sidebar">
                 <h1>TacTile - Customizable Battle Grid</h1>
-                <div>
                 <div id="drawing-display">
                 </div>
             </div>
@@ -176,6 +175,9 @@
                     <td><input type="button" value="Switch to Battle Grid" id="switch_button"></td>
                 </tr>
                 <tr class="fadeGridButtons">
+                    <td><input type="button" value="Clear Grid" id="clear-grid"></td>
+                </tr>
+                <tr class="fadeGridButtons">
                     <td><label for="background-image-upload">Insert Background Image</label></td>
                     <td><input style="padding-left: 20px;" type="file" id="background-image-upload" accept="image/*"></td>
                 </tr>
@@ -184,10 +186,10 @@
                     <td><button class="zoom-controls" id="zoom-out">-</button></td>
                 </tr>
             </table>
-        <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TOKEN</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TILES</button>
             <table id="subSideNavTokenID" class="drawTable subsidenavUI" > 
                 <tr class="fadeTokenButtons">
-                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Enable Edit Mode</button></p></td>
+                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Grid</button></p></td>
                 </tr>
                 <tr class="fadeTokenButtons">
                     <td><label for="tile-selector">Select a Tile:</label></td>
