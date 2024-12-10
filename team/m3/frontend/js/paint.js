@@ -112,15 +112,21 @@ function clear_canvas(){
 async function saveCanvas() {
   let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
   const imageData = canvasState.data;
-  const response = await fetch('/canvas/post', {
+  const response1 = await fetch('/canvas/update', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(imageData),
   });
-  console.log(response);
-  if (!response.ok) {
-    throw new Error("Failed");
-  };
+  if (!response1.ok) {
+    const response2 = await fetch('/canvas/post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(imageData),
+    });
+    if (!response2.ok) {
+      throw new Error("Failed");
+    };
+  };  
 }
 
 async function loadCanvas() {
@@ -128,14 +134,17 @@ async function loadCanvas() {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
-  console.log("GET");
-  console.log(response);
   if (!response.ok) {
     throw new Error("Failed");
   };
-  const data = await response.json();
+  let data = await response.json();
+  data = JSON.parse(data.imgData);
+  let arr = [];
+  for (var x in data) {
+    arr.push(data[x]);
+  }
+  data = new ImageData(new Uint8ClampedArray(arr), canvas.width, canvas.height);
   ctx.putImageData(data, 0, 0);
 }
 
 loadCanvas();
-//loadCanvas();

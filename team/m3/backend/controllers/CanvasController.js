@@ -27,11 +27,13 @@ export const getCanvas = async (req, res) =>{
 //UPDATE: Updates canvas state
 export const updateCanvas = async (req, res) =>{
     const imgData = req.body;
-    try{
-        const newCanvas = await Canvas.create({imgData: JSON.stringify(imgData)});
-        res.status(200).json(newCanvas);
+    try {
+        const canvas = await Canvas.findByPk(1);
+        if (!canvas) {
+            return res.status(404).json(factoryResponse(404, "Canvas not found"));
+        }
+        await canvas.update({imgData: JSON.stringify(imgData)});
     }catch(error){
-        console.log(error);
         res.status(500).json(factoryResponse(500, "Canvas data not uploaded to error"));
     }
 }
