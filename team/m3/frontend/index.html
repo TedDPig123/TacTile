@@ -12,7 +12,7 @@
             <div class="sidebar">
                 <h1>TacTile - Customizable Battle Grid</h1>
                 <div>
-                    <label for="grid-width">Grid Width:</label>
+                    <!-- <label for="grid-width">Grid Width:</label>
                     <input type="number" id="grid-width" name="grid-width" min="1" max="100">
                     <label for="grid-height">Grid Height:</label>
                     <input type="number" id="grid-height" name="grid-height" min="1" max="100">
@@ -45,9 +45,9 @@
                     <button id="zoom-out">-</button>
                 </div>
                 <button onclick="togglePaint()">Draw</button>
-                <br>
+                <br> -->
                 <div id="drawing-display">
-                    <table id="drawTable">
+                    <!-- <table id="drawTable">
                         <tr>
                             <td>Color</td>
                             <td>Width</td>
@@ -88,7 +88,7 @@
                     <!-- temporary logout and delete user button. Change to suit your needs -->
                     <button id="logout-button">Logout</button>
                     <button id="delete-button">Delete User</button> 
-                    <div id="message"></div>
+                    <div id="message"></div> -->
                 </div>
             </div>
             <div class="main-content">
@@ -132,17 +132,17 @@
 
     
     <!-- ALL TILE EDITING STUFF -->
-    <div class="all-tile-stuff">
+    <!-- <div class="all-tile-stuff">
         <div class="dropdown">
             <button class="dropbtn">CREATE NEW TILE</button>
             <div class="dropdown-content">
               <a href="#" id="custom-option">CREATE NEW CUSTOM TILE</a>
               <a href="#" id="edit-option">EDIT EXISTING TILE</a>
             </div>
-        </div>
+        </div> -->
 
         <!-- BELOW is added for the dice roller, made it into a dropdown -->
-        <div class="dropdown dice-dropdown">
+        <!-- <div class="dropdown dice-dropdown">
             <button class="dropbtn">DICE ROLLER</button>
             <div class="dropdown-content">
                 <div>
@@ -156,13 +156,13 @@
                 </div>
                 <div id="dice-result"></div>
             </div>
-        </div>
+        </div> -->
         <!-- end of addition for dice roller in main div -->
     
         <!-- CREATE CUSTOM TILE -->
         <div class="custom">
             <div class="custom-1 container-1">
-                <span style="font-size: 30px;">CREATE NEW CUSTOM TILE</span>
+                <span style="font-size: 30px; color: white; padding-top: 25px">CREATE NEW CUSTOM TILE</span>
                 <svg id="cross-svg" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </div>
             <div class="custom-1 container-2">
@@ -171,27 +171,27 @@
             </div>
             <div class="custom-1 container-3">
                 <label for="details">DETAILS</label>
-                <textarea class="text-input" id="details" value=""></textarea>
+                <textarea class="text-input" id="details"></textarea>
             </div>
             <div class="custom-1 container-4">
-                <div>TILE PREVIEW</div>
+                <div style="color: white;">TILE PREVIEW</div>
                 <div id="visual-container">
                     <canvas id="tile-preview" width="200" height="200"></canvas>
                     <div id="visual-picker">
                         <label for="color-picker">COLOR (#XXXXXX)</label>
                         <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
-                        <div>UPLOAD IMAGE</div>
+                        <div style="color: white;">UPLOAD IMAGE</div>
                         <input type="file" id="img-upload" accept="image/*" />
                     </div>
                 </div>
             </div>
-            <div id="add-tile-1">ADD NEW TILE</div>
+            <div style="color: white;" id="add-tile-1">ADD NEW TILE</div>
         </div>
     
         <!-- EDIT EXISTING TILE -->
         <div class="edit">
             <div class="custom-1 container-1">
-                <span style="font-size: 30px;">EDIT EXISTING TILE</span>
+                <span style="font-size: 30px; color: white; padding-top: 25px">EDIT EXISTING TILE</span>
                 <svg id="edit-cross-svg" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </div>
             <div class="custom-1 container-2">
@@ -206,41 +206,195 @@
                 <textarea class="text-input" id="edit-details"></textarea>
             </div>
             <div class="custom-1 container-4">
-                <div>TILE PREVIEW</div>
+                <div style="color: white">TILE PREVIEW</div>
                 <div id="edit-visual-container">
                     <canvas id="edit-tile-preview" width="200" height="200"></canvas>
                     <div id="edit-visual-picker">
                         <label for="color-picker">COLOR (#XXXXXX)</label>
                         <input class="text-input" id="edit-tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
-                        <div>UPLOAD IMAGE</div>
+                        <div style="color: white">UPLOAD IMAGE</div>
                         <input type="file" id="edit-img-upload" accept="image/*" />
                     </div>
                 </div>
             </div>
             <div class="edit-delete">
-                <div id="edit-tile">EDIT TILE</div>
-                <div id="delete-tile">DELETE TILE</div>
+                <div style="color: white" id="edit-tile">EDIT TILE</div>
+                <div style="color: white" id="delete-tile">DELETE TILE</div>
             </div>
         </div>
     
         <div id="screen-overlay"></div>
     </div>
 
+    <!-- work in progress -->
+    <!-- CREATE OBJECT -->
+    <div class="object">
+        <div class="custom-1 container-1 ObjectForm" id="object_form">
+            <label for="tile-name">NAME</label>
+            <input type="text" class="text-input" id="name" maxlength="20">
+        </div>
+        <div class="custom-1 container-3">
+            <label for="description">DESCRIPTION</label>
+            <textarea class="text-input" id="details"></textarea>
+        </div>
+        <div class="custom-1 container-4">
+            <label for="copy">NUMBER OF COPIES:</label>
+            <input type="number" min="1" max="10" id="copy" value="1">
+
+            <label for="c"> AREA: C: </label>
+            <input type="number" min="1" max="8" id="c" value="1">
+
+            <label for="r">R </label>
+            <input type="number" min="1" max="8" id="r" value="1">
+            <!-- <div>NUMBER OF COPIES</div>
+            <div id="visual-container">
+                <canvas id="tile-preview" width="200" height="200"></canvas>
+                <div id="visual-picker">
+                    <label for="color-picker">COLOR (#XXXXXX)</label>
+                    <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
+                    <div>UPLOAD IMAGE</div>
+                    <input type="file" id="img-upload" accept="image/*" />
+                </div>
+            </div> -->
+        </div>
+        <div id="add-tile-1">ADD NEW TILE</div>
+    </div>
+
     <!--MAIN UI -->
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
     <div id="mySidenav" class="sidenavUI">
         <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
-        <a href="#">GRID</a> 
-        <a href="#">TOKEN</a>
-        <a href="#">TERRAIN</a>
-        <a href="#">DRAW</a>
-        <a href="#">DICE</a>
+        <button class="sidenavUIbuttons" onclick="checkSubNavGrid()">GRID</button> <!--change to subnavCheck-->
+            <table id="subSideNavGridID" class="drawTable subsidenavUI">  <!-- subsidenavUI -->
+                <tr class="fadeGridButtons">
+                    <td style="padding-top: 17%"><label for="grid-width">Grid Width:</label></td>
+                    <td style="padding-top: 17%"><input type="number" id="grid-width" name="grid-width" min="1" max="100"></td>
+                </tr>
+                <tr class="fadeGridButtons">
+                    <td><label for="grid-height">Grid Height:</label></td>
+                    <td><input type="number" id="grid-height" name="grid-height" min="1" max="100"></td>
+                </tr>
+                <tr class="fadeGridButtons">
+                    <td><button id="create-grid" onclick="playAudio('audio/Create Grid.mp3')">Create Grid</button></td>
+                </tr>
+                <!-- <button value="Switch to Battle Grid", id="switch_button">Switch to Battle Grid</button> -->
+                <tr class="fadeGridButtons">
+                    <td><input type="button" value="Switch to Battle Grid" id="switch_button"></td>
+                </tr>
+                <tr class="fadeGridButtons">
+                    <td><label for="background-image-upload">Insert Background Image</label></td>
+                    <td><input style="padding-left: 20px;" type="file" id="background-image-upload" accept="image/*"></td>
+                </tr>
+                <tr class="fadeGridButtons">
+                    <td><button class="zoom-controls" id="zoom-in">+</button></td>
+                    <td><button class="zoom-controls" id="zoom-out">-</button></td>
+                </tr>
+            </table>
+        <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TOKEN</button>
+            <table id="subSideNavTokenID" class="drawTable subsidenavUI" > 
+                <tr class="fadeTokenButtons">
+                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Enable Edit Mode</button></p></td>
+                </tr>
+                <tr class="fadeTokenButtons">
+                    <td><label for="tile-selector">Select a Tile:</label></td>
+                </tr>
+                <tr class="fadeTokenButtons">
+                    <td><select id="tile-selector"><option value="delete">Delete Tile</option></select></td>
+                </tr>
+                <tr class="fadeTokenButtons">
+                    <td><button id="delete-tile-types">Delete All Tile Types</button></td>
+                </tr>
+                <tr class="fadeTokenButtons">
+                    <td><button id="custom-option">CREATE NEW CUSTOM TILE</button></td>
+                </tr>
+                <tr class="fadeTokenButtons">
+                    <td><button id="edit-option">EDIT EXISTING TILE</button></td>
+                </tr>
+                <tr class="fadeTokenButtons">
+                    <td><button id="object-option">Object test</button></td>
+                </tr>
+            </table>
+        <button class="sidenavUIbuttons" id="object_button">OBJECT</button>
+        <button class="sidenavUIbuttons" onclick="togglePaint(); checkSubNavDraw()">Draw</button>
+            <div id="subSideNavDrawID" class="subsidenavUI">
+                <div class = "subsidenavUILabels">
+                <table class="drawTable" id="drawTable">
+                    <tr class="fadeDrawButtons">
+                        <td>Color</td>
+                        <td><input type="color" id="colorPicker" name="head" value="#389dfb"/></td>
+                    </tr>
+                    <tr class="fadeDrawButtons">
+                        <td>Width</td>
+                        <td><input type="number" id="lineWeight" min="1" max="500" value="1"></td>
+                    </tr>
+                    <tr class="fadeDrawButtons">
+                        <td>Pen</td>
+                        <td><input type="radio" id="pencil" name="paintTool" onclick="changeTool(0)"></td>
+                    </tr>
+                    <tr class="fadeDrawButtons">
+                        <td>Erase</td>
+                        <td><input type="radio" id="eraser" name="paintTool" onclick="changeTool(1)"></td>
+                    </tr>
+                    <tr class="fadeDrawButtons">
+                        <td>Rectangle</td>
+                        <td><input type="radio" id="sqaure" name="paintTool" onclick="changeTool(3)"></td>
+                    </tr>
+                    <tr class="fadeDrawButtons">
+                        <td>Circle</td>
+                        <td><input type="radio" id="circle" name="paintTool" onclick="changeTool(2)"></td>
+                    </tr>
+                    <tr class="fadeDrawButtons">
+                        <td><button onClick="clear_canvas()" id ="clear">Clear Canvas</button></td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        <button class="sidenavUIbuttons" onclick="checkSubNavDice()">DICE</button>
+        <table id="subSideNavDiceID" class="drawTable subsidenavUI">
+            <tr class="fadeDiceButtons">
+                <td style="padding-top: 40%"><label for="dice-count">Number of Dice:</label></td>
+                <td style="padding-top: 60%"><input type="number" id="dice-count" name="dice-count" min="1" max="20"></td>
+            </tr>
+            <tr class="fadeDiceButtons">
+                <td><label for="dice-sides">Number of Sides:</label></td>
+                <td><input type="number" id="dice-sides" name="dice-sides" min="1" max="20"></td>
+            </tr>
+            <tr class="fadeDiceButtons">
+                <td><label for="dice-mod">Add modifier:</label></td>
+                <td><input type="number" id="dice-mod" name="dice-mod" min="-5" max="10"></td>
+            </tr>
+            <tr class="fadeDiceButtons">
+                <td><button id="roll-dice">Roll</button></td>
+            </tr>
+            <tr class="fadeDiceButtons">
+                <td><div style="color: white" id="dice-result"></div></td>
+            </tr>
+
+            <!-- <div class="subsidenavUILabels">
+                <p><label for="dice-count">Number of Dice:</label></p>
+                <p><input type="number" id="dice-count" name="dice-count" min="1" max="20"></p>
+                <p><label for="dice-sides">Number of Sides:</label></p>
+                <p><input type="number" id="dice-sides" name="dice-sides" min="1" max="20"></p>
+                <p><label for="dice-mod">Add modifier:</label></p>
+                <p><input type="number" id="dice-mod" name="dice-mod" min="-5" max="10"></p>
+                <p><button id="roll-dice">Roll</button></p>
+            </div>
+            <div class="subsidenavUILabels" id="dice-result"></div> make this pop up as something off screen? 
+        </div> -->
+        </table>
+        
     </div>
-    <span class="menuOpen" onclick="openNav()">&#9876;</span>
+    <span class="menuOpen" onclick="checkNav()">&#9876;</span>
+
+    <audio autoplay> 
+        <source src="audio/Background Music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script src="js/mainUI.js"></script>
     
     <script type="module" src="js/grid.js"></script>
 
-    <script src="js/dice.js"></script>   <!--added this for dice roller -->
+    <script type="module" src="js/dice.js"></script>   <!--added this for dice roller -->
 
     <script src="js/paint.js"></script>  <!--this is for the paint -->
 
