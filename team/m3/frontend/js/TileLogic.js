@@ -643,6 +643,43 @@ async function populateTileDropdowns() {
     }
 }
 
+async function clearGrid(){
+    const gridState = [];
+
+    const tiles = document.querySelectorAll('.grid-tile');
+    tiles.forEach((tile) => {
+        const x = tile.dataset.x;
+        const y = tile.dataset.y;
+        const tileName = null;
+        const tileDetails = null;
+        const tileImage = null;
+
+        gridState.push({
+            x: parseInt(x),
+            y: parseInt(y),
+            tileName,
+            tileDetails,
+            tileImage: tileImage ? tileImage.slice(5, -2) : null, // to remove the `url("")` wrapper
+        });
+    });
+
+    const gridStateObject = new gridObject(gridState);
+    dbGridState.clearDatabase();
+    dbGridState.addObject(gridStateObject);
+
+    //backend sync
+    await deleteAllGridStates();
+    await createGridState(gridState);
+    await rerenderGrid();
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const clearButton = document.getElementById("clear-grid");
+    if (clearButton) {
+        clearButton.addEventListener("click", clearGrid);
+    }
+});
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const deleteTile = document.getElementById("delete-tile");
     if (deleteTile) {

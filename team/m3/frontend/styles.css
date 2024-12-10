@@ -54,6 +54,10 @@ body {
     position: relative;
     top: 0px;
     left: 0px;
+
+    /* geri edit */
+    justify-content: center;
+    align-items: center;
   }
 
   #drawing-display {
@@ -74,6 +78,15 @@ body {
   }
   
   .sidebar {
+    /* geri edit start */
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+    z-index: 10;
+    /* geri edit end */
     width: 30%;
     padding: 20px;
   }
@@ -84,6 +97,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
     justify-content: flex-start;
     justify-content: center;
@@ -94,6 +108,8 @@ body {
     position: relative; 
     width: 90%;
     height: 90%;
+    display: flex;
+    z-index: 1;
     justify-content: center;
   }
 
@@ -255,6 +271,15 @@ body {
 svg {
   fill: black;
   transition:0.3s;
+  z-index: 5;
+}
+
+#cross-svg {
+  display: block;  
+  width: 33px;   
+  height: 33px;   
+  fill: #e8eaed;  
+  cursor: pointer;
 }
 
 .all-tile-stuff{
@@ -693,6 +718,18 @@ svg {
   width:40px;
 }
 
+#edit-cross-svg{
+  display: block;  
+  width: 33px;   
+  height: 33px;   
+  fill: #e8eaed;  
+  cursor: pointer;
+}
+
+#tile-selector, #delete-tile-types, #custom-option, #edit-option{
+  cursor: pointer;
+}
+
 .edit-delete{
   display: flex;
   justify-content: space-around;
@@ -774,6 +811,9 @@ svg {
     transition: 0.5s;
   margin-left: 7%;
   margin-top: 15%;
+
+  /* geri edit */
+  cursor: pointer;
 }
 
 .sidenavUIbuttons:active {
@@ -839,7 +879,7 @@ svg {
   .menuOpen {
      font-size: 70px;
      border-style: solid black 5px;
-     cursor: help;
+     cursor: pointer;
   }
 
 .loadingScreen {

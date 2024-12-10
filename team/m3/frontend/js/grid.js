@@ -153,13 +153,14 @@ const editButton = document.getElementById("edit-mode-toggle");
 let isEditMode = false;
 
 editButton.addEventListener('click', function () {
+    console.log("Edit Works!");
     isEditMode = !isEditMode;
     if (isEditMode) {
-        editButton.innerText = 'Disable Edit Mode';
+        editButton.innerText = 'Unlock Grid';
         disableDragging(battleGrid);
         disableDragging(objectGrid);
     } else {
-        editButton.innerText = 'Enable Edit Mode';
+        editButton.innerText = 'Lock Grid';
         enableDragging(battleGrid);
         enableDragging(objectGrid);
     }
