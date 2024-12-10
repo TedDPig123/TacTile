@@ -54,17 +54,12 @@ switchButton.addEventListener("click", ()=>{
     }
 })
 
-//Everything below is related to creating a fully functioning token
-document.getElementById('create-grid').addEventListener('click', async ()=> {
-    const width = parseInt(document.getElementById('grid-width').value);
-    const height = parseInt(document.getElementById('grid-height').value);
+//happens at the very start after you click create grid, basic setup is done the token
+//is moved to TileLogic.js line 157 to go with gridState
 
-    //happens at the very start after you click create grid, basic setup is done the token
+export function allrender(width, height){
     tokenObj.addWH(width, height);
     tokenObj.render();
-
-    const idarr = await tokenObj.renderWhenLoad();
-    //for each token rendered
     idarr.forEach(id => {
         const img = new imageForToken(id);
         img.render();
@@ -80,74 +75,91 @@ document.getElementById('create-grid').addEventListener('click', async ()=> {
         moveT.mouseMove();
         moveT.mouseUP(); 
     });
-
-    const createButton = document.getElementById("create");
-    const updateButton = document.getElementById("update");
-    const deleteButton = document.getElementById("delete");
-    const cancelButton = document.getElementById("cancel");
-    const deleteAllButton = document.getElementById("deleteAll");
+}
 
 
-    //below are event listener for all the object form button, they combine imageForToken, tokenForm and moveItem to create the full token creating form
-
-    //clears the token form
-    cancelButton.addEventListener("click", () => {
-        tokenObj.clearForm();
-        inputImg.removeAttribute("src");
-        inputElement.value="";    
+//when hit create grid button it delete all token and starts with a clean grid 
+document.getElementById('create-grid').addEventListener('click', async ()=> {
+    const response = await fetch("/tokens/deleteAll", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    
     })
-
-    async function cToken(event) {
-        const id = await tokenObj.createToken(event);
-        //id = the token id
-        if(id){
-            const moveT = new moveToken(id);
-            moveT.mouseDown();
-            moveT.mouseMove();
-            moveT.mouseUP();
-            const img = new imageForToken(id);
-            img.createImageElement();
-            document.getElementById(id).addEventListener("click", (event) => {
-                if(!event.target.classList.contains("dragging")){
-                    img.renderImage();
-                }
-            });
-        }
-    }
-    //created the token and place it on the grid
-    createButton.addEventListener("click", (event) => {
-        const numCopy = document.getElementById("copy").value;
-        for(let i = 0; i<numCopy; i++){
-            cToken(event)
-        };
-    });
-
-    //updates the token
-    updateButton.addEventListener("click", async () => {
-        const id = await tokenObj.updateObject();
-        if(id){
-            const img = new imageForToken(id);
-            img.updateImageElement()
-        }
-    });
-
-    //deletes the token
-    deleteButton.addEventListener("click", (event) => {
-        tokenObj.deleteObject()
-    });
-
-    //deletes all token
-    deleteAllButton.addEventListener("click", async () => {
-        const response = await fetch("/tokens/deleteAll", {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        
-        })
-        if (!response.ok) {
-            throw new Error("Failed to delete all token");
-        };
-        alert("please refresh the page"); 
-    });
+    if (!response.ok) {
+        throw new Error("Failed to delete all token");
+    };
+    objectGrid.innerHTML = ""
 })
+
+const createButton = document.getElementById("create");
+const updateButton = document.getElementById("update");
+const deleteButton = document.getElementById("delete");
+const cancelButton = document.getElementById("cancel");
+const deleteAllButton = document.getElementById("deleteAll");
+//below are event listener for all the token form button, they combine imageForToken, tokenForm and moveItem to create the full token
+
+//clears the token form
+cancelButton.addEventListener("click", () => {
+    tokenObj.clearForm();
+    inputImg.removeAttribute("src");
+    inputElement.value="";    
+})
+
+//helper method for the create button
+async function cToken(event) {
+    const id = await tokenObj.createToken(event);
+    //id = the token id
+    if(id){
+        //for all token created add the ability to move it and update with image
+        const moveT = new moveToken(id);
+        moveT.mouseDown();
+        moveT.mouseMove();
+        moveT.mouseUP();
+        const img = new imageForToken(id);
+        img.createImageElement();
+        document.getElementById(id).addEventListener("click", (event) => {
+            if(!event.target.classList.contains("dragging")){
+                img.renderImage();
+            }
+        });
+    }
+}
+//created the token and place it on the grid
+createButton.addEventListener("click", (event) => {
+    const numCopy = document.getElementById("copy").value;
+    for(let i = 0; i<numCopy; i++){
+        cToken(event)
+    };
+});
+
+//updates the token
+updateButton.addEventListener("click", async () => {
+    const id = await tokenObj.updateObject();
+    //if any token was updated, update the corresponding image
+    if(id){
+        const img = new imageForToken(id);
+        img.updateImageElement()
+    }
+});
+
+//deletes the token
+deleteButton.addEventListener("click", (event) => {
+    tokenObj.deleteObject()
+});
+
+//deletes all token
+deleteAllButton.addEventListener("click", async () => {
+    const response = await fetch("/tokens/deleteAll", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    
+    })
+    if (!response.ok) {
+        throw new Error("Failed to delete all token");
+    };
+    objectGrid.innerHTML = ""
+});

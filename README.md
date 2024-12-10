@@ -11,6 +11,7 @@ TacTile is a web application designed to help Dungeon Masters create customizabl
   - [Creating the Grid](#creating-the-grid)
   - [Using the Dice Roller](#using-the-dice-roller)
   - [User Controls](#user-controls)
+  - [Token Controls](#token-controls)
 
 ## Installation
 
@@ -58,3 +59,25 @@ Click the "Logout" button to log out of the current user account. This will inva
 Users will have their tiles and tokens created saved to their account. This will allow them to access their creations at a later time. It is connected to a specific user, which can then be placed into a grid as they see fit. Note: Grids are not saved, only the tiles and tokens created by the user.
 ### Delete User
 Click the "Delete User" button to delete the current user account. This will delete all data related to the user, including saved tiles and tokens associated with the user. 
+
+## Token Controls
+### Create Token
+click the Add Token Button, only name is a required field, all other field are optional. Desertion is the description of the token, R is the row the token will take up and C is the column the token will take up. Number of Copy is the number of the same token created. And if you choose and image file it will be shown on the token.
+
+### Move Token
+Once TOken is created it will all be show initially at the top left of the grid, you can move then by clicking and dragging the token(make sure "Currently on Token Grid" and "Enable Edit Mode" is the text on the two button below Add Token).
+
+### Token Information
+hover over the token to see name and description, you can click on token to update or delete them
+
+### Update token
+you can click on token to update them, fill in the new information and click update
+
+### Delete token
+you can click on token to delete them, it will open the token form and you can click the delete button
+
+### clear Form
+to clear the token form just click cancel
+
+### Delete all token
+to delete all Token just click Delete All Token or create a new grid

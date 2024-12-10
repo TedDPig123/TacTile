@@ -12,6 +12,7 @@ class TokenRoutes {
     initializeRoutes(){
 
         //get all token
+        //if success return 201 status, if not return 500 status
         this.router.get("/all", async(req, res) => {
             try{
                 const alltoekns = await this.database.getAllToken();
@@ -23,6 +24,7 @@ class TokenRoutes {
         });
 
         //get individual token
+        //if success return 201 status, if not return 500 status, if token is not found return 404 status
         this.router.get("/token/:id", async(req, res) => {
             try{
                 const id = req.params.id
@@ -37,6 +39,7 @@ class TokenRoutes {
         });
 
         //this is for adding a new token
+        //if success return 201 status, if not return 500 status
         this.router.post("/newToken", async (req, res) => {
             try {
                 const newToken = await this.database.create(req.body);
@@ -46,7 +49,8 @@ class TokenRoutes {
             }
         });
 
-        //this is for updating token
+        //this is for updating a specific token
+        //if success return 201 status, if not return 500 status, if token is not found return 404 status
         this.router.put("/update", async (req, res) => {
             try{
                 const numRowsUpdated = await this.database.update(req.body);
@@ -57,7 +61,8 @@ class TokenRoutes {
             }
         }); 
 
-        //this is for deleting token
+        //this is for deleting a specific token
+        //if success return 201 status, if not return 500 status, if token is not found return 404 status
         this.router.delete("/delete/:id", async(req, res)=>{
             try{
                 const id = req.params.id;
@@ -72,6 +77,7 @@ class TokenRoutes {
 
 
         //this is for deleting all token
+        //if success return 201 status, if not return 500 status.
         this.router.delete("/deleteAll", async(req, res)=>{
             try{
                 await this.database.deleteAll();
