@@ -4,7 +4,8 @@
 }
 
 body {
-    cursor: url('images/cursor.png') 20 15, auto;
+    /* cursor: url('images/cursor.png') 20 15, grab; */
+    cursor: url('images/grabber.png') 20,15, default;
     background-image: url('images/background.png'), url('images/beneath background.jpg');
     font-family: DragonHunter;
     margin: 20px;
@@ -454,7 +455,7 @@ svg {
   height: 100%;
   left: 0;
   top: 0;
-  background: rgba(51,51,51);
+  /* background: rgba(51,51,51); */
   z-index: 2;
   opacity: 0.6;
   display:none; 

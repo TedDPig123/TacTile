@@ -81,6 +81,7 @@ function checkNav() {
   }
 }
 
+
 function openSubSubNavGrid() {
   fadingIn("fadeGridButtons");
   document.getElementById("subSideNavGridID").style.width = "20%"; //literally just making the existing ui even bigger 

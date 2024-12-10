@@ -115,42 +115,43 @@
                 <div style="color: white" id="delete-tile">DELETE TILE</div>
             </div>
         </div>
+
+
+        <!-- work in progress -->
+        <!-- CREATE OBJECT -->
+        <div class="edit">
+            <div class="custom-1 container-1 ObjectForm" id="object_form">
+                <label for="tile-name">NAME</label>
+                <input type="text" class="text-input" id="name" maxlength="20">
+            </div>
+            <div class="custom-1 container-3">
+                <label for="description">DESCRIPTION</label>
+                <textarea class="text-input" id="details"></textarea>
+            </div>
+            <div class="custom-1 container-4">
+                <label for="copy">NUMBER OF COPIES:</label>
+                <input type="number" min="1" max="10" id="copy" value="1">
+    
+                <label for="c"> AREA: C: </label>
+                <input type="number" min="1" max="8" id="c" value="1">
+    
+                <label for="r">R </label>
+                <input type="number" min="1" max="8" id="r" value="1">
+                <!-- <div>NUMBER OF COPIES</div>
+                <div id="visual-container">
+                    <canvas id="tile-preview" width="200" height="200"></canvas>
+                    <div id="visual-picker">
+                        <label for="color-picker">COLOR (#XXXXXX)</label>
+                        <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
+                        <div>UPLOAD IMAGE</div>
+                        <input type="file" id="img-upload" accept="image/*" />
+                    </div>
+                </div> -->
+            </div>
+            <div id="add-tile-1">ADD NEW TILE</div>
+        </div>
     
         <div id="screen-overlay"></div>
-    </div>
-
-    <!-- work in progress -->
-    <!-- CREATE OBJECT -->
-    <div class="object">
-        <div class="custom-1 container-1 ObjectForm" id="object_form">
-            <label for="tile-name">NAME</label>
-            <input type="text" class="text-input" id="name" maxlength="20">
-        </div>
-        <div class="custom-1 container-3">
-            <label for="description">DESCRIPTION</label>
-            <textarea class="text-input" id="details"></textarea>
-        </div>
-        <div class="custom-1 container-4">
-            <label for="copy">NUMBER OF COPIES:</label>
-            <input type="number" min="1" max="10" id="copy" value="1">
-
-            <label for="c"> AREA: C: </label>
-            <input type="number" min="1" max="8" id="c" value="1">
-
-            <label for="r">R </label>
-            <input type="number" min="1" max="8" id="r" value="1">
-            <!-- <div>NUMBER OF COPIES</div>
-            <div id="visual-container">
-                <canvas id="tile-preview" width="200" height="200"></canvas>
-                <div id="visual-picker">
-                    <label for="color-picker">COLOR (#XXXXXX)</label>
-                    <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
-                    <div>UPLOAD IMAGE</div>
-                    <input type="file" id="img-upload" accept="image/*" />
-                </div>
-            </div> -->
-        </div>
-        <div id="add-tile-1">ADD NEW TILE</div>
     </div>
 
     <!--MAIN UI -->
