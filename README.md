@@ -49,9 +49,25 @@ Click the "Roll Dice" button to roll the dice.
 The results of the dice roll will be displayed in the "Dice Result" section.
 
 ## Using Paint Mode
-### Turn on Drawing Mode
-### Change Brush
+### Entering Paint Mode
+Click the "Draw" button to enter paint mode and reveal the drawing tools.
+### Change Brush and Color
+Click the "Color" field to select a desired color for tools.
+Enter a desired width for brush stroke.
+
+Click the "Pen" toggle to use the pen tool.
+The pen tool draws paths following the cursor when the mouse is pressed down.
+
+Click the "Eraser" toggle to use the eraser tool.
+The pen tool erases anything in the path following the cursor when the mouse is pressed down.
+
+Click the "Rect" toggle to use the rectangle tool.
+Click and drag on the canvas to make a rectangle with your desired height and width.
+
+Click the "Circle" toggle to use the circle tool.
+Click and drag on the canvas to make a circle with your desired height and width.
 ### Clear Canvas
+Click the "Clear" button to clear all markings created in paint mode.
 
 
 ## User Controls
