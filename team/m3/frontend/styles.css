@@ -20,6 +20,29 @@ body {
     height:100%;
   }
 
+  #login-button{
+    cursor: pointer;
+  }
+
+  .authentification-page{
+    background-image: url('images/sidebar.png');
+    background-repeat: no-repeat;
+    background-size: 110% 110%;
+    
+    position: fixed;
+    z-index: 10;
+    display: none;
+    flex-direction: column;
+    width:26vw;
+    margin:auto;
+    padding:20px 20px 20px 20px;
+    min-width: 350px;
+
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
+
   .parent {
     display: flex;
     width: 100%;
@@ -273,6 +296,18 @@ svg {
   fill: black;
   transition:0.3s;
   z-index: 5;
+}
+
+#exit-login {
+  display: flex;
+  justify-content: end; 
+  text-align: center; 
+  right:0px;
+  left:auto;
+  width: 33px;   
+  height: 33px;   
+  fill: #e8eaed;  
+  cursor: pointer;
 }
 
 #cross-svg {

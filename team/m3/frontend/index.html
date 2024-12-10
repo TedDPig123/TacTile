@@ -115,41 +115,6 @@
                 <div style="color: white" id="delete-tile">DELETE TILE</div>
             </div>
         </div>
-
-
-        <!-- work in progress -->
-        <!-- CREATE OBJECT -->
-        <div class="edit">
-            <div class="custom-1 container-1 ObjectForm" id="object_form">
-                <label for="tile-name">NAME</label>
-                <input type="text" class="text-input" id="name" maxlength="20">
-            </div>
-            <div class="custom-1 container-3">
-                <label for="description">DESCRIPTION</label>
-                <textarea class="text-input" id="details"></textarea>
-            </div>
-            <div class="custom-1 container-4">
-                <label for="copy">NUMBER OF COPIES:</label>
-                <input type="number" min="1" max="10" id="copy" value="1">
-    
-                <label for="c"> AREA: C: </label>
-                <input type="number" min="1" max="8" id="c" value="1">
-    
-                <label for="r">R </label>
-                <input type="number" min="1" max="8" id="r" value="1">
-                <!-- <div>NUMBER OF COPIES</div>
-                <div id="visual-container">
-                    <canvas id="tile-preview" width="200" height="200"></canvas>
-                    <div id="visual-picker">
-                        <label for="color-picker">COLOR (#XXXXXX)</label>
-                        <input class="text-input" id="tile-color" type="text" style="margin-bottom:15px" value="#FF0000">
-                        <div>UPLOAD IMAGE</div>
-                        <input type="file" id="img-upload" accept="image/*" />
-                    </div>
-                </div> -->
-            </div>
-            <div id="add-tile-1">ADD NEW TILE</div>
-        </div>
     
         <div id="screen-overlay"></div>
     </div>
@@ -190,7 +155,7 @@
         <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TILES</button>
             <table id="subSideNavTokenID" class="drawTable subsidenavUI" > 
                 <tr class="fadeTokenButtons">
-                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Grid</button></p></td>
+                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td>
                 </tr>
                 <tr class="fadeTokenButtons">
                     <td><label for="tile-selector">Select a Tile:</label></td>
@@ -206,9 +171,6 @@
                 </tr>
                 <tr class="fadeTokenButtons">
                     <td><button id="edit-option">EDIT EXISTING TILE</button></td>
-                </tr>
-                <tr class="fadeTokenButtons">
-                    <td><button id="object-option">Object test</button></td>
                 </tr>
             </table>
         <button class="sidenavUIbuttons" id="object_button">OBJECT</button>
@@ -270,30 +232,29 @@
         
     </div>
 
-
-        <!-- <h2>User Authentication</h2>
-    <div>
-        <h3>Register</h3>
+    <div class="authentification-page">
+        <svg id="exit-login" xmlns="http://www.w3.org/2000/svg" height="33px" viewBox="0 -960 960 960" width="33px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        <h2 style="color: white">User Authentication</h2>
+        <h3 style="color: white">Register</h3>
         <form id="register-form">
             <input type="text" id="register-username" placeholder="Username" required>
             <input type="email" id="register-email" placeholder="Email" required>
             <input type="password" id="register-password" placeholder="Password" required>
-            <button type="submit">Register</button>
+            <button type="submit" >Register</button>
         </form>
-        <h3>Login</h3>
+        <h3 style="color: white">Login</h3>
         <form id="login-form">
             <input type="email" id="login-email" placeholder="Email" required>
             <input type="password" id="login-password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        temporary logout and delete user button. Change to suit your needs
         <button id="logout-button">Logout</button>
         <button id="delete-button">Delete User</button> 
-        <div id="message"></div> -->
-
-
+        <div id="message"></div>
+    </div>
 
     <span class="menuOpen" onclick="checkNav()">&#9876;</span>
+    <button id="login-button">LOGIN</button>
 
     <audio autoplay> 
         <source src="audio/Background Music.mp3" type="audio/mpeg">
@@ -312,6 +273,8 @@
     <script type="module" src="js/tokenFinal.js"></script>
 
     <script src="js/userScripts.js"></script>
+
+    <script src="js/loginForm.js"></script>
 
 </body>
 </html>

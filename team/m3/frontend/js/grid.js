@@ -156,11 +156,11 @@ editButton.addEventListener('click', function () {
     console.log("Edit Works!");
     isEditMode = !isEditMode;
     if (isEditMode) {
-        editButton.innerText = 'Unlock Grid';
+        editButton.innerText = 'Unlock Battle Grid';
         disableDragging(battleGrid);
         disableDragging(objectGrid);
     } else {
-        editButton.innerText = 'Lock Grid';
+        editButton.innerText = 'Lock Battle Grid';
         enableDragging(battleGrid);
         enableDragging(objectGrid);
     }
