@@ -1,12 +1,12 @@
 //POST: creating grid
-export const createGrid = async (array) => {
+export const createGrid = async (grid) => {
     try {
         const response = await fetch('/grid', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ array }),
+            body: JSON.stringify({grid}),
         });
         if (!response.ok) {
             throw new Error('Failed to create Grid');
@@ -19,14 +19,14 @@ export const createGrid = async (array) => {
 };
 
 //POST: updating grid
-export const updateGrid = async (array) => {
+export const updateGrid = async (grid) => {
     try {
         const response = await fetch('/update/:grid', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ array }),
+            body: JSON.stringify({ grid }),
         });
         if (!response.ok) {
             throw new Error('Failed to update Grid');
@@ -55,7 +55,7 @@ export const getAllGrids = async () => {
 };
 
 //DELETE: delete all the grids
-export const deleteAllGridStates = async () => {
+export const deleteAllGrids = async () => {
     try {
         const response = await fetch('/grid', {
             method: 'DELETE',
