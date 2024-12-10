@@ -6,11 +6,10 @@ const sequelize = new Sequelize({
 });
 
 const megaDatabase = sequelize.define("MegaDatabase", {
-    userId: { //stored regularly
-        type: DataTypes.UUID,
-        primaryKey: true,
+    userEmail: { //stored regularly
+        type: DataTypes.STRING,
     },
-    gridData: { //stores object {gridWidth:..., gridHeight:...}
+    gridData: { //stores array of grid objects [{gridWidth:..., gridHeight:...}]
         type: DataTypes.JSONB,
         allowNull: false,
     },

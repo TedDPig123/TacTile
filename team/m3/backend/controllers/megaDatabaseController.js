@@ -11,28 +11,28 @@ const factoryResponse = (status, message) => ({ status, message });
 //keep in mind, this should be findall
 // POST: Creates or updates a MegaDatabase for a user
 export const createOrUpdateMegaDatabase = async (req, res) => {
-    const { userId, gridData, gridStateData, tileData, tokenData} = req.body;
+    const {userEmail, gridData, gridStateData, tileData, tokenData} = req.body;
 
     console.log("Received MegaDatabase data:", req.body);
 
     try {
         // Validate required data
-        if (!userId || !gridData || !gridStateData || !tileData || !tokenData) {
-            return res.status(400).json(factoryResponse(400, "All fields (userId, gridData, gridStateData, tileData, tokenData) are required"));
+        if (!userEmail || !gridData || !gridStateData || !tileData || !tokenData) {
+            return res.status(400).json(factoryResponse(400, "All fields (userEmail, gridData, gridStateData, tileData, tokenData) are required"));
         }
 
         // Check if MegaDatabase already exists for the user
-        const existingMegaDatabase = await megaDatabase.findOne({ where: { userId } });
+        const existingMegaDatabase = await megaDatabase.findOne({ where: {userEmail: userEmail} });
 
         if (existingMegaDatabase) {
             // Update the existing MegaDatabase
-            await existingMegaDatabase.update({ gridData, gridStateData, tileData, tokenData});
+            await existingMegaDatabase.update({userEmail, gridData, gridStateData, tileData, tokenData});
             console.log("MegaDatabase updated:", existingMegaDatabase);
             res.status(200).json(existingMegaDatabase);
         } else {
             // Create a new MegaDatabase entry for the user
             const newMegaDatabase = await megaDatabase.create({
-                userId,
+                userEmail,
                 gridData,
                 gridStateData,
                 tileData,
@@ -49,10 +49,10 @@ export const createOrUpdateMegaDatabase = async (req, res) => {
 
 // GET: Retrieves the MegaDatabase for a user
 export const getMegaDatabase = async (req, res) => {
-    const { userId } = req.params;
+    const { userEmail } = req.params;
 
     try {
-        const megaData = await megaDatabase.findOne({ where: { userId } });
+        const megaData = await megaDatabase.findOne({ where: {userEmail: userEmail}  });
 
         if (!megaData) {
             return res.status(404).json(factoryResponse(404, "MegaDatabase not found for this user"));
@@ -67,12 +67,10 @@ export const getMegaDatabase = async (req, res) => {
 
 // DELETE: Deletes the MegaDatabase for a user
 export const deleteMegaDatabase = async (req, res) => {
-    const { userId } = req.params;
+    const { userEmail } = req.params;
 
     try {
-        const deletedRows = await megaDatabase.destroy({
-            where: { userId },
-        });
+        const deletedRows = await megaDatabase.destroy({userEmail: userEmail});
 
         if (deletedRows === 0) {
             return res.status(404).json(factoryResponse(404, "No MegaDatabase found for this user"));
@@ -88,17 +86,17 @@ export const deleteMegaDatabase = async (req, res) => {
 //THIS IS RISKY BUSINESS!!
 //Function to synchronize data across all databases based on MegaDatabase entry
 export const syncWithMegaDatabase = async (req, res) => {
-    const { userId } = req.params;
+    const { userEmail } = req.params;
 
     try {
-        const megaData = await megaDatabase.findOne({ where: { userId } });
+        const megaData = await megaDatabase.findOne({ where: { userEmail: userEmail } });
 
         if (!megaData) {
             return res.status(404).json(factoryResponse(404, "MegaDatabase not found for this user"));
         }
 
         //replace all databases with stuff from megadatabase
-        await updateOtherDatabasesWithMegaData(userId);
+        await updateOtherDatabasesWithMegaData(userEmail);
 
         res.status(200).json(factoryResponse(200, "Databases synchronized successfully"));
 
@@ -109,31 +107,40 @@ export const syncWithMegaDatabase = async (req, res) => {
 };
 
 // Helper function to update other databases with MegaDatabase data
-async function updateOtherDatabasesWithMegaData(userId) {
+async function updateOtherDatabasesWithMegaData(userEmail) {
     try {
-        const megaData = await megaDatabase.findOne({ where: { userId } });
+        const megaData = await megaDatabase.findOne({ where: { userEmail: userEmail } });
+        console.log("this is what is in megaData before:", megaData);
+
         if (!megaData) {
             return { status: 404, message: "MegaDatabase not found for this user" };
         }
 
+        //FIX LATER
+
         //Update SQLite Grid
-        await SQLiteGrid.deleteAll();
-        const newGridData = megaData.gridData;
-        await SQLiteGrid.create({
-            gridWidth: newGridData.gridWidth,
-            gridHeight: newGridData.gridHeight,
-        });
+        // await SQLiteGrid.destroy({where:{}});
+        // const newGridData = megaData.gridData;
+        // if (newGridData) {
+        //     for (const gridData of newGridData) {
+        //         await SQLiteGrid.create({
+        //             gridWidth: gridData.gridWidth,
+        //             gridHeight: gridData.gridHeight,
+        //             gridId: gridData.gridId,
+        //         });
+        //     }
+        // }
 
         //Update gridState
-        await gridState.destroy({ where: {} });
-        const newGridState = megaData.gridStateData;
-        if (newGridState) {
-            for (const state of newGridState) {
-                await GridState.create({
-                    array: state.array,
-                });
-            }
-        }
+        // await gridState.destroy({ where: {} });
+        // const newGridState = megaData.gridStateData.array;
+        // if (newGridState) {
+        //     for (const state of newGridState) {
+        //         await GridState.create({
+        //             array: state.array,
+        //         });
+        //     }
+        // }
 
         //update tile
         await Tile.destroy({ where: {} });
@@ -150,8 +157,8 @@ async function updateOtherDatabasesWithMegaData(userId) {
         }
 
         //update tokenData
-        await SQLiteToken.destroy({ where: {} });
-        const newTokenData = megaData.tokenData;
+        await SQLiteToken.deleteAll();
+        const newTokenData = megaData.tokenData.alltoekns;
         if (newTokenData) {
             for (const token of newTokenData) {
                 await Token.create({
@@ -168,7 +175,7 @@ async function updateOtherDatabasesWithMegaData(userId) {
             }
         }
 
-        console.log(`Updated all other databases with MegaDatabase data for userId: ${userId}`);
+        console.log(`Updated all other databases with MegaDatabase data for userEmail: ${userEmail}`);
     } catch (error) {
         console.error("Error updating other databases with MegaDatabase data:", error);
         throw new Error("Unable to update other databases with MegaDatabase data");

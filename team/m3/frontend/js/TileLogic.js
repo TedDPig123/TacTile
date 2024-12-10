@@ -10,10 +10,11 @@ import {createTile,
     deleteAllGridStates,
     getAllGridStates
 } from "./TileClientRequests.js";
+import { updateMegaDB } from "./megaDBRequests.js";
 
 //initialize indexedDB database for tile objects
 const dbTileObject = new DatabaseConnection('tileDatabase');
-const dbGridState = new DatabaseConnection('gridStateDatabase');
+export const dbGridState = new DatabaseConnection('gridStateDatabase');
 
 //initialize indexedDB database for grid state
 class gridObject{
@@ -34,9 +35,29 @@ export class tileObject{
         this.imgData = imgData;
     }
 }
+
+document.getElementById('logout-button').addEventListener('click', async () => {
+    try {
+        await updateMegaDB();
+        await clearTileObjectDB();
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    try {
+        await tileRenderOnLoad();
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 //ON-LOAD: Populate the tile types, update indexedDB
 
 async function tileRenderOnLoad() {
+    await updateMegaDB();
+
     const allTiles = await getAllTiles();
     if (!allTiles) {
         console.error("Failed to retrieve tiles from server");
@@ -234,6 +255,8 @@ async function addNewCustomTile(){
         }
         //backend syncing
         await createTile(serverTile);
+        await updateMegaDB();
+
     } catch (error) {
         console.error("tile not added", error);
     }
@@ -313,7 +336,6 @@ async function deleteEditedTile(){
 
         //backend syncing
         await deleteTile(tileID);
-
     } catch (error) {
         console.error("tile not deleted", error);
     }
@@ -499,7 +521,6 @@ async function handleSquareClick(square) {
 
         //saves the state of the grid
         saveGridState();
-
         square.addEventListener('mouseenter', showTileDetails);
     } catch (error) {
         console.error("Error loading tile:", error);
@@ -580,7 +601,7 @@ export async function initializeBattleGrid(battleGrid) {
 
 //TODO: add backend
 //should make this an option
-async function clearTileObjectDB() {
+export async function clearTileObjectDB() {
     try {
         await dbGridState.clearDatabase();
         const message = await dbTileObject.clearDatabase();

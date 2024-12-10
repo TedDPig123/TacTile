@@ -11,6 +11,6 @@ const megaDatabaseRouter = new express.Router();
 megaDatabaseRouter.post('/', createOrUpdateMegaDatabase);
 megaDatabaseRouter.get('/:userId', getMegaDatabase);
 megaDatabaseRouter.delete('/:userId', deleteMegaDatabase);
-megaDatabaseRouter.put('/:userId/sync', syncWithMegaDatabase);
+megaDatabaseRouter.put('/:userEmail/sync', syncWithMegaDatabase);
 
 export default megaDatabaseRouter;
