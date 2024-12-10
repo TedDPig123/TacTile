@@ -1,11 +1,12 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes } from 'sequelize';
+import { User } from './user.js'; //added by shan
 
 const sequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "database.sqlite",
+    dialect: 'sqlite',
+    storage: 'database.sqlite',
 });
 
-const Token = sequelize.define("Token", {
+const Token = sequelize.define('Token', {
     tokenid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -43,85 +44,80 @@ const Token = sequelize.define("Token", {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: User,
+            key: 'id', // Reference the id field in the Users table
+        },
+    },
 });
+//added by shan
+User.hasMany(Token, { foreignKey: 'userId' });
+Token.belongsTo(User, { foreignKey: 'userId' });
 
-class _SQLiteToken{
-    constructor(){}
 
-    //initialize the database
-    async init(){
+class _SQLiteToken {
+    constructor() {}
+
+    async init() {
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
     }
 
-    //to create a new Token in the database
-    async create(token){
-        try{
+    async create(token) {
+        try {
             const newToken = await Token.create(token);
             return newToken;
-        }
-        catch(error){
+        } catch (error) {
             throw error;
         }
     }
 
-    //to get a specific token with its id
-    async getToken(id){
-        try{
+    async getToken(id) {
+        try {
             const requiredToken = await Token.findByPk(id);
             return requiredToken;
-        }
-        catch(error){
+        } catch (error) {
             throw error;
-        }   
+        }
     }
 
-    //to get all token
-    async getAllToken(){
-        try{
+    async getAllToken() {
+        try {
             const allTokens = await Token.findAll();
             return allTokens;
-        }
-        catch(error){
+        } catch (error) {
             throw error;
-        }   
+        }
     }
 
-    //to update a specific token
     async update(token) {
         try {
-            const updatedRecords = await Token.update(
-                token,
-                {
-                    where: { tokenid: token.tokenid }, 
-                    returning: true,   
-                }
-            );
+            const updatedRecords = await Token.update(token, {
+                where: { tokenid: token.tokenid },
+                returning: true,
+            });
             return updatedRecords[1];
-        } 
-        catch (error) {
+        } catch (error) {
             throw error;
         }
     }
 
-    //to delete a specific token
-    async delete(id){
-        try{
-            const numDeleted = await Token.destroy({where: {tokenid: id}});
+    async delete(id) {
+        try {
+            const numDeleted = await Token.destroy({ where: { tokenid: id } });
             return numDeleted;
-        }
-        catch (error) {
+        } catch (error) {
             throw error;
         }
     }
 
-    //to delete all token
-    async deleteAll(){
-        try{
+    async deleteAll() {
+        try {
             await Token.truncate();
             return;
-        }
-        catch (error) {
+        } catch (error) {
             throw error;
         }
     }

@@ -7,7 +7,8 @@ import tileRouter from "./routers/TileRouter.js"
 import TokenRoutes from './routers/tokenRoutes.js'
 import userRouter from './routers/userRouter.js';
 import SQLiteUser from './models/user.js';
-import GridRouter from './routers/GridRouter.js';
+import SQLiteToken from './models/sqliteToken.js'; //added by shan
+// import GridRouter from './routers/GridRouter.js';
 
 class Server {
     constructor(){
@@ -31,13 +32,14 @@ class Server {
         // this.app.use('/tileCoordinates', tileCoordRouter);
         this.app.use("/tokens", TokenRoutes)
         this.app.use("/users", userRouter)
-        this.app.use("/grid", GridRouter)
+        // this.app.use("/grid", GridRouter)
     }
 
     // Initialize the database
     async initializeDatabase() {
         try {
             await SQLiteUser.init();
+            await SQLiteToken.init(); //added by shan
             console.log('Database initialized successfully');
         } catch (error) {
             console.error('Error initializing database:', error);

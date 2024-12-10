@@ -137,3 +137,5 @@ class _SQLiteUser {
 const SQLiteUser = new _SQLiteUser();
 
 export default SQLiteUser;
+
+export { User };

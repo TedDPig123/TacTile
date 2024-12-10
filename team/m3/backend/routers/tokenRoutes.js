@@ -1,5 +1,6 @@
 import express from "express";
 import SQLiteToken from "../models/sqliteToken.js";
+import SQLiteUser from "../models/user.js"; //added by shan
 
 class TokenRoutes {
     constructor(){
@@ -36,13 +37,29 @@ class TokenRoutes {
             }
         });
 
-        //this is for adding a new token
+        //this is for adding a new token, og version before user token
+        // this.router.post("/newToken", async (req, res) => {
+        //     try {
+        //         const newToken = await this.database.create(req.body);
+        //         res.status(201).json(newToken);
+        //     } catch (error) {
+        //         res.status(500).json({ message:"Failed to create token." });
+        //     }
+        // });
+
+        //this is for adding a new token,
+        //added by shan. idrk if this works but general idea is here
         this.router.post("/newToken", async (req, res) => {
             try {
-                const newToken = await this.database.create(req.body);
+                const { userId, name, description, column, row, top, left, img, mime } = req.body;
+                const user = await SQLiteUser.getUser(userId);
+                if (!user) {
+                    return res.status(404).json({ message: "User not found" });
+                }
+                const newToken = await this.database.create({ userId, name, description, column, row, top, left, img, mime });
                 res.status(201).json(newToken);
             } catch (error) {
-                res.status(500).json({ message:"Failed to create token." });
+                res.status(500).json({ message: "Failed to create token." });
             }
         });
 
