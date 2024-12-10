@@ -70,6 +70,13 @@ body {
     color: white;
   }
 
+  input {
+    font-family: 'DragonHunter';
+    font-size: large;
+    padding: 5px 5px 5px 5px;
+    background-color: black;
+    color: white;
+  }
   
   .container {
     display: flex;
@@ -202,11 +209,12 @@ body {
   
   .ObjectForm{
     position: absolute;
-    width: 300px;
-    height: 700px;
+    width: 530px;
+    height: 500px;
     padding: 5px;
+    top: 50px;
     background-color: rgb(31, 30, 30);
-    left: 250px;
+    left: 150px;
     border-radius: 3px;
     z-index: 3;
     opacity: 95%;
@@ -242,7 +250,7 @@ body {
     position: absolute;
     padding: 5px;
     background-color: rgb(25, 25, 99);
-    width: 250px;
+    width: 550px;
     height: 150px;
     color: white;
     text-align: left;

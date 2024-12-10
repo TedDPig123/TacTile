@@ -25,20 +25,22 @@
         <div id="paintLayer">
             <canvas id="canvas" width="1000px" height="1000px"></canvas> 
         </div>
-        <div class="ObjectForm", id="object_form">
-            <label for="name">Name: </label>
-            <input type="text" id="name" maxlength="20">
+        <div class="ObjectForm" id="object_form" style="margin-left: 500px; margin-top: 30px; background-image: url('images/sidebar.png'); background-repeat: no-repeat; background-size: 110% 110%; position: fixed; padding-top:25px; padding-left: 20px ">
+            <label style="font-size: 30px; color: white" for="name">Object Form: </label>
             <br /><br />
-            <label for="description">Description: </label>
+            <label style="color: white" for="name">Name: </label>
+            <input style="background-color: white; color: black" type="text" id="name" maxlength="20">
+            <br /><br />
+            <label style="color: white" for="description">Description: </label>
             <br /><br />
             <textarea id="description" rows="6" cols="33" style="resize: none;" maxlength="100"></textarea>      
             <br /><br />
-            <label for="copy">Number of Copy: </label>
+            <label style="color: white" for="copy">Number of Copy: </label>
             <input type="number" min="1" max="10" id="copy" value="1">
             <br /><br />
-            <label for="c"> Area: C: </label>
+            <label style="color: white" for="c"> Area: C: </label>
             <input type="number" min="1" max="8" id="c" value="1">
-            <label for="r">R: </label>
+            <label style="color: white" for="r">R: </label>
             <input type="number" min="1" max="8" id="r" value="1">
             <br /><br />
             <input type="button" value="Create" id="create"/>

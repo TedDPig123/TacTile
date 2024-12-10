@@ -4,7 +4,7 @@ let isOpenDraw = false;
 let isOpenGrid = false;
 
 let isOpenMain = false;
-let isOpenSubNav= false;
+let isOpenSubNav = false;
 // let subCounter = 0;
 
 function openNav() {
@@ -80,7 +80,6 @@ function checkNav() {
     openNav(); //closes the navigation 
   }
 }
-
 
 function openSubSubNavGrid() {
   fadingIn("fadeGridButtons");
