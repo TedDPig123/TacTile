@@ -57,10 +57,10 @@ switchButton.addEventListener("click", ()=>{
 //happens at the very start after you click create grid, basic setup is done the token
 //is moved to TileLogic.js line 157 to go with gridState
 
-export function allrender(width, height){
+export async function allrender(width, height){
     tokenObj.addWH(width, height);
     tokenObj.render();
-    const idarr = tokenObj.renderWhenLoad();
+    const idarr = await tokenObj.renderWhenLoad();
     idarr.forEach(id => {
         const img = new imageForToken(id);
         img.render();
