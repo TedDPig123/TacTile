@@ -1,5 +1,5 @@
 //POST: creating grid
-export const createGridState = async (array) => {
+export const createGrid = async (array) => {
     try {
         const response = await fetch('/grid', {
             method: 'POST',
