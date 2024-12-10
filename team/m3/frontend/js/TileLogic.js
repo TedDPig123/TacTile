@@ -109,7 +109,7 @@ tileRenderOnLoad();
 rerenderGrid();
 
 //saving the grid state
-async function saveGridState() {
+export async function saveGridState() {
     const gridState = [];
 
     const tiles = document.querySelectorAll('.grid-tile');
@@ -543,13 +543,13 @@ function onMouseMove(event) {
             square.setAttribute('data-tile-name', selectedTile.type);
             square.setAttribute('data-tile-details', selectedTile.details);
         }
-        saveGridState();
         square.addEventListener('mouseenter', showTileDetails);
     }
 }
 
 function onMouseUp() {
     isMouseDown = false;
+    saveGridState();
 }
 
 function showTileDetails(event) {
@@ -588,6 +588,8 @@ export async function initializeBattleGrid(battleGrid) {
         square.addEventListener('mouseup', onMouseUp);
         square.addEventListener('mouseenter', showTileDetails);
     });
+
+    saveGridState();
 }
 
 //TODO: add backend
