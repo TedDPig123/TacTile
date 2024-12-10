@@ -1,4 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
+import SQLiteUser from './user.js';
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
@@ -12,6 +13,8 @@ const gridState = sequelize.define('GridState',{
         primaryKey: true
     }
 },);
+
+GridState.belongsTo(SQLiteUser.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 
 await sequelize.sync();
 export default gridState;
