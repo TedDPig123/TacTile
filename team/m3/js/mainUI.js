@@ -38,6 +38,28 @@ function closeNav() {
   }
 }
 
+function fadingIn(fadeButtons) {
+  var sideNavFadeOutButtonArrays = document.getElementsByClassName(fadeButtons);
+  for(let k = 0; k < sideNavFadeOutButtonArrays.length; k++) {
+    sideNavFadeOutButtonArrays[k].style.transitionDelay = "0.3s";  
+    sideNavFadeOutButtonArrays[k].style.transitionDuration = "1.7s";
+    sideNavFadeOutButtonArrays[k].style.opacity = 1;
+  }  
+  sideNavFadeOutButtonArrays = [];
+}
+
+function fadingOut(fadeButtons) {
+  var sideNavFadeOutButtonArrays = document.getElementsByClassName(fadeButtons);
+
+  for(let k = 0; k < sideNavFadeOutButtonArrays.length; k++) {
+    sideNavFadeOutButtonArrays[k].style.transitionDelay = "0s";  
+    sideNavFadeOutButtonArrays[k].style.transitionDuration = "0.25s";
+    sideNavFadeOutButtonArrays[k].style.opacity = 0;
+  }
+  sideNavFadeOutButtonArrays = [];
+}
+
+
 function checkNav() {
   if (isOpenMain === true) {
     isOpenMain = false;
@@ -60,43 +82,47 @@ function checkNav() {
 }
 
 function openSubSubNavGrid() {
+  fadingIn("fadeGridButtons");
   document.getElementById("subSideNavGridID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
 function closeSubSubNavGrid() {
-  document.getElementById("subSideNavGridID").style.width = "0"; //literally just making the existing ui even bigger 
-  playAudio('audio/Opening UI.mp3');
+  fadingOut("fadeGridButtons");
+  document.getElementById("subSideNavGridID").style.width = "0"; //literally just making the existing ui even bigger
 }
 
 function openSubSubNavToken() {
+  fadingIn("fadeTokenButtons");
   document.getElementById("subSideNavTokenID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
 function closeSubSubNavToken() {
+  fadingOut("fadeTokenButtons");
   document.getElementById("subSideNavTokenID").style.width = "0"; //literally just making the existing ui even bigger 
-  playAudio('audio/Opening UI.mp3');
 }
 
 function openSubSubNavDraw() {
+  fadingIn("fadeDrawButtons");
   document.getElementById("subSideNavDrawID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
 function closeSubSubNavDraw() {
+  fadingOut("fadeDrawButtons");
   document.getElementById("subSideNavDrawID").style.width = "0"; //literally just making the existing ui even bigger 
-  playAudio('audio/Opening UI.mp3');
 }
 
 function openSubSubNavDice() {
+  fadingIn("fadeDiceButtons");
   document.getElementById("subSideNavDiceID").style.width = "20%"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
 function closeSubSubNavDice() {
+  fadingOut("fadeDiceButtons");
   document.getElementById("subSideNavDiceID").style.width = "0"; //literally just making the existing ui even bigger 
-  playAudio('audio/Opening UI.mp3');
 }
 
 function checkSubNavGrid() {

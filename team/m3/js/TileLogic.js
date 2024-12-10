@@ -229,6 +229,35 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 });
 
+
+
+
+function showObject(){
+    console.log("toggle works!")
+    const tileMenu = document.querySelector('.custom');
+    const greyOverlay = document.getElementById('screen-overlay');
+    greyOverlay.style.display = 'flex';
+    tileMenu.style.display = 'flex';
+}
+
+function hideObject(){
+    console.log("toggle works!")
+    const tileMenu = document.querySelector('.custom');
+    const greyOverlay = document.getElementById('screen-overlay');
+    tileMenu.style.display = 'none';
+    greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("tile-name");
+    tileOption.innerHTML = "";
+    tileOption.value = "";
+
+    const details = document.getElementById("details");
+    details.value = "";
+
+    const canvas = document.getElementById("tile-preview");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+}
+
 function showCustom(){
     console.log("toggle works!")
     const tileMenu = document.querySelector('.custom');
@@ -295,6 +324,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
+    const customOption = document.getElementById("object-option");
+    if(customOption){
+        customOption.addEventListener("click", showObject);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
     const x1 = document.getElementById("cross-svg");
     if(x1){
         x1.addEventListener("click", hideCustom);
@@ -312,6 +348,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const x3 = document.getElementById("edit-cross-svg");
     if(x3){
         x3.addEventListener("click", hideEdit);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const x3 = document.getElementById("edit-cross-svg");
+    if(x3){
+        x3.addEventListener("click", hideObject);
     }
 });
 
