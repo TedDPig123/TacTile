@@ -10,6 +10,7 @@ TacTile is a web application designed to help Dungeon Masters create customizabl
 - [Usage](#usage)
   - [Creating the Grid](#creating-the-grid)
   - [Using the Dice Roller](#using-the-dice-roller)
+  - [User Controls](#user-controls)
 
 ## Installation
 
@@ -45,3 +46,15 @@ Enter any modifier to be added to each roll in the "Add modifier" input field.
 ### Roll the Dice:
 Click the "Roll Dice" button to roll the dice.
 The results of the dice roll will be displayed in the "Dice Result" section.
+
+## User Controls
+### Register User
+Click the "Register" button to create a new user account. Insert a username, email, and password to register. Email must be in proper format. 
+### Login
+Click the "Login" button to log in to an existing user account. Insert the email and password to log in. This will create a token that will be used to authorize the user. It is stored in local storage.
+### Logout
+Click the "Logout" button to log out of the current user account. This will invalidate a token that was being used to authorize the user.
+### Save feature
+Users will have their tiles and tokens created saved to their account. This will allow them to access their creations at a later time. It is connected to a specific user, which can then be placed into a grid as they see fit. Note: Grids are not saved, only the tiles and tokens created by the user.
+### Delete User
+Click the "Delete User" button to delete the current user account. This will delete all data related to the user, including saved tiles and tokens associated with the user. 
