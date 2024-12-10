@@ -3,12 +3,14 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-// import {tileCoordRouter} from "../js/backend/routers/TileCoordRouter"
-// import {tileRouter} from "../js/backend/routers/TileRouter"
-import canvasRouter from './routers/CanvasRouter.js';
+import tileRouter from "./routers/TileRouter.js"
 import TokenRoutes from './routers/tokenRoutes.js'
-// import GridRouter from './routers/GridRouter.js';
-
+import gridStateRouter from './routers/gridStateRouter.js';
+import userRouter from './routers/userRouter.js';
+import SQLiteUser from './models/user.js';
+import GridRouter from './routers/GridRouter.js';
+import BackgroundImageRoutes from './routers/backgroundImageRouter.js';
+import canvasRouter from './routers/CanvasRouter.js';
 
 class Server {
     constructor(){
@@ -17,6 +19,7 @@ class Server {
         this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
         this.configureMiddleware();
         this.setupRoutes();
+        this.initializeDatabase();
     }
     
     configureMiddleware(){
@@ -24,16 +27,28 @@ class Server {
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = dirname(dirname(__filename));
         this.app.use(express.static(path.join(__dirname, 'frontend')));
-        this.app.use(express.json({ limit: "10mb" }));
+        this.app.use(express.json({ limit: "500mb" }));
     }
 
     //Each person adds their routes here
     setupRoutes() {
-        // this.app.use('/tiles', tileRouter);
-        // this.app.use('/tileCoordinates', tileCoordRouter);
-        this.app.use("/canvas", canvasRouter)
+        this.app.use('/tiles', tileRouter);
+        this.app.use("/gridState", gridStateRouter);
         this.app.use("/tokens", TokenRoutes)
-        // this.app.use("/grid", GridRouter)
+        this.app.use("/users", userRouter)
+        this.app.use("/grid", GridRouter)
+        this.app.use("/backgroundImage", BackgroundImageRoutes)
+        this.app.use("/canvas", canvasRouter)
+    }
+
+    // Initialize the database
+    async initializeDatabase() {
+        try {
+            await SQLiteUser.init();
+            console.log('Database initialized successfully');
+        } catch (error) {
+            console.error('Error initializing database:', error);
+        }
     }
 
 
