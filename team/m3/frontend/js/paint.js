@@ -120,13 +120,16 @@ function clear_canvas(){
 }
 
 async function saveCanvas() {
+  console.log("hi0");
   let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
   const imageData = canvasState.data;
+  console.log("hi1");
   const response1 = await fetch('/canvas/update', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(imageData),
   });
+  console.log("hi2");
   if (!response1.ok) {
     const response2 = await fetch('/canvas/post', {
       method: 'POST',
@@ -137,6 +140,7 @@ async function saveCanvas() {
       throw new Error("Failed");
     };
   };  
+  console.log("hi3");
 }
 
 async function loadCanvas() {

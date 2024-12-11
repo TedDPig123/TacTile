@@ -1,4 +1,3 @@
-
 //These are the boolean values that will be used to determine whether the sub navigation menu should be considered opened or not. If it's marked as true, 
 //then only one of them will be open. Otherwise, it will refuse to open. This logic will be further explained later down in the code.
 let isOpenToken = false;
@@ -85,11 +84,11 @@ function checkNav() {
     togglePaint();
     isOpenDice = false;
     closeSubSubNavDice();
-    closeNav(); //opens the navigation
+    closeNav(); 
   }
   else {
     isOpenMain = true;
-    openNav(); //closes the navigation 
+    openNav(); 
   }
 }
 
@@ -210,8 +209,6 @@ function checkSubNavDice() {
     openSubSubNavDice();
   }
 }
-
-
 
 function loadingScreen() {
   var loadingScreen = document.querySelector(".loadingScreen");
