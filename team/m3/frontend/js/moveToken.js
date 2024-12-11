@@ -74,6 +74,7 @@ export class moveToken{
             const data = await response.json();
             data.top = this.top;
             data.left = this.left;
+            //PUT updates the token with its new location in div and in database
             await fetch("/tokens/update", {
                 method: 'PUT',
                 headers: {
