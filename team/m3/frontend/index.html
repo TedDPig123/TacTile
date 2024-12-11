@@ -155,7 +155,7 @@
         <button class="sidenavUIbuttons" onclick="checkSubNavToken();turnOffPaint();">TILES</button>
             <table id="subSideNavTokenID" class="drawTable subsidenavUI" > 
                 <tr class="fadeTokenButtons">
-                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td>
+                    <!-- <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td> -->
                 </tr>
                 <tr class="fadeTokenButtons">
                     <td><label for="tile-selector">Select a Tile:</label></td>
@@ -252,9 +252,11 @@
         <button id="delete-button">Delete User</button> 
         <div id="message"></div>
     </div>
-
-    <span class="menuOpen" onclick="checkNav();turnOffPaint()">&#9876;</span>
+    <div class="top-right">
+        <span class="menuOpen" onclick="checkNav();turnOffPaint()">&#9876;</span>
     <button id="login-button">LOGIN</button>
+    <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td>
+    </div>
 
     <audio autoplay> 
         <source src="audio/Background Music.mp3" type="audio/mpeg">
