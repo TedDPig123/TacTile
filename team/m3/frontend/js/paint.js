@@ -110,41 +110,45 @@ function clear_canvas(){
 }
 
 async function saveCanvas() {
-  // let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
-  // const imageData = canvasState.data;
-  // const response1 = await fetch('/canvas/update', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(imageData),
-  // });
-  // if (!response1.ok) {
-  //   const response2 = await fetch('/canvas/post', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(imageData),
-  //   });
-  //   if (!response2.ok) {
-  //     throw new Error("Failed");
-  //   };
-  // };  
+  console.log("hi0");
+  let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
+  const imageData = canvasState.data;
+  console.log("hi1");
+  const response1 = await fetch('/canvas/update', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(imageData),
+  });
+  console.log("hi2");
+  if (!response1.ok) {
+    const response2 = await fetch('/canvas/post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(imageData),
+    });
+    if (!response2.ok) {
+      throw new Error("Failed");
+    };
+  };  
+  console.log("hi3");
 }
 
 async function loadCanvas() {
-  // const response = await fetch('/canvas/get', {
-  //   method: 'GET',
-  //   headers: { 'Content-Type': 'application/json' },
-  // });
-  // if (!response.ok) {
-  //   throw new Error("Failed");
-  // };
-  // let data = await response.json();
-  // data = JSON.parse(data.imgData);
-  // let arr = [];
-  // for (var x in data) {
-  //   arr.push(data[x]);
-  // }
-  // data = new ImageData(new Uint8ClampedArray(arr), canvas.width, canvas.height);
-  // ctx.putImageData(data, 0, 0);
+  const response = await fetch('/canvas/get', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) {
+    throw new Error("Failed");
+  };
+  let data = await response.json();
+  data = JSON.parse(data.imgData);
+  let arr = [];
+  for (var x in data) {
+    arr.push(data[x]);
+  }
+  data = new ImageData(new Uint8ClampedArray(arr), canvas.width, canvas.height);
+  ctx.putImageData(data, 0, 0);
 }
 
 loadCanvas();
