@@ -47,6 +47,7 @@ body {
     flex-direction: column;
     cursor: pointer;
     text-align: center;
+    z-index: 50;
   }
   .parent {
     display: flex;
@@ -114,7 +115,7 @@ body {
     width: 30%;
     height: 100%;
     padding: 20px;
-    z-index: 2;
+    z-index: -1;
     /* geri edit end */
     width: 30%;
     padding: 20px;

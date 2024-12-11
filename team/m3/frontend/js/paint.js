@@ -27,20 +27,23 @@ if (document.getElementById("eraser").checked) { changeTool(1); }
 if (document.getElementById("circle").checked) { changeTool(2); }
 if (document.getElementById("square").checked) { changeTool(3); }
 
-
-
+const togglePaintButton = document.getElementById('toggle-paint-wow');
 
 function togglePaint() { //used for toggling whether or not you're actively drawing. prevents you from clicking on the grid if you are
     if(toggle == true) {
         toggle = false;
         layer.style.pointerEvents = 'none';
         document.getElementById('drawing-display').style.visibility = "hidden"; 
+        togglePaintButton.innerText = "Draw Mode: Off";
     } else {
         toggle = true;
         layer.style.pointerEvents = 'auto';
-        document.getElementById('drawing-display').style.visibility = "visible"; 
+        document.getElementById('drawing-display').style.visibility = "visible";
+        togglePaintButton.innerText = "Draw Mode: On";
     }
 }
+
+togglePaintButton.addEventListener('click', togglePaint);
 
 //geri-used to hard turn it off
 function turnOffPaint() { 
