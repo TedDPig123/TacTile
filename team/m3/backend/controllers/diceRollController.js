@@ -1,15 +1,5 @@
 import diceRoll from "../models/SQLdiceRoll.js";
 
-
-getDiceRoll, 
-createDiceRoll,
-deleteOldDiceRoll,
-
-diceRollRouter.post('/post', createDiceRoll);
-diceRollRouter.get('/get', getDiceRoll);
-diceRollRouter.delete('/delete', deleteOldDiceRoll);
-
-
 const factoryResponse = (status, message) => ({ status, message });
 
 //POST: Uploads image data to database

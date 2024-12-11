@@ -25,4 +25,4 @@ const diceRoll = sequelize.define('DiceRoll',{
 },);
 
 await sequelize.sync();
-export default diceRoll;W
+export default diceRoll;
