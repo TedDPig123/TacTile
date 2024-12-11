@@ -1,3 +1,4 @@
+import { updateMegaDB } from "./megaDBRequests.js";
 export class tokenForm{
     //adds all needed element from main.html as private attribute
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
@@ -33,6 +34,7 @@ export class tokenForm{
 
     //this is called at the start right after create grid to load all token saved in sequelize onto the grid
     async renderWhenLoad(){
+        //GET: gets all token
         const response = await fetch("/tokens/all");
         if (!response.ok) {
             throw new Error("Failed to get token");
@@ -64,7 +66,7 @@ export class tokenForm{
                     this.#updateButton.style.display= "inline-block";
                     this.#createButton.style.display= "none";
                     const id = event.target.id;
-                    //gets the data of the token from the server
+                    //GET: gets the data of the token from the server
                     const response = await fetch(`/tokens/token/${id}`);
                     if (!response.ok) {
                         throw new Error("Failed to get token");
@@ -113,7 +115,7 @@ export class tokenForm{
         spanElement.textContent = "name: "+data.name+"\ndescription: "+ data.description;
         spanElement.setAttribute("id", data.tokenid+"s"); 
         const tokenDiv = document.createElement("div");
-        tokenDiv.classList.add("object");
+        tokenDiv.classList.add("object1");
         tokenDiv.classList.add("hoverBox");
         tokenDiv.appendChild(spanElement);
         tokenDiv.style.gridArea = `${1}/${1}/${1+data.row}/${1+data.column}`;
@@ -136,7 +138,7 @@ export class tokenForm{
                 column:parseInt(this.#c.value),
                 row:parseInt(this.#r.value),
             }
-            // fetchs the correct route to create token
+            // POST: fetchs the correct route to create token
             const response = await fetch("/tokens/newToken",  {
                 method: "POST", 
                 headers: {
@@ -151,6 +153,10 @@ export class tokenForm{
             const id = this.#makeToken(data);
             this.clearForm();
             this.#ObjForm.style.display= "none";
+
+            //megadb 
+            await updateMegaDB();
+
             //returns the token id
             return data.tokenid;
         }
@@ -164,7 +170,7 @@ export class tokenForm{
         objDiv.remove();
         this.clearForm();
         this.#ObjForm.style.display= "none";
-        // fetchs the correct route to delete token
+        // DELETE: fetchs the correct route to delete token
         const response = await fetch("/tokens/delete/"+id, {
             method: 'DELETE',
             headers: {
@@ -174,6 +180,10 @@ export class tokenForm{
         if (!response.ok) {
             throw new Error("Failed to delete token");
         }
+
+        //megadb
+        await updateMegaDB();
+
         //returns the token id
         return id;
     }
@@ -199,7 +209,7 @@ export class tokenForm{
                 row: row,
                 column: column
             }
-            // fetchs the correct route to update token
+            // PUT: fetchs the correct route to update token
             const response = await fetch("/tokens/update", {
                 method: 'PUT',
                 headers: {
@@ -212,6 +222,10 @@ export class tokenForm{
             }
             this.clearForm();
             this.#ObjForm.style.display= "none";
+
+            //updatemegadb
+            await updateMegaDB();
+
             //returns the token id
             return id;
         }

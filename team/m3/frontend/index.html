@@ -125,7 +125,7 @@
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
     <div id="mySidenav" class="sidenavUI">
         <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
-        <button class="sidenavUIbuttons" onclick="checkSubNavGrid()">GRID</button> <!--change to subnavCheck-->
+        <button class="sidenavUIbuttons" onclick="checkSubNavGrid();turnOffPaint();">GRID</button> <!--change to subnavCheck-->
             <table id="subSideNavGridID" class="drawTable subsidenavUI">  <!-- subsidenavUI -->
                 <tr class="fadeGridButtons">
                     <td style="padding-top: 17%"><label for="grid-width">Grid Width:</label></td>
@@ -140,7 +140,7 @@
                 </tr>
                 <!-- <button value="Switch to Battle Grid", id="switch_button">Switch to Battle Grid</button> -->
                 <tr class="fadeGridButtons">
-                    <td><input type="button" value="Switch to Battle Grid" id="switch_button"></td>
+                    <td><input type="button" value="Currently on Battle Grid" id="switch_button"></td>
                 </tr>
                 <tr class="fadeGridButtons">
                     <td><input type="button" value="Clear Grid" id="clear-grid"></td>
@@ -154,10 +154,10 @@
                     <td><button class="zoom-controls" id="zoom-out">-</button></td>
                 </tr>
             </table>
-        <button class="sidenavUIbuttons" onclick="checkSubNavToken()">TILES</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavToken();turnOffPaint();">TILES</button>
             <table id="subSideNavTokenID" class="drawTable subsidenavUI" > 
                 <tr class="fadeTokenButtons">
-                    <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td>
+                    <!-- <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td> -->
                 </tr>
                 <tr class="fadeTokenButtons">
                     <td><label for="tile-selector">Select a Tile:</label></td>
@@ -176,7 +176,7 @@
                 </tr>
             </table>
         <button class="sidenavUIbuttons" id="object_button">OBJECT</button>
-        <button class="sidenavUIbuttons" onclick="togglePaint(); checkSubNavDraw()">Draw</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavDraw()">Draw</button>
             <div id="subSideNavDrawID" class="subsidenavUI">
                 <div class = "subsidenavUILabels">
                 <table class="drawTable" id="drawTable">
@@ -210,7 +210,7 @@
                 </table>
                 </div>
             </div>
-        <button class="sidenavUIbuttons" onclick="checkSubNavDice()">DICE</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavDice();turnOffPaint();">DICE</button>
         <table id="subSideNavDiceID" class="drawTable subsidenavUI">
             <tr class="fadeDiceButtons">
                 <td style="padding-top: 40%"><label for="dice-count">Number of Dice:</label></td>
@@ -254,9 +254,12 @@
         <button id="delete-button">Delete User</button> 
         <div id="message"></div>
     </div>
-
-    <span class="menuOpen" onclick="checkNav()">&#9876;</span>
-    <button id="login-button">LOGIN</button>
+    <div class="top-right">
+        <span class="menuOpen" onclick="checkNav();turnOffPaint()">&#9876;</span>
+        <button id="login-button">LOGIN</button>
+        <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td>
+        <td style="padding-top: 30%"><button id="toggle-paint-wow">Draw Mode: Off</button></p></td>
+    </div>
 
     <audio autoplay> 
         <source src="audio/Background Music.mp3" type="audio/mpeg">
@@ -274,7 +277,7 @@
 
     <script type="module" src="js/tokenFinal.js"></script>
 
-    <script src="js/userScripts.js"></script>
+    <script type ="module" src="js/userScripts.js"></script>
 
     <script src="js/loginForm.js"></script>
 

@@ -24,7 +24,7 @@ let gridDraggingListeners = {}; // Object to store listeners
 
 export function enableDragging(grid) {
     const mouseDownHandler = (e) => {
-        if (!e.target.classList.contains("object")) {
+        if (!e.target.classList.contains("object1")) {
             isDragging = true;
 
             const computedStyle = window.getComputedStyle(grid);
@@ -82,6 +82,8 @@ function disableDragging(grid) {
     grid.style.transform = transform === "none" ? "translate(0, 0) scale(1)" : transform;
     grid.style.cursor = 'default';
 }
+
+
 
 // Function for zoom in and zoom out
 function zoomIn() {

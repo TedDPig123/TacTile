@@ -11,9 +11,11 @@ export class imageForToken{
         this.#inputImg = document.getElementById("preview");
     }
 
-    //if the token had an img, it will add the corresponding div element and img src when you refresh page
+    //if the user selected an img when they created the token(id), this function will add the corresponding div element and img src when you refresh page
     async render(){
+        //GET: gets the specific token data
         const response = await fetch ("/tokens/token/"+this.id);
+        //if throw a error when trying to fetch
         if (!response.ok) {
             throw new Error("Failed to get token");
         };
@@ -36,6 +38,7 @@ export class imageForToken{
             imgElement.setAttribute("id", this.id+"img")
             imgElement.src = this.#inputImg.src;
             this.#divElement.appendChild(imgElement);
+            //GET: gets the parentDiv to update the img and mime field in database.sqlite
             const response = await fetch ("/tokens/token/"+this.id);
             if (!response.ok) {
                 throw new Error("Failed to get token");
@@ -45,7 +48,7 @@ export class imageForToken{
             data.img = imgElement.src.split(",")[1];
             //the type of the img(data:(type);base64
             data.mime = imgElement.src.split(",")[0];
-            //updates the data of this token in sqlite databse
+            //PUT: updates the data of this token in sqlite database
             await fetch("/tokens/update", {
                 method: 'PUT',
                 headers: {
@@ -62,6 +65,7 @@ export class imageForToken{
     //show the image of the token when you click on it to update or delete.
     async renderImage(){
         if(document.getElementById(this.id).querySelector('img')){
+            //GET: gets the token
             const response = await fetch ("/tokens/token/"+this.id);
             if (!response.ok) {
                 throw new Error("Failed to get token");
@@ -82,6 +86,7 @@ export class imageForToken{
                 //if the new img is different from the old image
                 if(imageToUpdate.src!==image.src){
                     imageToUpdate.src = image.src;
+                    //GET: gets the token to update its information with the new img
                     const response = await fetch ("/tokens/token/"+this.id);
                     if (!response.ok) {
                         throw new Error("Failed to get token");
@@ -89,6 +94,7 @@ export class imageForToken{
                     const data = await response.json()
                     data.img = image.src.split(",")[1];
                     data.mime = image.src.split(",")[0]
+                    //PUT: updates the token
                     await fetch("/tokens/update", {
                         method: 'PUT',
                         headers: {
@@ -109,6 +115,8 @@ export class imageForToken{
             if(this.#divElement.querySelector('img')){
                 const imageToDel = document.getElementById(this.id+"img")
                 imageToDel.remove();  
+                //GET: gets the token to update its information with the new img(none)
+
                 const response = await fetch ("/tokens/token/"+this.id);
                 if (!response.ok) {
                     throw new Error("Failed to get token");
@@ -116,6 +124,7 @@ export class imageForToken{
                 const data = await response.json();
                 data.img = null;
                 data.mime = null;
+                //PUT: updates the token
                 await fetch("/tokens/update", {
                     method: 'PUT',
                     headers: {
