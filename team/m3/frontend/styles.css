@@ -206,10 +206,10 @@ body {
     height: 700px;
     padding: 5px;
     background-color: rgb(31, 30, 30);
-    left: 250px;
+    top:100px;
+    left: 500px;
     border-radius: 3px;
     z-index: 3;
-    opacity: 95%;
   }
   
   .ObjectForm #description{
