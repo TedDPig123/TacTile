@@ -42,14 +42,14 @@ inputElement.addEventListener("change", (event) => previewImg(event))
 //Switch between battle and object grid
 const switchButton = document.getElementById("switch_button");
 switchButton.addEventListener("click", ()=>{
-    if(objectGrid.style.zIndex==="1"){
+    if(objectGrid.style.zIndex==="2"){
         objectGrid.style.zIndex = "0";
         battleGrid.style.zIndex = "1";
         switchButton.value = "Currently on Battle Grid"
     }
     else{
         battleGrid.style.zIndex = "0";
-        objectGrid.style.zIndex = "1";
+        objectGrid.style.zIndex = "2";
         switchButton.value = "Currently on Token Grid"
     }
 })
