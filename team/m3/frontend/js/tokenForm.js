@@ -115,7 +115,7 @@ export class tokenForm{
         spanElement.textContent = "name: "+data.name+"\ndescription: "+ data.description;
         spanElement.setAttribute("id", data.tokenid+"s"); 
         const tokenDiv = document.createElement("div");
-        tokenDiv.classList.add("object");
+        tokenDiv.classList.add("object1");
         tokenDiv.classList.add("hoverBox");
         tokenDiv.appendChild(spanElement);
         tokenDiv.style.gridArea = `${1}/${1}/${1+data.row}/${1+data.column}`;
