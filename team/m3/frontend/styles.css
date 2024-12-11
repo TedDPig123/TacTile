@@ -389,7 +389,7 @@ svg {
   background-repeat: no-repeat;
   background-size: 110% 110%;
   position: fixed;
-  z-index: 3;
+  z-index: 40;
   display: none;
   flex-direction: column;
   width:30vw;
@@ -644,7 +644,7 @@ svg {
   background-repeat: no-repeat;
   background-size: 110% 110%;
   position: fixed;
-  z-index: 3;
+  z-index: 40;
   display: none;
   flex-direction: column;
   width:30vw;
