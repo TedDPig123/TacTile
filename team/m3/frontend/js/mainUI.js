@@ -165,7 +165,6 @@ function checkSubNavToken() {
 function checkSubNavDraw() {
   if (isOpenDraw === true) {
     isOpenDraw = false;
-    togglePaint();
     closeSubSubNavDraw();
   }
   else { 
