@@ -915,6 +915,7 @@ svg {
      font-size: 70px;
      border-style: solid black 5px;
      cursor: pointer;
+     z-index: 50;
   }
 
 .loadingScreen {

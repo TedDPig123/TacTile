@@ -10,7 +10,9 @@ TacTile is a web application designed to help Dungeon Masters create customizabl
 - [Usage](#usage)
   - [Creating the Grid](#creating-the-grid)
   - [Using the Dice Roller](#using-the-dice-roller)
+  - [Using Paint Mode](#using-paint-mode)
   - [User Controls](#user-controls)
+  - [Token Controls](#token-controls)
 
 ## Installation
 
@@ -24,6 +26,9 @@ git clone https://github.com/TedDPig123/326_Project.git
 node server.js
 ```
 
+## Accessing the Nav Bar
+To access TacTile's features, click the icon of the two clashing swords on the top right of the page and a sidebar will dramatically appear from the left. On this sidebar you will find all the features you need to get started.
+
 ## Creating the Grid
 ### Set Grid Dimensions
 Enter the desired width and height for the grid in the input fields labeled "Grid Width" and "Grid Height".
@@ -33,10 +38,39 @@ Click the "Create Grid" button to generate the grid.
 Click the "Insert Background Image" button to upload an image that will be used as the background for the grid.
 ### Switch Between Grids:
 Use the "Currently on Battle Grid" button to switch between the battle grid and the object grid.
-### Enable/Disable Edit Mode:
-Click the "Enable Edit Mode" button to toggle edit mode, allowing you to drag and drop tokens on the grid.
+### Clear Grid: 
+Click the "Clear Grid" button to clear the grid of all tiles
 ### Zoom In/Out:
 Use the "+" and "-" buttons to zoom in and out of the grid.
+
+## Grid Features
+### Dragging
+When the battle grid is unlocked, you can click and drag the grid to any position you want for better visibility.
+### Tile Tooltips
+When tiles have been placed on the map, if you switch to the battle grid and hover over any placed tiles, a tooltip will appear with the tile type's name and description.
+
+## Manipulating Tiles
+In TacTile, tiles represent the terrain types of the map, so knowing how to manipulate them is key to holding a successful TacTile session! You can access the following features from the TILES section of the navbar.
+### Lock Battle Grid
+When you are on the battle grid, clicking this button will lock the grid in place. This will allow you to place tiles on the grid without having to worry about the grid moving around with the mouse.
+### Selecting and Placing Tiles
+This dropdown menu allows you to choose the type of tile you want to lay down onto the grid, including a delete tile option. **If you are logged in, this will also show all the tile types associated with your account.** Once you have chosen the tile you want, follow these steps closely to lay down your chosen tile onto the grid:
+- On the Grid menu, ensure your grid view option is set to "Currently on Battle Grid"
+- Lock the battle grid
+- Click and/or drag your cursor on the squares in the grid you want to fill and your tile will appear on the selected squares
+### Delete All Tile Types
+Clicking on "Delete All Tile Types" deletes all the tile types saved so far. **If you are logged in, this will also delete all tile types associated with your account.**
+### Create New Custom Tile Type
+Once you click on "Create New Custom Tile," a popup form ge will emerge, and you can decide the following:
+- **Tile Type Name:** Enter your desired tile name in the text box labelled "TYPE"
+- **Tile Type Description:** Enter a description for your tile type in the text box labelled "DETAILS"
+- **Tile Appearance:** You have two options for this: either type in a valid hexadecimal representation of a color into the "COLOR" textbox and see the preview update with your typed color OR upload an image from your computer and see the preview update to match this. The preview box will update with the last action you take, be it selecting a color or an image.
+- **Saving the Tile:** Click on "ADD NEW TILE" to create and save your new tile type. It will be saved with your specified type, details, and the last image in the preview box. **If you are logged in, this will save the tile to your account.**
+### Edit and Delete Existing Tile
+Upon clicking "Edit Existing Tile," a popup form will emerge, and you can decide the following:
+- **Choose Existing Tile:** Hover over the first box in the form. If a dropdown does not appear, it means there are no saved tile types yet. If there is, click on the one you want to edit.
+- **Make Edits:** Edit the tile's description and appearance however you please. The process is identical to when you are making a new tile.
+- **Save or Delete Tile:** Once you are finished making changes, you have the option to save or delete the tile. **If you are logged in, these changes will be reflected in your account.**
 
 ## Using the Dice Roller
 ### Set Dice Parameters:
@@ -46,6 +80,28 @@ Enter any modifier to be added to each roll in the "Add modifier" input field.
 ### Roll the Dice:
 Click the "Roll Dice" button to roll the dice.
 The results of the dice roll will be displayed in the "Dice Result" section.
+
+## Using Paint Mode
+### Entering Paint Mode
+Click the "Draw" button to enter paint mode and reveal the drawing tools.
+### Change Brush and Color
+Click the "Color" field to select a desired color for tools.
+Enter a desired width for brush stroke.
+
+Click the "Pen" toggle to use the pen tool.
+The pen tool draws paths following the cursor when the mouse is pressed down.
+
+Click the "Eraser" toggle to use the eraser tool.
+The pen tool erases anything in the path following the cursor when the mouse is pressed down.
+
+Click the "Rect" toggle to use the rectangle tool.
+Click and drag on the canvas to make a rectangle with your desired height and width.
+
+Click the "Circle" toggle to use the circle tool.
+Click and drag on the canvas to make a circle with your desired height and width.
+### Clear Canvas
+Click the "Clear" button to clear all markings created in paint mode.
+
 
 ## User Controls
 ### Register User
@@ -58,3 +114,25 @@ Click the "Logout" button to log out of the current user account. This will inva
 Users will have their tiles and tokens created saved to their account. This will allow them to access their creations at a later time. It is connected to a specific user, which can then be placed into a grid as they see fit. Note: Grids are not saved, only the tiles and tokens created by the user.
 ### Delete User
 Click the "Delete User" button to delete the current user account. This will delete all data related to the user, including saved tiles and tokens associated with the user. 
+
+## Token Controls
+### Create Token
+click the Add Token Button, only name is a required field, all other field are optional. Desertion is the description of the token, R is the row the token will take up and C is the column the token will take up. Number of Copy is the number of the same token created. And if you choose and image file it will be shown on the token.
+
+### Move Token
+Once TOken is created it will all be show initially at the top left of the grid, you can move then by clicking and dragging the token(make sure "Currently on Token Grid" and "Enable Edit Mode" is the text on the two button below Add Token).
+
+### Token Information
+hover over the token to see name and description, you can click on token to update or delete them
+
+### Update token
+you can click on token to update them, fill in the new information and click update
+
+### Delete token
+you can click on token to delete them, it will open the token form and you can click the delete button
+
+### clear Form
+to clear the token form just click cancel
+
+### Delete all token
+to delete all Token just click Delete All Token or create a new grid

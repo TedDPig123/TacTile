@@ -116,6 +116,7 @@ export class imageForToken{
                 const imageToDel = document.getElementById(this.id+"img")
                 imageToDel.remove();  
                 //GET: gets the token to update its information with the new img(none)
+
                 const response = await fetch ("/tokens/token/"+this.id);
                 if (!response.ok) {
                     throw new Error("Failed to get token");
