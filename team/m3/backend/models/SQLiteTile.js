@@ -5,7 +5,7 @@ const sequelize = new Sequelize({
     storage: "database.sqlite",
 });
 
-//this is for the tile object
+//Defining the tile object
 const Tile = sequelize.define('Tile',{
     IDBtileID: {type: DataTypes.INTEGER,
         primaryKey: true
