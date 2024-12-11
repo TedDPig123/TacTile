@@ -23,22 +23,24 @@
             
         </div>
         <div id="paintLayer">
-            <canvas id="canvas" width="1000px" height="1000px"></canvas> 
+            <canvas id="canvas" width="700px" height="700px"></canvas> 
         </div>
-        <div class="ObjectForm", id="object_form">
-            <label for="name">Name: </label>
-            <input type="text" id="name" maxlength="20">
+        <!-- <div class="ObjectForm" id="object_form" style="margin-left: 500px; margin-top: 30px; background-image: url('images/sidebar.png'); background-repeat: no-repeat; background-size: 110% 110%; position: fixed; padding-top:25px; padding-left: 20px ">
+            <label style="font-size: 30px; color: white" for="name">Object Form: </label>
             <br /><br />
-            <label for="description">Description: </label>
+            <label style="color: white" for="name">Name: </label>
+            <input style="background-color: white; color: black" type="text" id="name" maxlength="20">
+            <br /><br />
+            <label style="color: white" for="description">Description: </label>
             <br /><br />
             <textarea id="description" rows="6" cols="33" style="resize: none;" maxlength="100"></textarea>      
             <br /><br />
-            <label for="copy">Number of Copy: </label>
+            <label style="color: white" for="copy">Number of Copy: </label>
             <input type="number" min="1" max="10" id="copy" value="1">
             <br /><br />
-            <label for="c"> Area: C: </label>
+            <label style="color: white" for="c"> Area: C: </label>
             <input type="number" min="1" max="8" id="c" value="1">
-            <label for="r">R: </label>
+            <label style="color: white" for="r">R: </label>
             <input type="number" min="1" max="8" id="r" value="1">
             <br /><br />
             <input type="button" value="Create" id="create"/>
@@ -47,7 +49,7 @@
             <input type="button" value="Delete" id="delete"/>
             <input type="button" value="Delete All Token" id="deleteAll"/>
             <idObj></idObj>
-        </div>
+        </div> -->
     </div>
 
     
@@ -122,7 +124,7 @@
     <!--MAIN UI -->
         <!-- The a href is meant for hyperlinks. Replace it with onClick once a function is complete -->
     <div id="mySidenav" class="sidenavUI">
-        <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" class="closebtnUI" onclick="closeNav(); closeObjectForm();">&times;</a>
         <button class="sidenavUIbuttons" onclick="checkSubNavGrid();turnOffPaint();">GRID</button> <!--change to subnavCheck-->
             <table id="subSideNavGridID" class="drawTable subsidenavUI">  <!-- subsidenavUI -->
                 <tr class="fadeGridButtons">
@@ -152,7 +154,7 @@
                     <td><button class="zoom-controls" id="zoom-out">-</button></td>
                 </tr>
             </table>
-        <button class="sidenavUIbuttons" onclick="checkSubNavToken();turnOffPaint();">TILES</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavToken();turnOffPaint();closeObjectForm();">TILES</button>
             <table id="subSideNavTokenID" class="drawTable subsidenavUI" > 
                 <tr class="fadeTokenButtons">
                     <!-- <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td> -->
@@ -173,8 +175,33 @@
                     <td><button id="edit-option">EDIT EXISTING TILE</button></td>
                 </tr>
             </table>
-        <button class="sidenavUIbuttons" id="object_button">OBJECT</button>
-        <button class="sidenavUIbuttons" onclick="checkSubNavDraw()">Draw</button>
+        <button class="sidenavUIbuttons" id="object_button" onclick="closeNotObjectForm();">OBJECT</button>
+        <div class="ObjectForm subsidenavUI" id="object_form" style="max-width:300px; width:50%; margin-top: 30px; background-image: url('images/sidebar.png'); background-repeat: no-repeat; background-size: 110% 110%; position: fixed; padding-top:25px; padding-left: 20px ">
+            <label style="font-size: 30px; color: white" for="name">Object Form: </label>
+            <br /><br />
+            <label style="color: white" for="name">Name: </label>
+            <input style="background-color: white; color: black" type="text" id="name" maxlength="20">
+            <br /><br />
+            <label style="color: white" for="description">Description: </label>
+            <br /><br />
+            <textarea id="description" rows="6" cols="33" style="resize: none;" maxlength="100"></textarea>      
+            <br /><br />
+            <label style="color: white" for="copy">Number of Copy: </label>
+            <input type="number" min="1" max="10" id="copy" value="1">
+            <br /><br />
+            <label style="color: white" for="c"> Area: C: </label>
+            <input type="number" min="1" max="8" id="c" value="1">
+            <label style="color: white" for="r">R: </label>
+            <input type="number" min="1" max="8" id="r" value="1">
+            <br /><br />
+            <input type="button" value="Create" id="create"/>
+            <input type="button" value="Cancel" id="cancel"/>
+            <input type="button" value="Update" id="update"/>
+            <input type="button" value="Delete" id="delete"/>
+            <input type="button" value="Delete All Token" id="deleteAll"/>
+            <idObj></idObj>
+        </div>
+        <button class="sidenavUIbuttons" onclick="checkSubNavDraw();closeObjectForm();">Draw</button>
             <div id="subSideNavDrawID" class="subsidenavUI">
                 <div class = "subsidenavUILabels">
                 <table class="drawTable" id="drawTable">
@@ -208,7 +235,7 @@
                 </table>
                 </div>
             </div>
-        <button class="sidenavUIbuttons" onclick="checkSubNavDice();turnOffPaint();">DICE</button>
+        <button class="sidenavUIbuttons" onclick="checkSubNavDice();turnOffPaint();closeObjectForm();">DICE</button>
         <table id="subSideNavDiceID" class="drawTable subsidenavUI">
             <tr class="fadeDiceButtons">
                 <td style="padding-top: 40%"><label for="dice-count">Number of Dice:</label></td>
@@ -253,7 +280,7 @@
         <div id="message"></div>
     </div>
     <div class="top-right">
-        <span class="menuOpen" onclick="checkNav();turnOffPaint()">&#9876;</span>
+        <span class="menuOpen" onclick="checkNav();turnOffPaint();closeObjectForm();">&#9876;</span>
         <button id="login-button">LOGIN</button>
         <td style="padding-top: 30%"><button id="edit-mode-toggle">Lock Battle Grid</button></p></td>
         <td style="padding-top: 30%"><button id="toggle-paint-wow">Draw Mode: Off</button></p></td>

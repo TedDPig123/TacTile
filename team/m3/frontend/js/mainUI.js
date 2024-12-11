@@ -1,4 +1,3 @@
-
 //These are the boolean values that will be used to determine whether the sub navigation menu should be considered opened or not. If it's marked as true, 
 //then only one of them will be open. Otherwise, it will refuse to open. This logic will be further explained later down in the code.
 let isOpenToken = false;
@@ -85,18 +84,18 @@ function checkNav() {
     togglePaint();
     isOpenDice = false;
     closeSubSubNavDice();
-    closeNav(); //opens the navigation
+    closeNav(); 
   }
   else {
     isOpenMain = true;
-    openNav(); //closes the navigation 
+    openNav(); 
   }
 }
 
 //the following group of functions are meant to just open or close the sub navigation menu. If you open a sub navigation menu, a sound effect will play
 function openSubSubNavGrid() {
   fadingIn("fadeGridButtons");
-  document.getElementById("subSideNavGridID").style.width = "20%"; //literally just making the existing ui even bigger 
+  document.getElementById("subSideNavGridID").style.width = "360px"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -211,8 +210,6 @@ function checkSubNavDice() {
   }
 }
 
-
-
 function loadingScreen() {
   var loadingScreen = document.querySelector(".loadingScreen");
   window.addEventListener('load',function() {
@@ -238,4 +235,22 @@ function fadeOut(element) {
 //this is meant as an easier way to type out the sound/audio that's meant to play during specific actions upon the code
 function playAudio(url) {
   new Audio(url).play();
+}
+
+//closes the object form only
+const addObjectForm = document.getElementById("object_form");
+function closeObjectForm(){
+  addObjectForm.style.display= "none";
+}
+
+//closes everything not on object form
+function closeNotObjectForm() {
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+    isOpenToken = false;
+    closeSubSubNavToken();
+    isOpenDraw = false;
+    closeSubSubNavDraw();
+    isOpenDice = false;
+    closeSubSubNavDice();
 }
