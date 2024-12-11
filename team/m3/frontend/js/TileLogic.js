@@ -954,10 +954,16 @@ document.getElementById('background-image-upload').addEventListener('change', fu
     }
 });
 
+//bulk function
+async function bulkPopulate(){
+    await clearTileObjectDB();
+    await initializeAvailableTiles();
+    await populateTileDropdowns();
+    await populateTileDropdown1();
+}
+
 document.getElementById("delete-tile-types").addEventListener('click', (event) => {
-    clearTileObjectDB();
-    populateTileDropdowns();
-    populateTileDropdown1();
+    bulkPopulate();
     document.getElementById("tile-selector").innerHTML = '<option value="delete">Delete Tile</option>';
 
     alert("deleted all tile types");
