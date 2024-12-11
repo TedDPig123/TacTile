@@ -11,9 +11,11 @@ export class imageForToken{
         this.#inputImg = document.getElementById("preview");
     }
 
-    //if the token had an img, it will add the corresponding div element and img src when you refresh page
+    //if the user selected an img when they created the token(id), this function will add the corresponding div element and img src when you refresh page
     async render(){
+        //GET: gets the specific token data
         const response = await fetch ("/tokens/token/"+this.id);
+        //if throw a error when trying to fetch
         if (!response.ok) {
             throw new Error("Failed to get token");
         };
@@ -36,6 +38,7 @@ export class imageForToken{
             imgElement.setAttribute("id", this.id+"img")
             imgElement.src = this.#inputImg.src;
             this.#divElement.appendChild(imgElement);
+            //GET: gets the parentDiv to update the img and mime field in database.sqlite
             const response = await fetch ("/tokens/token/"+this.id);
             if (!response.ok) {
                 throw new Error("Failed to get token");
@@ -62,6 +65,7 @@ export class imageForToken{
     //show the image of the token when you click on it to update or delete.
     async renderImage(){
         if(document.getElementById(this.id).querySelector('img')){
+            //GET: gets the token
             const response = await fetch ("/tokens/token/"+this.id);
             if (!response.ok) {
                 throw new Error("Failed to get token");
