@@ -24,7 +24,7 @@ let gridDraggingListeners = {}; // Object to store listeners
 
 export function enableDragging(grid) {
     const mouseDownHandler = (e) => {
-        if (!e.target.classList.contains("object")) {
+        if (!e.target.classList.contains("object1")) {
             isDragging = true;
 
             const computedStyle = window.getComputedStyle(grid);

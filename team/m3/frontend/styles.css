@@ -274,7 +274,6 @@ body {
   }
   
   .imageToken{
-    position: absolute;
     overflow:hidden;
     object-fit:fill; 
     width: 100%;     
