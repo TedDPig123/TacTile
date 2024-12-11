@@ -24,6 +24,9 @@ git clone https://github.com/TedDPig123/326_Project.git
 node server.js
 ```
 
+## Accessing the Nav Bar
+To access TacTile's features, click the icon of the two clashing swords on the top right of the page and a sidebar will dramatically appear from the left. On this sidebar you will find all the features you need to get started.
+
 ## Creating the Grid
 ### Set Grid Dimensions
 Enter the desired width and height for the grid in the input fields labeled "Grid Width" and "Grid Height".
@@ -33,10 +36,39 @@ Click the "Create Grid" button to generate the grid.
 Click the "Insert Background Image" button to upload an image that will be used as the background for the grid.
 ### Switch Between Grids:
 Use the "Currently on Battle Grid" button to switch between the battle grid and the object grid.
-### Enable/Disable Edit Mode:
-Click the "Enable Edit Mode" button to toggle edit mode, allowing you to drag and drop tokens on the grid.
+### Clear Grid: 
+Click the "Clear Grid" button to clear the grid of all tiles
 ### Zoom In/Out:
 Use the "+" and "-" buttons to zoom in and out of the grid.
+
+## Grid Features
+### Dragging
+When the battle grid is unlocked, you can click and drag the grid to any position you want for better visibility.
+### Tile Tooltips
+When tiles have been placed on the map, if you switch to the battle grid and hover over any placed tiles, a tooltip will appear with the tile type's name and description.
+
+## Manipulating Tiles
+In TacTile, tiles represent the terrain types of the map, so knowing how to manipulate them is key to holding a successful TacTile session! You can access the following features from the TILES section of the navbar.
+### Lock Battle Grid
+When you are on the battle grid, clicking this button will lock the grid in place. This will allow you to place tiles on the grid without having to worry about the grid moving around with the mouse.
+### Selecting and Placing Tiles
+This dropdown menu allows you to choose the type of tile you want to lay down onto the grid, including a delete tile option. **If you are logged in, this will also show all the tile types associated with your account.** Once you have chosen the tile you want, follow these steps closely to lay down your chosen tile onto the grid:
+- On the Grid menu, ensure your grid view option is set to "Currently on Battle Grid"
+- Lock the battle grid
+- Click and/or drag your cursor on the squares in the grid you want to fill and your tile will appear on the selected squares
+### Delete All Tile Types
+Clicking on "Delete All Tile Types" deletes all the tile types saved so far. **If you are logged in, this will also delete all tile types associated with your account.**
+### Create New Custom Tile Type
+Once you click on "Create New Custom Tile," a popup form ge will emerge, and you can decide the following:
+- **Tile Type Name:** Enter your desired tile name in the text box labelled "TYPE"
+- **Tile Type Description:** Enter a description for your tile type in the text box labelled "DETAILS"
+- **Tile Appearance:** You have two options for this: either type in a valid hexadecimal representation of a color into the "COLOR" textbox and see the preview update with your typed color OR upload an image from your computer and see the preview update to match this. The preview box will update with the last action you take, be it selecting a color or an image.
+- **Saving the Tile:** Click on "ADD NEW TILE" to create and save your new tile type. It will be saved with your specified type, details, and the last image in the preview box. **If you are logged in, this will save the tile to your account.**
+### Edit and Delete Existing Tile
+Upon clicking "Edit Existing Tile," a popup form will emerge, and you can decide the following:
+- **Choose Existing Tile:** Hover over the first box in the form. If a dropdown does not appear, it means there are no saved tile types yet. If there is, click on the one you want to edit.
+- **Make Edits:** Edit the tile's description and appearance however you please. The process is identical to when you are making a new tile.
+- **Save or Delete Tile:** Once you are finished making changes, you have the option to save or delete the tile. **If you are logged in, these changes will be reflected in your account.**
 
 ## Using the Dice Roller
 ### Set Dice Parameters:
