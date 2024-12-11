@@ -42,7 +42,12 @@ body {
     left: 60%;
     transform: translate(-50%, -50%);
   }
-
+  .top-right{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    text-align: center;
+  }
   .parent {
     display: flex;
     width: 100%;
