@@ -5,7 +5,7 @@ const sequelize = new Sequelize({
     storage: "database.sqlite",
 });
 
-//this is for the tile object
+//this defines the tile grid state
 const gridState = sequelize.define('GridState',{
     array: {type: DataTypes.JSON,},
     gridstateID: {type: DataTypes.INTEGER,

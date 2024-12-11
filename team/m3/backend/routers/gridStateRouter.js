@@ -6,6 +6,7 @@ import { deleteAllGridStates,
 
 const gridStateRouter = new express.Router();
 
+// Define the routes for gridstate creation, retrieval, deletion, etc.
 gridStateRouter.post('/', createGridState);
 gridStateRouter.get('/', getAllGridStates);
 gridStateRouter.delete('/', deleteAllGridStates);
