@@ -52,3 +52,6 @@ export const deleteCanvas = async (req, res) => {
         res.status(500).json(factoryResponse(404, "Error in deleting canvas"));
     }
 };
+
+
+
