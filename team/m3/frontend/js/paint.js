@@ -41,6 +41,13 @@ function togglePaint() { //used for toggling whether or not you're actively draw
         document.getElementById('drawing-display').style.visibility = "visible"; 
     }
 }
+
+//geri-used to hard turn it off
+function turnOffPaint() { 
+    toggle = false;
+    layer.style.pointerEvents = 'none';
+    document.getElementById('drawing-display').style.visibility = "hidden"; 
+}
    
 const ctx = canvas.getContext('2d'); //establishes canvas
 ctx.canvas.width = canvas.width; 
