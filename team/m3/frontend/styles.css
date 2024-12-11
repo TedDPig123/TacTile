@@ -209,15 +209,14 @@ body {
   
   .ObjectForm{
     position: absolute;
-    width: 530px;
-    height: 500px;
+    width: 300px;
+    height: 700px;
     padding: 5px;
-    top: 50px;
     background-color: rgb(31, 30, 30);
-    left: 150px;
+    top: 100px;
+    left: 500px;
     border-radius: 3px;
     z-index: 3;
-    opacity: 95%;
   }
   
   .ObjectForm #description{
@@ -250,7 +249,7 @@ body {
     position: absolute;
     padding: 5px;
     background-color: rgb(25, 25, 99);
-    width: 550px;
+    width: 250px;
     height: 150px;
     color: white;
     text-align: left;
