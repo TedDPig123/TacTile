@@ -234,7 +234,7 @@ function fadeOut(element) {
       op -= op * 0.1;
   }, 50);
 }
-=======
+
 //this is meant as an easier way to type out the sound/audio that's meant to play during specific actions upon the code
 function playAudio(url) {
   new Audio(url).play();
