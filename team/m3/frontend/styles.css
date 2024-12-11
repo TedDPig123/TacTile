@@ -891,6 +891,10 @@ svg {
   flex-direction: column;
 }
 
+.fadeGridButtons td{
+  width:10px;
+}
+
 .drawTable td {
   padding-top: 10%;
   padding-left: 3%;
@@ -906,6 +910,23 @@ svg {
   position: absolute;
   top: 10%;
   left: 3%;
+}
+
+#subSideNavGridID{
+  display: flex;
+  flex-direction: column;
+}
+
+#subSideNavGridID tbody{
+  display: table-column-group;
+}
+
+.fadeGridButtons {
+  display: inline-block; 
+  padding: 5px 10px; 
+  margin: 0;
+  text-align: center; 
+  box-sizing: border-box; 
 }
 
 .closebtnUI {

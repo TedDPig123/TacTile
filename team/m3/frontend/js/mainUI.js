@@ -95,7 +95,7 @@ function checkNav() {
 //the following group of functions are meant to just open or close the sub navigation menu. If you open a sub navigation menu, a sound effect will play
 function openSubSubNavGrid() {
   fadingIn("fadeGridButtons");
-  document.getElementById("subSideNavGridID").style.width = "20%"; //literally just making the existing ui even bigger 
+  document.getElementById("subSideNavGridID").style.width = "360px"; //literally just making the existing ui even bigger 
   playAudio('audio/Opening UI.mp3');
 }
 
@@ -235,4 +235,22 @@ function fadeOut(element) {
 //this is meant as an easier way to type out the sound/audio that's meant to play during specific actions upon the code
 function playAudio(url) {
   new Audio(url).play();
+}
+
+//closes the object form only
+const addObjectForm = document.getElementById("object_form");
+function closeObjectForm(){
+  addObjectForm.style.display= "none";
+}
+
+//closes everything not on object form
+function closeNotObjectForm() {
+    isOpenGrid = false;
+    closeSubSubNavGrid();
+    isOpenToken = false;
+    closeSubSubNavToken();
+    isOpenDraw = false;
+    closeSubSubNavDraw();
+    isOpenDice = false;
+    closeSubSubNavDice();
 }
