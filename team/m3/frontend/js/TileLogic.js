@@ -187,8 +187,8 @@ export async function rerenderGrid() {
     }
 
     initializeBattleGrid(battleGrid);
-    enableDragging(battleGrid);
-    enableDragging(battleGrid);
+    // enableDragging(battleGrid);
+    // enableDragging(battleGrid);
 }
 
 //This gets the canvas image url from the tile-preview square

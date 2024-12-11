@@ -83,6 +83,8 @@ function disableDragging(grid) {
     grid.style.cursor = 'default';
 }
 
+
+
 // Function for zoom in and zoom out
 function zoomIn() {
     if (scale < maxZoom) {
