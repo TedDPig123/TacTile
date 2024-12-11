@@ -11,6 +11,8 @@ import {createTile,
     getAllGridStates
 } from "./TileClientRequests.js";
 import { updateMegaDB } from "./megaDBRequests.js";
+import { allrender } from "./tokenFinal.js";
+
 
 //initialize indexedDB database for tile objects
 const dbTileObject = new DatabaseConnection('tileDatabase');
@@ -165,6 +167,8 @@ export async function rerenderGrid() {
     objectGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
     objectGrid.style.gridTemplateRows = `repeat(${height}, 1fr)`;
 
+    //This is added for rendering token(from Emily)
+    allrender(parseInt(width), parseInt(height))
     // Create and render the tiles based on the saved grid state
     for (let i = 0; i < currGridState.array.length; i++) {
         const tileCoord = currGridState.array[i];

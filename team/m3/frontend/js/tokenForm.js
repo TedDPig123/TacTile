@@ -34,6 +34,7 @@ export class tokenForm{
 
     //this is called at the start right after create grid to load all token saved in sequelize onto the grid
     async renderWhenLoad(){
+        //GET: gets all token
         const response = await fetch("/tokens/all");
         if (!response.ok) {
             throw new Error("Failed to get token");
@@ -65,7 +66,7 @@ export class tokenForm{
                     this.#updateButton.style.display= "inline-block";
                     this.#createButton.style.display= "none";
                     const id = event.target.id;
-                    //gets the data of the token from the server
+                    //GET: gets the data of the token from the server
                     const response = await fetch(`/tokens/token/${id}`);
                     if (!response.ok) {
                         throw new Error("Failed to get token");
@@ -137,7 +138,7 @@ export class tokenForm{
                 column:parseInt(this.#c.value),
                 row:parseInt(this.#r.value),
             }
-            // fetchs the correct route to create token
+            // POST: fetchs the correct route to create token
             const response = await fetch("/tokens/newToken",  {
                 method: "POST", 
                 headers: {
@@ -169,7 +170,7 @@ export class tokenForm{
         objDiv.remove();
         this.clearForm();
         this.#ObjForm.style.display= "none";
-        // fetchs the correct route to delete token
+        // DELETE: fetchs the correct route to delete token
         const response = await fetch("/tokens/delete/"+id, {
             method: 'DELETE',
             headers: {
@@ -208,7 +209,7 @@ export class tokenForm{
                 row: row,
                 column: column
             }
-            // fetchs the correct route to update token
+            // PUT: fetchs the correct route to update token
             const response = await fetch("/tokens/update", {
                 method: 'PUT',
                 headers: {

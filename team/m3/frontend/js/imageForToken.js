@@ -45,7 +45,7 @@ export class imageForToken{
             data.img = imgElement.src.split(",")[1];
             //the type of the img(data:(type);base64
             data.mime = imgElement.src.split(",")[0];
-            //updates the data of this token in sqlite databse
+            //PUT: updates the data of this token in sqlite database
             await fetch("/tokens/update", {
                 method: 'PUT',
                 headers: {
@@ -82,6 +82,7 @@ export class imageForToken{
                 //if the new img is different from the old image
                 if(imageToUpdate.src!==image.src){
                     imageToUpdate.src = image.src;
+                    //GET: gets the token to update its information with the new img
                     const response = await fetch ("/tokens/token/"+this.id);
                     if (!response.ok) {
                         throw new Error("Failed to get token");
@@ -89,6 +90,7 @@ export class imageForToken{
                     const data = await response.json()
                     data.img = image.src.split(",")[1];
                     data.mime = image.src.split(",")[0]
+                    //PUT: updates the token
                     await fetch("/tokens/update", {
                         method: 'PUT',
                         headers: {
@@ -109,6 +111,7 @@ export class imageForToken{
             if(this.#divElement.querySelector('img')){
                 const imageToDel = document.getElementById(this.id+"img")
                 imageToDel.remove();  
+                //GET: gets the token to update its information with the new img(none)
                 const response = await fetch ("/tokens/token/"+this.id);
                 if (!response.ok) {
                     throw new Error("Failed to get token");
@@ -116,6 +119,7 @@ export class imageForToken{
                 const data = await response.json();
                 data.img = null;
                 data.mime = null;
+                //PUT: updates the token
                 await fetch("/tokens/update", {
                     method: 'PUT',
                     headers: {

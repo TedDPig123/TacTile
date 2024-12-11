@@ -11,6 +11,7 @@ export class moveToken{
 
     //gets the top and left px of the token when you refresh the page and apply them
     async render(){
+        //GET: gets the token to update its information with the new location
         const response = await fetch("/tokens/token/"+this.id);
         if (!response.ok) {
             throw new Error("Failed to get token");
