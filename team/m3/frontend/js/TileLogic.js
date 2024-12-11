@@ -34,8 +34,8 @@ export class tileObject{
         this.imgData = imgData;
     }
 }
-//ON-LOAD: Populate the tile types, update indexedDB
 
+//On load, the tile types are retrieved from the server/indexeddb and all corresponding lists and dropdown menus are updated
 async function tileRenderOnLoad() {
     const allTiles = await getAllTiles();
     if (!allTiles) {
@@ -79,10 +79,7 @@ async function tileRenderOnLoad() {
     initializeAvailableTiles();
     populateTileDropdown1();
 
-    console.log("Final available tiles:", availableTiles);
-
     //also load in gridstate
-
     const serverGridStateObjects = await getAllGridStates();
     if(serverGridStateObjects && serverGridStateObjects.length > 0){
         const serverGridStateArray = serverGridStateObjects[0].array;
@@ -93,10 +90,12 @@ async function tileRenderOnLoad() {
    
 }
 
+//On load, this syncs the frontend tile database with the backend and rerenders the grid 
+//and tile dropdown menus accordingly
 tileRenderOnLoad();
 rerenderGrid();
 
-//saving the grid state
+//This function saves the grid state
 async function saveGridState() {
     const gridState = [];
 
@@ -128,7 +127,7 @@ async function saveGridState() {
     console.log("Grid state saved:", gridState);
 }
 
-//EMILY THIS IS WHERE I RERENDER!!!!
+//Rerenders the grid based off of the current data in the gridstate databases
 export async function rerenderGrid() {
     const arrayGridState = await dbGridState.getAllObject();
     const currGridState = arrayGridState[0];
@@ -179,9 +178,6 @@ export async function rerenderGrid() {
     enableDragging(battleGrid);
 }
 
-
-// ALL DATABASE STUFF!
-
 //This gets the canvas image url from the tile-preview square
 function getCanvasImageFromCustom() {
     const canvas = document.getElementById("tile-preview");
@@ -196,7 +192,6 @@ function getCanvasImageFromEdit() {
 }
 
 //This creates a new custom tile object
-//TODO: PUT - check backend 
 async function addNewCustomTile(){
     const type = document.getElementById("tile-name").value;
     const details = document.getElementById("details").value;
@@ -239,7 +234,7 @@ async function addNewCustomTile(){
     }
 }
 
-//TODO: PUT - Check backend
+//This saves the edited tile with changes made in the edit form
 async function saveEditedTile(){
     const type = document.getElementById("edit-displayed-tile").textContent;
     const details = document.getElementById("edit-details").value;
@@ -276,7 +271,7 @@ async function saveEditedTile(){
     }
 }
 
-//TODO: DELETE - Add backend implementation
+//This deletes a chosen tile from the edit form
 async function deleteEditedTile(){
     const type = document.getElementById("edit-displayed-tile").textContent;
     const details = document.getElementById("edit-details").value;
@@ -319,6 +314,7 @@ async function deleteEditedTile(){
     }
 }
 
+//this displays the tile name, details, and image when it is chosen in the edit form
 async function displayTileDetailsForExisting(tileID) {
     const tileObject = await dbTileObject.getObject(tileID);
     document.getElementById("details-2").value = tileObject.details;
@@ -359,6 +355,7 @@ async function displayTileDetailsForEditing(tileID) {
     newImage.src = tileObject.imgData;
 }
 
+//This makes the create new custom tile form pop up
 function showCustom(){
     console.log("toggle");
     const tileMenu = document.querySelector('.custom');
@@ -367,6 +364,7 @@ function showCustom(){
     tileMenu.style.display = 'flex';
 }
 
+//This makes the create new custom tile form disappear
 function hideCustom(){
     const tileMenu = document.querySelector('.custom');
     const greyOverlay = document.getElementById('screen-overlay');
@@ -384,6 +382,7 @@ function hideCustom(){
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
+//This makes the edit existing tile form pop up
 function showEdit(){
     const tileMenu = document.querySelector('.edit');
     const greyOverlay = document.getElementById('screen-overlay');
@@ -391,6 +390,7 @@ function showEdit(){
     tileMenu.style.display = 'flex';
 }
 
+//This makes the edit existing tile form disappear
 function hideEdit(){
     const tileMenu = document.querySelector('.edit');
     const greyOverlay = document.getElementById('screen-overlay');
@@ -407,6 +407,7 @@ function hideEdit(){
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
+//This is a helper function that converts a hex string into an rgba representation
 function hexToRgba(hex) {
     hex = hex.replace('#', '');
 
@@ -417,6 +418,7 @@ function hexToRgba(hex) {
     return `rgba(${r}, ${g}, ${b})`;
 }
 
+//This changes the tile preview color based on the inputted color value in the new custom tile form
 function changeTilePreviewColor(){
     const tilePreviewBox = document.getElementById("tile-preview");
     const colorVal = document.getElementById("tile-color").value;
@@ -433,6 +435,7 @@ function changeTilePreviewColor(){
     }
 }
 
+//This changes the tile preview color based on the inputted color value in the edit form
 function changeTilePreviewColorEdit(){
     const tilePreviewBox = document.getElementById("edit-tile-preview");
     const colorVal = document.getElementById("edit-tile-color").value;
@@ -451,7 +454,7 @@ function changeTilePreviewColorEdit(){
 
 let availableTiles = [];
 
-//TODO: add backend functionality
+//this populates the list of available tiles from whatever is in the database
 async function initializeAvailableTiles() {
     availableTiles = await dbTileObject.getAllObject();
     if (!availableTiles || availableTiles.length === 0) {
@@ -463,7 +466,8 @@ let isMouseDown = false;
 let selectedTile = null; 
 let deleteMode = false;
 
-//TODO: add backend functionality
+//This function handles the changing of grid squares to match the qualities of the currently selected tile
+//Effectively "placing" the tile on the grid
 async function handleSquareClick(square) {
     const currID = document.getElementById("tile-selector").value;
     
@@ -506,6 +510,8 @@ async function handleSquareClick(square) {
     }
 }
 
+//The following mouse functions allow you to drag across the grid to add tiles, instead of just clicking 
+//individual squares in the grid
 function onMouseDown(event) {
     const square = event.target;
     if (square.classList.contains('grid-tile')) {
@@ -540,6 +546,7 @@ function onMouseUp() {
     isMouseDown = false;
 }
 
+//Attaches a tooltip to each placed tile
 function showTileDetails(event) {
     const square = event.currentTarget;
     const tileName = square.getAttribute('data-tile-name');
@@ -566,6 +573,7 @@ function showTileDetails(event) {
     }
 }
 
+//This attaches the appropriate event listeners to each tile in the grid
 export async function initializeBattleGrid(battleGrid) {
     await initializeAvailableTiles();
 
@@ -578,8 +586,7 @@ export async function initializeBattleGrid(battleGrid) {
     });
 }
 
-//TODO: add backend
-//should make this an option
+//This empties out all tiles from the list
 async function clearTileObjectDB() {
     try {
         await dbGridState.clearDatabase();
@@ -598,6 +605,7 @@ async function clearTileObjectDB() {
     }
 }
 
+//this populates the tile dropdown menu with whatever is in the database
 async function populateTileDropdown1() {
     const tileSelector = document.getElementById("tile-selector");
     try {
@@ -613,7 +621,7 @@ async function populateTileDropdown1() {
     }
 }
 
-//actual tile dropdown content
+//this populates the edit tile dropdown menu with whatever is in the database
 async function populateTileDropdowns() {
     try {
         const tiles = await dbTileObject.getAllObject();
@@ -643,6 +651,7 @@ async function populateTileDropdowns() {
     }
 }
 
+//The rest of these lines simply attaches these functions to their corresponding dom elements
 window.addEventListener("DOMContentLoaded", (event) => {
     const deleteTile = document.getElementById("delete-tile");
     if (deleteTile) {
