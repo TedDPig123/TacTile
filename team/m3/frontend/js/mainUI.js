@@ -1,3 +1,4 @@
+
 //These are the boolean values that will be used to determine whether the sub navigation menu should be considered opened or not. If it's marked as true, 
 //then only one of them will be open. Otherwise, it will refuse to open. This logic will be further explained later down in the code.
 let isOpenToken = false;
@@ -6,6 +7,7 @@ let isOpenDraw = false;
 let isOpenGrid = false;
 
 let isOpenMain = false;
+
 let isOpenSubNav = false;
 
 //This function is meant to open the navigation bar (that consists of 5 buttons). It has the fade in effect, but only works for the buttons 
@@ -23,7 +25,6 @@ function openNav() {
     subSideNavArray[i].style.transitionDuration = "0.8s"
   }
 }
-
 
 //This function is meant to close the navigation bar (that consists of 5 buttons). It has the fade out effect, but only works for the buttons 
 function closeNav() {
@@ -52,6 +53,7 @@ function fadingIn(fadeButtons) {
     sideNavFadeOutButtonArrays[k].style.transitionDuration = "1.7s";
     sideNavFadeOutButtonArrays[k].style.opacity = 1;
   }  
+
   sideNavFadeOutButtonArrays = []; //this is meant to 'reset' the array when it's ready to be called in a different part of the code that requires a new array
 }
 
@@ -65,6 +67,7 @@ function fadingOut(fadeButtons) {
     sideNavFadeOutButtonArrays[k].style.transitionDuration = "0.25s";
     sideNavFadeOutButtonArrays[k].style.opacity = 0;
   }
+
   sideNavFadeOutButtonArrays = []; //this is meant to 'reset' the array when it's ready to be called in a different part of the code that requires a new array
 }
 
@@ -82,11 +85,11 @@ function checkNav() {
     togglePaint();
     isOpenDice = false;
     closeSubSubNavDice();
-    closeNav(); 
+    closeNav(); //opens the navigation
   }
   else {
     isOpenMain = true;
-    openNav(); 
+    openNav(); //closes the navigation 
   }
 }
 
@@ -176,7 +179,6 @@ function checkSubNavToken() {
 function checkSubNavDraw() {
   if (isOpenDraw === true) {
     isOpenDraw = false;
-    togglePaint();
     closeSubSubNavDraw();
   }
   else { 
@@ -207,6 +209,30 @@ function checkSubNavDice() {
     isOpenDice = true;
     openSubSubNavDice();
   }
+}
+
+
+
+function loadingScreen() {
+  var loadingScreen = document.querySelector(".loadingScreen");
+  window.addEventListener('load',function() {
+    loadingScreen.style.display = 'none';
+  })
+}
+
+
+//https://stackoverflow.com/questions/6121203/how-to-do-fade-in-and-fade-out-with-javascript-and-css
+function fadeOut(element) {
+  var op = 1;  // initial opacity
+  var timer = setInterval(function () {
+      if (op <= 0.1){
+          clearInterval(timer);
+          element.style.display = 'none';
+      }
+      element.style.opacity = op;
+      element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+      op -= op * 0.1;
+  }, 50);
 }
 
 //this is meant as an easier way to type out the sound/audio that's meant to play during specific actions upon the code

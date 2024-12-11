@@ -60,6 +60,7 @@ class _SQLiteToken{
             const newToken = await Token.create(token);
             return newToken;
         }
+        //passes the error to the token router
         catch(error){
             throw error;
         }
@@ -71,6 +72,7 @@ class _SQLiteToken{
             const requiredToken = await Token.findByPk(id);
             return requiredToken;
         }
+        //passes the error to the token router
         catch(error){
             throw error;
         }   
@@ -82,6 +84,7 @@ class _SQLiteToken{
             const allTokens = await Token.findAll();
             return allTokens;
         }
+        //passes the error to the token router
         catch(error){
             throw error;
         }   
@@ -98,7 +101,8 @@ class _SQLiteToken{
                 }
             );
             return updatedRecords[1];
-        } 
+        }
+        //passes the error to the token router
         catch (error) {
             throw error;
         }
@@ -110,6 +114,7 @@ class _SQLiteToken{
             const numDeleted = await Token.destroy({where: {tokenid: id}});
             return numDeleted;
         }
+        //passes the error to the token router
         catch (error) {
             throw error;
         }
@@ -121,6 +126,7 @@ class _SQLiteToken{
             await Token.truncate();
             return;
         }
+        //passes the error to the token router
         catch (error) {
             throw error;
         }

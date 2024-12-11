@@ -1,3 +1,4 @@
+import { updateMegaDB } from "./megaDBRequests.js";
 export class tokenForm{
     //adds all needed element from main.html as private attribute
     #createButton;#cancelButton;#updateButton;#deleteButton;#ObjForm;
@@ -114,7 +115,7 @@ export class tokenForm{
         spanElement.textContent = "name: "+data.name+"\ndescription: "+ data.description;
         spanElement.setAttribute("id", data.tokenid+"s"); 
         const tokenDiv = document.createElement("div");
-        tokenDiv.classList.add("object");
+        tokenDiv.classList.add("object1");
         tokenDiv.classList.add("hoverBox");
         tokenDiv.appendChild(spanElement);
         tokenDiv.style.gridArea = `${1}/${1}/${1+data.row}/${1+data.column}`;
@@ -152,6 +153,10 @@ export class tokenForm{
             const id = this.#makeToken(data);
             this.clearForm();
             this.#ObjForm.style.display= "none";
+
+            //megadb 
+            await updateMegaDB();
+
             //returns the token id
             return data.tokenid;
         }
@@ -175,6 +180,10 @@ export class tokenForm{
         if (!response.ok) {
             throw new Error("Failed to delete token");
         }
+
+        //megadb
+        await updateMegaDB();
+
         //returns the token id
         return id;
     }
@@ -213,6 +222,10 @@ export class tokenForm{
             }
             this.clearForm();
             this.#ObjForm.style.display= "none";
+
+            //updatemegadb
+            await updateMegaDB();
+
             //returns the token id
             return id;
         }

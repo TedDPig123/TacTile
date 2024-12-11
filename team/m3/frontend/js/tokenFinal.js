@@ -37,9 +37,10 @@ function previewImg(event){
     }
 };
 
+//changes what the image preview display(if have image or not)
 inputElement.addEventListener("change", (event) => previewImg(event))
 
-//Switch between battle and object grid
+//Switch between battle and token grid
 const switchButton = document.getElementById("switch_button");
 switchButton.addEventListener("click", ()=>{
     if(objectGrid.style.zIndex==="1"){
@@ -54,13 +55,14 @@ switchButton.addEventListener("click", ()=>{
     }
 })
 
-//happens at the very start after you click create grid, basic setup is done the token
-//is moved to TileLogic.js line 157 to go with gridState
-
+//happens at the very start after you click create grid, basic setup is done for the token
+//is moved to TileLogic.js line 171 to go with gridState
 export async function allrender(width, height){
     tokenObj.addWH(width, height);
     tokenObj.render();
+    //gets all token and render them on the map
     const idarr = await tokenObj.renderWhenLoad();
+    //returns an id array of the ids of all the token that got rendered
     idarr.forEach(id => {
         const img = new imageForToken(id);
         img.render();
@@ -70,6 +72,7 @@ export async function allrender(width, height){
                 img.renderImage();
             }
         });
+        //so that token can be moved
         const moveT = new moveToken(id);
         moveT.render();
         moveT.mouseDown();
@@ -127,6 +130,7 @@ async function cToken(event) {
         });
     }
 }
+
 //created the token and place it on the grid
 createButton.addEventListener("click", (event) => {
     const numCopy = document.getElementById("copy").value;

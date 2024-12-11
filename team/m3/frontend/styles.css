@@ -1,5 +1,13 @@
+@font-face {
+  font-family: DragonHunter;
+  src: url('font/DragonHunter.otf');
+}
+
 body {
-    font-family: Arial, sans-serif;
+    /* cursor: url('images/cursor.png') 20 15, grab; */
+    cursor: url('images/grabber.png') 20,15, default;
+    background-image: url('images/background.png'), url('images/beneath background.jpg');
+    font-family: DragonHunter;
     margin: 20px;
     display: flex;
     justify-content: flex-start;
@@ -12,6 +20,35 @@ body {
     height:100%;
   }
 
+  #login-button{
+    cursor: pointer;
+  }
+
+  .authentification-page{
+    background-image: url('images/sidebar.png');
+    background-repeat: no-repeat;
+    background-size: 110% 110%;
+    
+    position: fixed;
+    z-index: 10;
+    display: none;
+    flex-direction: column;
+    width:26vw;
+    margin:auto;
+    padding:20px 20px 20px 20px;
+    min-width: 350px;
+
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
+  .top-right{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    text-align: center;
+    z-index: 50;
+  }
   .parent {
     display: flex;
     width: 100%;
@@ -19,7 +56,26 @@ body {
     position: relative;
     top: 0px;
     left: 0px;
+    color: black;
   }
+  
+  button { /* might need to check in with each variation of the button(s) */
+    font-family: 'DragonHunter';
+    font-size: large;
+    padding: 5px 5px 5px 5px;
+    background-color: black;
+    color: white;
+    position: relative;
+  }
+
+  label { /* might need to check in with each variation of the button(s) */
+    font-family: 'DragonHunter';
+    font-size: large;
+    padding: 5px 5px 5px 5px;
+    background-color: black;
+    color: white;
+  }
+
   
   .container {
     display: flex;
@@ -28,6 +84,10 @@ body {
     position: relative;
     top: 0px;
     left: 0px;
+
+    /* geri edit */
+    justify-content: center;
+    align-items: center;
   }
 
   #drawing-display {
@@ -39,7 +99,7 @@ body {
     top: 0px;
     left: 30%;
     pointer-events: none;
-    z-index: 3;
+    z-index: 8;
   }
 
   #normal
@@ -48,16 +108,26 @@ body {
   }
   
   .sidebar {
+    /* geri edit start */
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+    z-index: -1;
+    /* geri edit end */
     width: 30%;
     padding: 20px;
   }
   
   .main-content {
     overflow: hidden;
-    width: 70%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
     justify-content: flex-start;
     justify-content: center;
@@ -68,6 +138,8 @@ body {
     position: relative; 
     width: 90%;
     height: 90%;
+    display: flex;
+    z-index: 1;
     justify-content: center;
   }
 
@@ -121,7 +193,7 @@ body {
     z-index: 1;
   }
   
-  .object {
+  .object1 {
     background-color: aqua;
     width: 100%; /* Make each tile take the full width of its grid cell */
     height: 100%; /* Make each tile take the full height of its grid cell */
@@ -140,10 +212,10 @@ body {
     height: 700px;
     padding: 5px;
     background-color: rgb(31, 30, 30);
-    left: 250px;
+    top:100px;
+    left: 500px;
     border-radius: 3px;
     z-index: 3;
-    opacity: 95%;
   }
   
   .ObjectForm #description{
@@ -208,7 +280,6 @@ body {
   }
   
   .imageToken{
-    position: absolute;
     overflow:hidden;
     object-fit:fill; 
     width: 100%;     
@@ -229,6 +300,27 @@ body {
 svg {
   fill: black;
   transition:0.3s;
+  z-index: 5;
+}
+
+#exit-login {
+  display: flex;
+  justify-content: end; 
+  text-align: center; 
+  right:0px;
+  left:auto;
+  width: 33px;   
+  height: 33px;   
+  fill: #e8eaed;  
+  cursor: pointer;
+}
+
+#cross-svg {
+  display: block;  
+  width: 33px;   
+  height: 33px;   
+  fill: #e8eaed;  
+  cursor: pointer;
 }
 
 .all-tile-stuff{
@@ -242,7 +334,7 @@ svg {
 .dropdown {
   position: relative;
   display: inline-block;
-  margin:10px;
+  margin: 10px;
 }
 
 .dropbtn {
@@ -276,20 +368,43 @@ svg {
 
 .dropdown:hover .dropbtn {background-color: #457f47;}
 
-/* THIS IS FOR THE CREATE CUSTOM TILE SETTING */
-.custom{
+
+.object{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
   position: fixed;
   z-index: 3;
   display: none;
   flex-direction: column;
   width:30vw;
-  background-color: #B7874C;
   margin:auto;
   padding:20px 20px 20px 20px;
   min-width: 500px;
 
   top: 50%;
-  left: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+/* THIS IS FOR THE CREATE CUSTOM TILE SETTING */
+.custom{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
+  position: fixed;
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  width:30vw;
+  margin:auto;
+  padding:20px 20px 20px 20px;
+  min-width: 500px;
+
+  top: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
 }
 
@@ -380,7 +495,7 @@ svg {
   height: 100%;
   left: 0;
   top: 0;
-  background: rgba(51,51,51);
+  /* background: rgba(51,51,51); */
   z-index: 2;
   opacity: 0.6;
   display:none; 
@@ -531,18 +646,20 @@ svg {
 /* FOR EDITING */
 
 .edit{
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
   position: fixed;
-  z-index: 3;
+  z-index: 40;
   display: none;
   flex-direction: column;
   width:30vw;
-  background-color: #B7874C;
   margin:auto;
   padding:20px 20px 20px 20px;
   min-width: 500px;
 
   top: 50%;
-  left: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
 }
 
@@ -642,6 +759,18 @@ svg {
   width:40px;
 }
 
+#edit-cross-svg{
+  display: block;  
+  width: 33px;   
+  height: 33px;   
+  fill: #e8eaed;  
+  cursor: pointer;
+}
+
+#tile-selector, #delete-tile-types, #custom-option, #edit-option{
+  cursor: pointer;
+}
+
 .edit-delete{
   display: flex;
   justify-content: space-around;
@@ -688,11 +817,15 @@ svg {
 
 /* The code below is for the menu UI */
 .sidenavUI {
+  background-image: url('images/sidebar.png');
+  background-repeat: no-repeat;
+  /* background-color: black; */
+  background-size: 100% 100%;
     height: 100%;
     width: 0;
-    position: fixed;
+  position: absolute;
     z-index: 10;
-    background-color: rgba(0, 0, 0, 0.83);
+  /* background-color: rgba(0, 0, 0, 0.83); */
     top: 0;
     left: 0;
     overflow-x: hidden;
@@ -700,26 +833,81 @@ svg {
     padding-top: 5%;
   }
   
-  .sidenavUI a {
-    font-family: Georgia, serif;
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    overflow-x: hidden;
-    font-size: 45px;
+.sidenavUIbuttons {
+  background-image: url('images/buttonOn.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 75%;
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: 3s;
+  transition-duration: 2s;
+  position: sticky;
+  font-family: DragonHunter;
+  padding: 7%;
+  font-size: 200%;
     color: white;
     display: block;
+  border: none;
     transition: 0.5s;
+  margin-left: 7%;
+  margin-top: 15%;
+
+  /* geri edit */
+  cursor: pointer;
+}
+
+.sidenavUIbuttons:active {
+  background-image: url('images/buttonOff.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   }
   
   .sidenavUI a:hover {
-    color: red;
+  color:  rgb(30, 27, 27);
+  text-shadow: 4px 3px 4px white;
   }
   
-  .sidenavUI .closebtnUI {
+.subsidenavUI {
+  background-image: url('images/subsidebar.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 80%;
+  width: 0;
+  position: fixed;
+  z-index: -5;
+  /* background-color: rgba(0, 0, 0, 0.83); */
+  top: 16.7%;
+  left: 17.5%;
+  overflow-x: hidden;
+  transition: 0.8s;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawTable td {
+  padding-top: 10%;
+  padding-left: 3%;
+}
+
+.drawTable tr {
+  opacity: 0;
+}
+
+.subsidenavUILabels{
+  font-size: 150%;
+  color: white;
+  position: absolute;
+  top: 10%;
+  left: 3%;
+}
+
+.closebtnUI {
     position: absolute;
     top: 0;
-    right: 15px;
-    font-size: 40px;
+  right: 10%;
+  color: black;
+  font-size: 40%;
     margin-left: 50px;
     transition: 1s;
   }
@@ -732,8 +920,22 @@ svg {
   .menuOpen {
      font-size: 70px;
      border-style: solid black 5px;
-     cursor: help;
+     cursor: pointer;
+     z-index: 50;
   }
+
+.loadingScreen {
+  transition-duration: 2s;
+  position: absolute;
+  z-index: 30;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
 
   /* Dice Roller Dropdown */
 .dice-dropdown {

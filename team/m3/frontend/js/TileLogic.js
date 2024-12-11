@@ -10,11 +10,12 @@ import {createTile,
     deleteAllGridStates,
     getAllGridStates
 } from "./TileClientRequests.js";
+import { updateMegaDB } from "./megaDBRequests.js";
 import { allrender } from "./tokenFinal.js";
 
 //initialize indexedDB database for tile objects
 const dbTileObject = new DatabaseConnection('tileDatabase');
-const dbGridState = new DatabaseConnection('gridStateDatabase');
+export const dbGridState = new DatabaseConnection('gridStateDatabase');
 
 //initialize indexedDB database for grid state
 class gridObject{
@@ -36,8 +37,18 @@ export class tileObject{
     }
 }
 
-//On load, the tile types are retrieved from the server/indexeddb and all corresponding lists and dropdown menus are updated
-async function tileRenderOnLoad() {
+// document.getElementById('logout-button').addEventListener('click', async () => {
+//     try {
+//         await updateMegaDB();
+//         await clearTileObjectDB();
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
+//ON-LOAD: Populate the tile types, update indexedDB
+
+export async function tileRenderOnLoad() {
+    await updateMegaDB();
     const allTiles = await getAllTiles();
     if (!allTiles) {
         console.error("Failed to retrieve tiles from server");
@@ -96,8 +107,7 @@ async function tileRenderOnLoad() {
 tileRenderOnLoad();
 rerenderGrid();
 
-//This function saves the grid state
-async function saveGridState() {
+export async function saveGridState() {
     const gridState = [];
 
     const tiles = document.querySelectorAll('.grid-tile');
@@ -152,6 +162,7 @@ export async function rerenderGrid() {
     objectGrid.innerHTML = ''; // Clear any existing grid
     objectGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
     objectGrid.style.gridTemplateRows = `repeat(${height}, 1fr)`;
+
     //This is added for rendering token(from Emily)
     allrender(parseInt(width), parseInt(height))
     // Create and render the tiles based on the saved grid state
@@ -176,8 +187,8 @@ export async function rerenderGrid() {
     }
 
     initializeBattleGrid(battleGrid);
-    enableDragging(battleGrid);
-    enableDragging(battleGrid);
+    // enableDragging(battleGrid);
+    // enableDragging(battleGrid);
 }
 
 //This gets the canvas image url from the tile-preview square
@@ -231,6 +242,8 @@ async function addNewCustomTile(){
         }
         //backend syncing
         await createTile(serverTile);
+        await updateMegaDB();
+
     } catch (error) {
         console.error("tile not added", error);
     }
@@ -310,7 +323,6 @@ async function deleteEditedTile(){
 
         //backend syncing
         await deleteTile(tileID);
-
     } catch (error) {
         console.error("tile not deleted", error);
     }
@@ -355,6 +367,31 @@ async function displayTileDetailsForEditing(tileID) {
     }
 
     newImage.src = tileObject.imgData;
+}
+
+function showObject(){
+    console.log("toggle");
+    const tileMenu = document.querySelector('.custom');
+    const greyOverlay = document.getElementById('screen-overlay');
+    greyOverlay.style.display = 'flex';
+    tileMenu.style.display = 'flex';
+}
+
+function hideObject(){
+    const tileMenu = document.querySelector('.custom');
+    const greyOverlay = document.getElementById('screen-overlay');
+    tileMenu.style.display = 'none';
+    greyOverlay.style.display = 'none';
+
+    const tileOption = document.getElementById("tile-name");
+    tileOption.innerHTML = "";
+    tileOption.value = "";
+
+    const details = document.getElementById("details");
+    details.value = "";
+
+    const canvas = document.getElementById("tile-preview");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 //This makes the create new custom tile form pop up
@@ -505,7 +542,6 @@ async function handleSquareClick(square) {
 
         //saves the state of the grid
         saveGridState();
-
         square.addEventListener('mouseenter', showTileDetails);
     } catch (error) {
         console.error("Error loading tile:", error);
@@ -539,13 +575,13 @@ function onMouseMove(event) {
             square.setAttribute('data-tile-name', selectedTile.type);
             square.setAttribute('data-tile-details', selectedTile.details);
         }
-        saveGridState();
         square.addEventListener('mouseenter', showTileDetails);
     }
 }
 
 function onMouseUp() {
     isMouseDown = false;
+    saveGridState();
 }
 
 //Attaches a tooltip to each placed tile
@@ -586,10 +622,13 @@ export async function initializeBattleGrid(battleGrid) {
         square.addEventListener('mouseup', onMouseUp);
         square.addEventListener('mouseenter', showTileDetails);
     });
+
+    saveGridState();
 }
 
-//This empties out all tiles from the list
-async function clearTileObjectDB() {
+//TODO: add backend
+//should make this an option
+export async function clearTileObjectDB() {
     try {
         await dbGridState.clearDatabase();
         const message = await dbTileObject.clearDatabase();
@@ -653,6 +692,43 @@ async function populateTileDropdowns() {
     }
 }
 
+async function clearGrid(){
+    const gridState = [];
+
+    const tiles = document.querySelectorAll('.grid-tile');
+    tiles.forEach((tile) => {
+        const x = tile.dataset.x;
+        const y = tile.dataset.y;
+        const tileName = null;
+        const tileDetails = null;
+        const tileImage = null;
+
+        gridState.push({
+            x: parseInt(x),
+            y: parseInt(y),
+            tileName,
+            tileDetails,
+            tileImage: tileImage ? tileImage.slice(5, -2) : null, // to remove the `url("")` wrapper
+        });
+    });
+
+    const gridStateObject = new gridObject(gridState);
+    dbGridState.clearDatabase();
+    dbGridState.addObject(gridStateObject);
+
+    //backend sync
+    await deleteAllGridStates();
+    await createGridState(gridState);
+    await rerenderGrid();
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const clearButton = document.getElementById("clear-grid");
+    if (clearButton) {
+        clearButton.addEventListener("click", clearGrid);
+    }
+});
+
 //The rest of these lines simply attaches these functions to their corresponding dom elements
 window.addEventListener("DOMContentLoaded", (event) => {
     const deleteTile = document.getElementById("delete-tile");
@@ -715,6 +791,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
         editOption.addEventListener("click", showEdit);
     }
 });
+
+//object UI 
+window.addEventListener("DOMContentLoaded", (event) => {
+    const objectOption = document.getElementById("object-option");
+    if(objectOption){
+        objectOption.addEventListener("click", showObject);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const x1 = document.getElementById("object-cross-svg");
+    if(x1){
+        x1.addEventListener("click", hideObject);
+    }
+});
+// end of object UI
+
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const customOption = document.getElementById("custom-option");
@@ -861,10 +954,16 @@ document.getElementById('background-image-upload').addEventListener('change', fu
     }
 });
 
+//bulk function
+async function bulkPopulate(){
+    await clearTileObjectDB();
+    await initializeAvailableTiles();
+    await populateTileDropdowns();
+    await populateTileDropdown1();
+}
+
 document.getElementById("delete-tile-types").addEventListener('click', (event) => {
-    clearTileObjectDB();
-    populateTileDropdowns();
-    populateTileDropdown1();
+    bulkPopulate();
     document.getElementById("tile-selector").innerHTML = '<option value="delete">Delete Tile</option>';
 
     alert("deleted all tile types");

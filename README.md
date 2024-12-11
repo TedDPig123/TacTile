@@ -52,7 +52,7 @@ When tiles have been placed on the map, if you switch to the battle grid and hov
 ## Manipulating Tiles
 In TacTile, tiles represent the terrain types of the map, so knowing how to manipulate them is key to holding a successful TacTile session! You can access the following features from the TILES section of the navbar.
 ### Lock Battle Grid
-When you are on the battle grid, clicking this button will lock the grid in place. This will allow you to place tiles on the grid without having to worry about the grid moving around with the mouse.
+This button is in the top right corner. When you are on the battle grid, clicking this button will lock the grid in place. This will allow you to place tiles on the grid without having to worry about the grid moving around with the mouse.
 ### Selecting and Placing Tiles
 This dropdown menu allows you to choose the type of tile you want to lay down onto the grid, including a delete tile option. **If you are logged in, this will also show all the tile types associated with your account.** Once you have chosen the tile you want, follow these steps closely to lay down your chosen tile onto the grid:
 - On the Grid menu, ensure your grid view option is set to "Currently on Battle Grid"
@@ -82,8 +82,10 @@ Click the "Roll Dice" button to roll the dice.
 The results of the dice roll will be displayed in the "Dice Result" section.
 
 ## Using Paint Mode
-### Entering Paint Mode
-Click the "Draw" button to enter paint mode and reveal the drawing tools.
+### Entering Drawing Mode
+Click the "Draw Mode" button in the top right to toggle between drawing mode and non drawing mode.
+### Drawing Tools
+Click the "Draw" button to reveal the drawing tools.
 ### Change Brush and Color
 Click the "Color" field to select a desired color for tools.
 Enter a desired width for brush stroke.
@@ -117,22 +119,22 @@ Click the "Delete User" button to delete the current user account. This will del
 
 ## Token Controls
 ### Create Token
-click the Add Token Button, only name is a required field, all other field are optional. Desertion is the description of the token, R is the row the token will take up and C is the column the token will take up. Number of Copy is the number of the same token created. And if you choose and image file it will be shown on the token.
+click the Add Token Button, only name is a required field, all other field are optional. description is the description of the token, R is the row the token will take up and C is the column the token will take up. Number of Copy is the number of the same token created. And if you choose and image file it will be shown on the tokens.
 
 ### Move Token
-Once TOken is created it will all be show initially at the top left of the grid, you can move then by clicking and dragging the token(make sure "Currently on Token Grid" and "Enable Edit Mode" is the text on the two button below Add Token).
+Once Token is created it will all be show initially at the top left of the grid, you can move it by clicking and dragging the token(make sure "Currently on Token Grid" is the text on the button, you can see this button by clicking menu, then GRID and you will see it. And make sure the grids are unlocked.You should also move the grid a little to the right for easier dragging).
 
 ### Token Information
-hover over the token to see name and description, you can click on token to update or delete them
+hover over the token to see name and description, you can click on token to update or delete them. Make sure you are in "Currently on Token Grid" and grids are unlocked. When you click on the token it will reopen the form with the token information filled in. And you can click on the token again to close the form or just click update without changing anything.
 
 ### Update token
-you can click on token to update them, fill in the new information and click update
+you can click on token to update them, fill in the new information and click update(if name field is missing, the server will alert you to pick a new name). And if your token already had and image, you can select a new image or get rid of the image by either: clicking the cancel button or select a different image then unselect it. You can also change the size if the token by choosing new number for C(column) and R(row).
 
 ### Delete token
-you can click on token to delete them, it will open the token form and you can click the delete button
+When you click on the button, you will see the token form reopen, you can click Delete to delete that token
 
 ### clear Form
-to clear the token form just click cancel
+to clear the token form just click cancel, this will clear all text in name and description, it will also clear your image choice in the form
 
 ### Delete all token
-to delete all Token just click Delete All Token or create a new grid
+to delete all Token just click Delete All Token or create a new grid.

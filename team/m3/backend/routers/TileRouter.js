@@ -11,6 +11,7 @@ import {
 
 const tileRouter = new express.Router();
 
+// Define the routes for tile creation, retrieval, deletion, etc.
 tileRouter.post('/', createTile);
 tileRouter.get('/', getAllTiles);
 tileRouter.get('/:id', getTileByID);
