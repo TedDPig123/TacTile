@@ -82,8 +82,10 @@ Click the "Roll Dice" button to roll the dice.
 The results of the dice roll will be displayed in the "Dice Result" section.
 
 ## Using Paint Mode
-### Entering Paint Mode
-Click the "Draw" button to enter paint mode and reveal the drawing tools.
+### Entering Drawing Mode
+Click the "Draw Mode" button in the top right to toggle between drawing mode and non drawing mode.
+### Drawing Tools
+Click the "Draw" button to reveal the drawing tools.
 ### Change Brush and Color
 Click the "Color" field to select a desired color for tools.
 Enter a desired width for brush stroke.
