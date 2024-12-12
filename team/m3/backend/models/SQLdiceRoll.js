@@ -9,18 +9,18 @@ const sequelize = new Sequelize({
 const diceRoll = sequelize.define('DiceRoll',{
     numberOfDice: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: 0,
         allowNull: false,
     }, 
     numberOfSides: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: 0,
         allowNull: false,
     },
     modAddedToDice:{
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: true,
+        defaultValue: 0,
+        allowNull: false,
     }, 
 },);
 
