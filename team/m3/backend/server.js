@@ -11,6 +11,7 @@ import GridRouter from './routers/GridRouter.js';
 import megaDatabaseRouter from './routers/megaDBRouter.js';
 import BackgroundImageRoutes from './routers/backgroundImageRouter.js';
 import canvasRouter from './routers/CanvasRouter.js';
+import diceRollRouter from './routers/diceRollRouter.js'; //error fixed: should import dicerollrouter not diceroll
 
 class Server {
     constructor(){
@@ -38,6 +39,7 @@ class Server {
         this.app.use("/megaDB", megaDatabaseRouter);
         this.app.use("/backgroundImage", BackgroundImageRoutes)
         this.app.use("/canvas", canvasRouter)
+        this.app.use("/diceRoll", diceRollRouter)
     }
 
     // Initialize the database
