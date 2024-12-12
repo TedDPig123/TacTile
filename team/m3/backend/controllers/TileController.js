@@ -105,6 +105,7 @@ export const changeTileID = async (req, res) => {
     }
 };
 
+// DELETE: This deletes all the tile types in the database
 export const clearAllTiles = async (req, res) => {
     console.log("Request to clear all tiles received");
     try {

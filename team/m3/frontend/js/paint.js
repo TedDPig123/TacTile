@@ -27,19 +27,29 @@ if (document.getElementById("eraser").checked) { changeTool(1); }
 if (document.getElementById("circle").checked) { changeTool(2); }
 if (document.getElementById("square").checked) { changeTool(3); }
 
-
-
+const togglePaintButton = document.getElementById('toggle-paint-wow');
 
 function togglePaint() { //used for toggling whether or not you're actively drawing. prevents you from clicking on the grid if you are
     if(toggle == true) {
         toggle = false;
         layer.style.pointerEvents = 'none';
         document.getElementById('drawing-display').style.visibility = "hidden"; 
+        togglePaintButton.innerText = "Draw Mode: Off";
     } else {
         toggle = true;
         layer.style.pointerEvents = 'auto';
-        document.getElementById('drawing-display').style.visibility = "visible"; 
+        document.getElementById('drawing-display').style.visibility = "visible";
+        togglePaintButton.innerText = "Draw Mode: On";
     }
+}
+
+togglePaintButton.addEventListener('click', togglePaint);
+
+//geri-used to hard turn it off
+function turnOffPaint() { 
+    toggle = false;
+    layer.style.pointerEvents = 'none';
+    document.getElementById('drawing-display').style.visibility = "hidden"; 
 }
    
 const ctx = canvas.getContext('2d'); //establishes canvas
@@ -110,13 +120,16 @@ function clear_canvas(){
 }
 
 async function saveCanvas() {
+  console.log("hi0");
   let canvasState = ctx.getImageData(0,0,canvas.width,canvas.height)
   const imageData = canvasState.data;
+  console.log("hi1");
   const response1 = await fetch('/canvas/update', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(imageData),
   });
+  console.log("hi2");
   if (!response1.ok) {
     const response2 = await fetch('/canvas/post', {
       method: 'POST',
@@ -127,6 +140,7 @@ async function saveCanvas() {
       throw new Error("Failed");
     };
   };  
+  console.log("hi3");
 }
 
 async function loadCanvas() {
