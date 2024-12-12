@@ -79,7 +79,7 @@ Enter the number of sides for each die in the "Number of Sides for Dice" input f
 Enter any modifier to be added to each roll in the "Add modifier" input field.
 ### Roll the Dice:
 Click the "Roll Dice" button to roll the dice.
-The results of the dice roll will be displayed in the "Dice Result" section.
+The results of the dice roll will be displayed in the "Dice Result" section. If you refresh the webpage, your dice options should still be present.
 
 ## Using Paint Mode
 ### Entering Drawing Mode
