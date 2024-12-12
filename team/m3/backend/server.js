@@ -10,7 +10,7 @@ import SQLiteUser from './models/user.js';
 import GridRouter from './routers/GridRouter.js';
 import BackgroundImageRoutes from './routers/backgroundImageRouter.js';
 import canvasRouter from './routers/CanvasRouter.js';
-import diceRoll from './routers/diceRollRouter.js';
+import diceRollRouter from './routers/diceRollRouter.js'; //error fixed: should import dicerollrouter not diceroll
 
 class Server {
     constructor(){
@@ -37,7 +37,7 @@ class Server {
         this.app.use("/grid", GridRouter)
         this.app.use("/backgroundImage", BackgroundImageRoutes)
         this.app.use("/canvas", canvasRouter)
-        this.app.use("/diceRoll", diceRoll)
+        this.app.use("/diceRoll", diceRollRouter)
     }
 
     // Initialize the database
