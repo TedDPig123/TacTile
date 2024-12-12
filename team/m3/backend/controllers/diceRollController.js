@@ -2,11 +2,20 @@ import diceRoll from "../models/SQLdiceRoll.js";
 
 const factoryResponse = (status, message) => ({ status, message });
 
-//POST: Uploads image data to database
+//POST: Uploads diceroll data to database
 export const createDiceRoll = async (req, res) =>{
-    const imgData = req.body;
+    //clears dice first
+    await diceRoll.destroy({
+        where: {}, // Delete all rolls
+    });
+    
+    let {numberOfDice, numberOfSides, modAddedToDice } = req.body;
     try{
-        const newRoll = await diceRoll.create({imgData: JSON.stringify(imgData)});
+        numberOfDice = parseInt(numberOfDice, 10);
+        numberOfSides = parseInt(numberOfSides, 10);
+        modAddedToDice = parseInt(modAddedToDice, 10);
+        const newRoll = await diceRoll.create({numberOfDice, numberOfSides, modAddedToDice });
+        
         res.status(200).json(newRoll);
     }catch(error){
         console.log(error);
@@ -24,22 +33,15 @@ export const getDiceRoll = async (req, res) =>{
     }
 }
 
-//DELETE grid
-export const deleteDiceRoll = async (req, res) => {
-    const { gridId } = req.params;
+//DELETE deletes all dice roll
+export const deleteAllDiceRolls = async (req, res) => {
     try {
-        const grid = await Grid.findByPk(gridId);
-        if (!grid) {
-            return res.status(404).json(factoryResponse(404, "Tile not found"));
-        }
-
-        await grid.destroy();
-        res.status(200).json(factoryResponse(200, "Grid deleted successfully"));
+        await diceRoll.destroy();
+        res.status(200).json(factoryResponse(200, "Dicerolls deleted successfully"));
     } catch (error) {
-        res.status(500).json(factoryResponse(404, "Error in deleting grid"));
+        res.status(500).json(factoryResponse(404, "Error in deleting dicerolls"));
     }
 };
-
 
 // DELETE: Controller function to handle user deletion
 export const deleteCanvas = async (req, res) => {
