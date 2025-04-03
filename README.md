@@ -4,6 +4,8 @@
 
 TacTile is a web application designed to help Dungeon Masters create customizable battle maps for Dungeons & Dragons (DND) sessions. The application allows users to create grids, add tokens, create specialized tiles, draw over the map, and use a built-in dice roller for gameplay.
 
+https://github.com/user-attachments/assets/2a896d11-854c-4833-8e31-d0bc27049ad8
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -79,7 +81,7 @@ Enter the number of sides for each die in the "Number of Sides for Dice" input f
 Enter any modifier to be added to each roll in the "Add modifier" input field.
 ### Roll the Dice:
 Click the "Roll Dice" button to roll the dice.
-The results of the dice roll will be displayed in the "Dice Result" section.
+The results of the dice roll will be displayed in the "Dice Result" section. If you refresh the webpage, your dice options should still be present.
 
 ## Using Paint Mode
 ### Entering Drawing Mode
