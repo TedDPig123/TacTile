@@ -4,7 +4,7 @@
 
 TacTile is a web application designed to help Dungeon Masters create customizable battle maps for Dungeons & Dragons (DND) sessions. The application allows users to create grids, add tokens, create specialized tiles, draw over the map, and use a built-in dice roller for gameplay.
 
-https://github.com/TedDPig123/TacTile/blob/36042a5f31b871c7087f48d928088ba9e0a5cffb/demo/326%20Video.mp4
+https://github.com/user-attachments/assets/2a896d11-854c-4833-8e31-d0bc27049ad8
 
 ## Table of Contents
 
